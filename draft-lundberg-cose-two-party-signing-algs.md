@@ -7,7 +7,7 @@ abbrev: "TBD"
 lang: en
 category: info
 
-docname: draft-bradleylundberg-cfrg-arkg-latest
+docname: draft-lundberg-cose-two-party-signing-algs-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
@@ -20,7 +20,7 @@ keyword:
 venue:
   group: "TBD"
   type: "TBD"
-  github: "Yubico/arkg-rfc"
+  github: "Yubico/cose-two-party-signing-algs-rfc"
 
 
 author:
