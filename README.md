@@ -1,17 +1,17 @@
-# The Asynchronous Remote Key Generation (ARKG) algorithm
+# COSE algorithms for two-party signing
 
-This is the working area for the individual Internet-Draft, "The Asynchronous Remote Key Generation (ARKG) algorithm".
+This is the working area for the individual Internet-Draft, "COSE algorithms for two-party signing".
 
-* [Editor's Copy](https://Yubico.github.io/arkg-rfc/#go.draft-bradleylundberg-cfrg-arkg.html)
-* [Datatracker Page](https://datatracker.ietf.org/doc/draft-bradleylundberg-cfrg-arkg)
-* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-bradleylundberg-cfrg-arkg)
-* [Compare Editor's Copy to Individual Draft](https://Yubico.github.io/arkg-rfc/#go.draft-bradleylundberg-cfrg-arkg.diff)
+* [Editor's Copy](https://YubicoLabs.github.io/cose-two-party-signing-algs-rfc/#go.draft-lundberg-cose-two-party-signing-algs.html)
+* [Datatracker Page](https://datatracker.ietf.org/doc/draft-lundberg-cose-two-party-signing-algs)
+* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-lundberg-cose-two-party-signing-algs)
+* [Compare Editor's Copy to Individual Draft](https://YubicoLabs.github.io/cose-two-party-signing-algs-rfc/#go.draft-lundberg-cose-two-party-signing-algs.diff)
 
 
 ## Contributing
 
 See the
-[guidelines for contributions](https://github.com/Yubico/arkg-rfc/blob/main/CONTRIBUTING.md).
+[guidelines for contributions](https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/blob/main/CONTRIBUTING.md).
 
 Contributions can be made by creating pull requests.
 The GitHub interface supports creating pull requests using the Edit (✏) button.
