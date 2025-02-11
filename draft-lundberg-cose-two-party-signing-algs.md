@@ -410,4 +410,5 @@ This section registers the following values in the IANA "COSE Key Type Parameter
 
 # Document History
 
+
 THIS IS A TEMPORARY DOCUMENT JUST TO MOCK UP THE IDEA
