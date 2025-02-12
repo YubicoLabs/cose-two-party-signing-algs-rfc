@@ -191,7 +191,7 @@ In general, the _signer_ holds exclusive control of the signing private key.
 
 Note that these algorithm identifiers do not define new "pre-hashed" variants of the base signature algorithm,
 nor an intermediate "hash envelope" data structure, such as that defined in [COSE-Hash-Envelope].
-Rather, these are correspond to existing signature algorithms
+Rather, these identifiers correspond to existing signature algorithms
 that would typically be executed by a single party,
 but split into two stages.
 The resulting signatures are identical to those computed by a single party,
