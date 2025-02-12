@@ -44,7 +44,6 @@ normative:
       uri: https://self-issued.info
     date: 2024
   IANA.cose:
-  IANA.cose:
   RFC2104:
   RFC4949:
   RFC5869:
@@ -159,14 +158,20 @@ THESE IDEAS ARE PLANNED TO MOVE TO A DIFFERENT DOCUMENT WHEN MORE MATURE.
 
 # Introduction
 
-Most COSE algorithm identifiers are meant for annotating a cryptogram
-with how a consumer may interpret it,
-but do not record all details of how the cryptogram was created since that is usually irrelevant for the consumer.
-The algorithm identifiers defined in this document are the opposite -
-they define interfaces between two parties co-operating to create a cryptogram together,
-but are unsuitable for annotating the resulting cryptogram with how the consumer should interpret it.
+CBOR Object Signing and Encryption (COSE) [RFC9052]
+algorithm identifiers are used to specify the cryptographic operations
+performed when creating cryptographic data structures,
+but do not record all the details of how the cryptography was performed,
+since those details are typically irrelevant for the recipient.
+The algorithm identifiers defined by this specification facilitate the
+cooperation of two parties to perform COSE signing operations together.
+They are used to specify the division of responsibilities between the two parties.
+Consumers of the cryptographic data structures thus cooperatively produced
+do not use these algorithm identifiers;
+rather, consumers use the normal COSE algorithm identifiers that correspond
+to the cryptographic operation cooperatively performed together by the two parties.
 
-A primary use case for this is executing a signature algorithm split between two parties,
+A use case for this is performing a signature operation split between two parties,
 such as a software application and a discrete hardware security module (HSM) holding the private key.
 In particular, since the data link between them may have limited bandwidth,
 it may not be practical to send the entire original message to the HSM.
@@ -176,23 +181,29 @@ while the HSM computes the rest of the signature algorithm on the digest.
 
 Since different signature algorithms digest the message in different ways
 and at different stages of the algorithm,
-there is no unambiguous way to define a division point generically for every possible signature algorithm.
-Therefore, this document defines algorithm identifiers encoding, for each concrete signature algorithm,
+there is no generally-applicable way to define such a division point
+for every possible signature algorithm.
+Therefore, this document defines algorithm identifiers encoding,
+for a specific set of signature algorithms,
 which steps of the signature algorithm are performed by the _digester_ (e.g., software application)
 and which are performed by the _signer_ (e.g., HSM).
 In general, the _signer_ holds exclusive control of the signing private key.
 
 Note that these algorithm identifiers do not define new "pre-hashed" variants of the base signature algorithm,
-nor an intermediate "hash envelope" data structure such as that defined in [COSE-Hash-Envelope].
-Rather these are the same signature algorithms that would typically be executed by a single party,
+nor an intermediate "hash envelope" data structure, such as that defined in [COSE-Hash-Envelope].
+Rather, these are correspond to existing signature algorithms
+that would typically be executed by a single party,
 but split into two stages.
-The resulting signatures are identical in structure to those computed by a single party,
-and can be verified using the same verification procedure
-without additional steps to preprocess the signed data.
-However some signature algorithms, for example PureEdDSA [RFC8032] or ML-DSA [FIPS-204],
-cannot be split in this way and therefore cannot be assigned a two-party signing algorithm identifier.
-If such a signature algorithm defines a "pre-hashed" variant, such as Ed25519ph [RFC8032] or HashML-DSA [FIPS-204],
-that algorithm may be assigned a two-party signing algorithm identifier instead.
+The resulting signatures are identical to those computed by a single party,
+and can be verified using the same verification procedures
+without additional special steps to process the signed data.
+
+However some signature algorithms,
+for example PureEdDSA [RFC8032] and ML-DSA [FIPS-204],
+cannot be split in this way and therefore cannot be assigned two-party signing algorithm identifiers.
+If such a signature algorithm defines a "pre-hashed" variant,
+such as Ed25519ph [RFC8032] or HashML-DSA [FIPS-204],
+that algorithm can be assigned a two-party signing algorithm identifier instead.
 
 
 # Two-party signing algorithms
@@ -203,6 +214,7 @@ and assigns algorithm identifiers to these algorithm divisions.
 The _digester_ performs the first part of the divided algorithm and does not have access to the signing private key,
 while the _signer_ performs the second part of the divided algorithm and has access to the signing private key.
 For signing algorithms that format the message to insert domain separation tags,
+as described in Section 2.2.5 of [RFC9380],
 this message formatting is also performed by the _signer_.
 
 The algorithm identifiers defined in this document SHALL NOT appear in COSE structures
