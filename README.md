@@ -1,6 +1,6 @@
-# COSE algorithms for two-party signing
+# COSE Algorithms for Two-Party Signing
 
-This is the working area for the individual Internet-Draft, "COSE algorithms for two-party signing".
+This is the working area for the individual Internet-Draft, "COSE Algorithms for Two-Party Signing".
 
 * [Editor's Copy](https://YubicoLabs.github.io/cose-two-party-signing-algs-rfc/#go.draft-lundberg-cose-two-party-signing-algs.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-lundberg-cose-two-party-signing-algs)

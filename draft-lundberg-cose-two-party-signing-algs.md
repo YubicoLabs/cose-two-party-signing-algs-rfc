@@ -2,10 +2,10 @@
 stand_alone: true
 ipr: trust200902
 
-title: 'TEMPORARY: COSE algorithms for two-party signing'
-abbrev: "TBD"
+title: "COSE Algorithms for Two-Party Signing"
+abbrev: "COSE Algs for Two-Party Signing"
 lang: en
-category: info
+category: std
 
 docname: draft-lundberg-cose-two-party-signing-algs-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
@@ -13,14 +13,20 @@ number:
 date:
 consensus: true
 v: 3
-area: "TBD"
-workgroup: "TBD"
+area: "Security"
+workgroup: "COSE"
 keyword:
- - KDF
+ - COSE
+ - Signing
+ - Two-Party
+ - Algorithms
+
 venue:
-  group: "TBD"
-  type: "TBD"
-  github: "Yubico/cose-two-party-signing-algs-rfc"
+  group: "COSE"
+  type: "Working Group"
+  mail: "cose@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/cose/"
+  github: "YubicoLabs/cose-two-party-signing-algs-rfc"
 
 
 author:
@@ -32,6 +38,13 @@ author:
   country: SE
   email: emil@emlun.se
 
+- fullname: Michael B. Jones
+  ins: M.B. Jones
+  organization: Self-Issued Consulting
+  email: michael_b_jones@hotmail.com
+  uri: https://self-issued.info/
+  country: United States
+
 normative:
   fully-spec-algs:
     title: Fully-Specified Algorithms for JOSE and COSE
@@ -42,6 +55,10 @@ normative:
       org: Self-Issued Consulting
       email: michael_b_jones@hotmail.com
       uri: https://self-issued.info
+    - name: Orie Steele
+      ins: O. Steele
+      org: Transmute
+      email: orie@transmute.industries
     date: 2024
   IANA.cose:
   IANA.cose:
@@ -146,12 +163,17 @@ informative:
 
 --- abstract
 
-TODO
-
-THIS DOCUMENT IS A TEMPORARY PROTOTYPE AREA FOR ILLUSTRATING SOME IDEAS FOR DISCUSSION.
-THESE IDEAS ARE PLANNED TO MOVE TO A DIFFERENT DOCUMENT WHEN MORE MATURE.
-
-
+This specification defines COSE algorithm identifiers used when the signing operation
+is performed cooperatively between two parties.
+When performing two-party signing,
+the first party typically hashes the data to be signed
+and the second party signs the hashed data computed by the first party.
+This can be useful when communication with the party holding the signing private key
+occurs over a limited-bandwidth channel, such as NFC or Bluetooth Low Energy (BLE),
+in which it is infeasible to send the complete set of data to be signed.
+The resulting signatures are identical in structure to those computed by a single party,
+and can be verified using the same verification procedure
+without additional steps to preprocess the signed data.
 
 --- middle
 
@@ -195,7 +217,7 @@ If such a signature algorithm defines a "pre-hashed" variant, such as Ed25519ph 
 that algorithm may be assigned a two-party signing algorithm identifier instead.
 
 
-# Two-party signing algorithms
+# Two-Party Signing Algorithms
 
 This section defines divisions of signing algorithm steps between a _digester_ and a _signer_
 in a two-party signing protocol,
@@ -205,11 +227,11 @@ while the _signer_ performs the second part of the divided algorithm and has acc
 For signing algorithms that format the message to insert domain separation tags,
 this message formatting is also performed by the _signer_.
 
-The algorithm identifiers defined in this document SHALL NOT appear in COSE structures
+The algorithm identifiers defined in this document MUST NOT appear in COSE structures
 other than COSE_Key_Ref (see {{cose-key-refs}}).
-They are meant only for coordination between _digester_ and _signer_ in a two-party signing protocol.
-External representations of used keys and resulting signatures
-SHALL use the corresponding conventional algorithm identifiers instead.
+They are meant only for coordination between the _digester_ and the _signer_ in a two-party signing protocol.
+Representations of the keys used and the resulting signatures
+MUST use the corresponding conventional algorithm identifiers instead.
 These are listed in the "Base algorithm" column in the tables defining two-party signing algorithm identifiers.
 
 
@@ -290,7 +312,7 @@ The following algorithm identifiers are defined:
 | HashML-DSA-87-2p | TBD        | HashML-DSA-87  | HashML-DSA-87 [TODO] divided as defined in {{ml-dsa-2p}} of this document (NOTE: HashML-DSA-87 not yet defined) |
 
 
-# COSE key reference types {#cose-key-refs}
+# COSE Key Reference Types {#cose-key-refs}
 
 While keys used by many other algorithms can usually be referenced by a single atomic identifier,
 such as that used in the `kid` parameter in a COSE_Key object or in the unprotected header of a COSE_Recipient,
@@ -409,6 +431,8 @@ This section registers the following values in the IANA "COSE Key Type Parameter
 --- back
 
 # Document History
+{: numbered="false"}
 
+-00
 
-THIS IS A TEMPORARY DOCUMENT JUST TO MOCK UP THE IDEA
+* Initial individual draft
