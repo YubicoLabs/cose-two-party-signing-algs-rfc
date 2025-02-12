@@ -230,8 +230,8 @@ this message formatting is also performed by the _signer_.
 
 The algorithm identifiers defined in this document MUST NOT appear in COSE structures
 other than COSE_Key_Ref (see {{cose-key-refs}}).
-They are meant only for coordination between _digester_ and _signer_ in a two-party signing protocol.
-External representations of used keys and resulting signatures
+They are meant only for coordination between the _digester_ and the _signer_ in a two-party signing protocol.
+Representations of the keys used and the resulting signatures
 MUST use the corresponding conventional algorithm identifiers instead.
 These are listed in the "Base algorithm" column in the tables defining two-party signing algorithm identifiers.
 
