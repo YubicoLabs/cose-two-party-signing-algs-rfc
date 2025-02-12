@@ -4,15 +4,27 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>TEMPORARY: COSE algorithms for two-party signing</title>
+<title>COSE Algorithms for Two-Party Signing</title>
 <meta content="Emil Lundberg" name="author">
+<meta content="Michael B. Jones" name="author">
 <meta content="
-       TODO 
-       THIS DOCUMENT IS A TEMPORARY PROTOTYPE AREA FOR ILLUSTRATING SOME IDEAS FOR DISCUSSION.
-THESE IDEAS ARE PLANNED TO MOVE TO A DIFFERENT DOCUMENT WHEN MORE MATURE. 
+       This specification defines COSE algorithm identifiers used when the signing operation
+is performed cooperatively between two parties.
+When performing two-party signing,
+the first party typically hashes the data to be signed
+and the second party signs the hashed data computed by the first party.
+This can be useful when communication with the party holding the signing private key
+occurs over a limited-bandwidth channel, such as NFC or Bluetooth Low Energy (BLE),
+in which it is infeasible to send the complete set of data to be signed.
+The resulting signatures are identical in structure to those computed by a single party,
+and can be verified using the same verification procedure
+without additional steps to preprocess the signed data. 
     " name="description">
 <meta content="xml2rfc 3.26.0" name="generator">
-<meta content="KDF" name="keyword">
+<meta content="COSE" name="keyword">
+<meta content="Signing" name="keyword">
+<meta content="Two-Party" name="keyword">
+<meta content="Algorithms" name="keyword">
 <meta content="draft-lundberg-cose-two-party-signing-algs-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.26.0
@@ -1045,12 +1057,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <table class="ears">
 <thead><tr>
 <td class="left">Internet-Draft</td>
-<td class="center">TBD</td>
+<td class="center">COSE Algs for Two-Party Signing</td>
 <td class="right">February 2025</td>
 </tr></thead>
 <tfoot><tr>
-<td class="left">Lundberg</td>
-<td class="center">Expires 15 August 2025</td>
+<td class="left">Lundberg &amp; Jones</td>
+<td class="center">Expires 16 August 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1058,33 +1070,45 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <div id="internal-metadata" class="document-information">
 <dl id="identifiers">
 <dt class="label-workgroup">Workgroup:</dt>
-<dd class="workgroup">TBD</dd>
+<dd class="workgroup">COSE</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
 <dd class="internet-draft">draft-lundberg-cose-two-party-signing-algs-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-02-11" class="published">11 February 2025</time>
+<time datetime="2025-02-12" class="published">12 February 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
-<dd class="intended-status">Informational</dd>
+<dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-08-15">15 August 2025</time></dd>
-<dt class="label-authors">Author:</dt>
+<dd class="expires"><time datetime="2025-08-16">16 August 2025</time></dd>
+<dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
       <div class="author-name">E. Lundberg, <span class="editor">Ed.</span>
 </div>
 <div class="org">Yubico</div>
 </div>
+<div class="author">
+      <div class="author-name">M. B. Jones</div>
+<div class="org">Self-Issued Consulting</div>
+</div>
 </dd>
 </dl>
 </div>
-<h1 id="title">TEMPORARY: COSE algorithms for two-party signing</h1>
+<h1 id="title">COSE Algorithms for Two-Party Signing</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">TODO<a href="#section-abstract-1" class="pilcrow">¶</a></p>
-<p id="section-abstract-2">THIS DOCUMENT IS A TEMPORARY PROTOTYPE AREA FOR ILLUSTRATING SOME IDEAS FOR DISCUSSION.
-THESE IDEAS ARE PLANNED TO MOVE TO A DIFFERENT DOCUMENT WHEN MORE MATURE.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">This specification defines COSE algorithm identifiers used when the signing operation
+is performed cooperatively between two parties.
+When performing two-party signing,
+the first party typically hashes the data to be signed
+and the second party signs the hashed data computed by the first party.
+This can be useful when communication with the party holding the signing private key
+occurs over a limited-bandwidth channel, such as NFC or Bluetooth Low Energy (BLE),
+in which it is infeasible to send the complete set of data to be signed.
+The resulting signatures are identical in structure to those computed by a single party,
+and can be verified using the same verification procedure
+without additional steps to preprocess the signed data.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1093,8 +1117,13 @@ THESE IDEAS ARE PLANNED TO MOVE TO A DIFFERENT DOCUMENT WHEN MORE MATURE.<a href
 <p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
 <p id="section-note.1-2">
         Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-lundberg-cose-two-party-signing-algs/">https://datatracker.ietf.org/doc/draft-lundberg-cose-two-party-signing-algs/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
-<p id="section-note.1-3">Source for this draft and an issue tracker can be found at
-        <span><a href="https://github.com/Yubico/cose-two-party-signing-algs-rfc">https://github.com/Yubico/cose-two-party-signing-algs-rfc</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+<p id="section-note.1-3">
+        Discussion of this document takes place on the
+        COSE Working Group mailing list (<span><a href="mailto:cose@ietf.org">mailto:cose@ietf.org</a></span>),
+        which is archived at <span><a href="https://mailarchive.ietf.org/arch/browse/cose/">https://mailarchive.ietf.org/arch/browse/cose/</a></span>.
+        Subscribe at <span><a href="https://www.ietf.org/mailman/listinfo/cose/">https://www.ietf.org/mailman/listinfo/cose/</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+<p id="section-note.1-4">Source for this draft and an issue tracker can be found at
+        <span><a href="https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc">https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc</a></span>.<a href="#section-note.1-4" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1115,7 +1144,7 @@ THESE IDEAS ARE PLANNED TO MOVE TO A DIFFERENT DOCUMENT WHEN MORE MATURE.<a href
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 15 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 16 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1148,7 +1177,7 @@ THESE IDEAS ARE PLANNED TO MOVE TO A DIFFERENT DOCUMENT WHEN MORE MATURE.<a href
             <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
-            <p id="section-toc.1-1.2.1"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-two-party-signing-algorithm" class="internal xref">Two-party signing algorithms</a></p>
+            <p id="section-toc.1-1.2.1"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-two-party-signing-algorithm" class="internal xref">Two-Party Signing Algorithms</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.1">
                 <p id="section-toc.1-1.2.2.1.1" class="keepWithNext"><a href="#section-2.1" class="auto internal xref">2.1</a>.  <a href="#name-ecdsa" class="internal xref">ECDSA</a></p>
@@ -1162,7 +1191,7 @@ THESE IDEAS ARE PLANNED TO MOVE TO A DIFFERENT DOCUMENT WHEN MORE MATURE.<a href
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
-            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-cose-key-reference-types" class="internal xref">COSE key reference types</a></p>
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-cose-key-reference-types" class="internal xref">COSE Key Reference Types</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
@@ -1187,10 +1216,10 @@ THESE IDEAS ARE PLANNED TO MOVE TO A DIFFERENT DOCUMENT WHEN MORE MATURE.<a href
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-document-history" class="internal xref">Document History</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-document-history" class="internal xref">Document History</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
+            <p id="section-toc.1-1.7.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1237,7 +1266,7 @@ that algorithm may be assigned a two-party signing algorithm identifier instead.
 <div id="two-party-signing-algorithms">
 <section id="section-2">
       <h2 id="name-two-party-signing-algorithm">
-<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-two-party-signing-algorithm" class="section-name selfRef">Two-party signing algorithms</a>
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-two-party-signing-algorithm" class="section-name selfRef">Two-Party Signing Algorithms</a>
       </h2>
 <p id="section-2-1">This section defines divisions of signing algorithm steps between a <em>digester</em> and a <em>signer</em>
 in a two-party signing protocol,
@@ -1246,11 +1275,11 @@ The <em>digester</em> performs the first part of the divided algorithm and does 
 while the <em>signer</em> performs the second part of the divided algorithm and has access to the signing private key.
 For signing algorithms that format the message to insert domain separation tags,
 this message formatting is also performed by the <em>signer</em>.<a href="#section-2-1" class="pilcrow">¶</a></p>
-<p id="section-2-2">The algorithm identifiers defined in this document SHALL NOT appear in COSE structures
+<p id="section-2-2">The algorithm identifiers defined in this document MUST NOT appear in COSE structures
 other than COSE_Key_Ref (see <a href="#cose-key-refs" class="auto internal xref">Section 3</a>).
-They are meant only for coordination between <em>digester</em> and <em>signer</em> in a two-party signing protocol.
-External representations of used keys and resulting signatures
-SHALL use the corresponding conventional algorithm identifiers instead.
+They are meant only for coordination between the <em>digester</em> and the <em>signer</em> in a two-party signing protocol.
+Representations of the keys used and the resulting signatures
+MUST use the corresponding conventional algorithm identifiers instead.
 These are listed in the "Base algorithm" column in the tables defining two-party signing algorithm identifiers.<a href="#section-2-2" class="pilcrow">¶</a></p>
 <div id="ecdsa-2p">
 <section id="section-2.1">
@@ -1435,7 +1464,7 @@ and possibly enable signature malleability attacks or protocol confusion attacks
 <div id="cose-key-refs">
 <section id="section-3">
       <h2 id="name-cose-key-reference-types">
-<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-cose-key-reference-types" class="section-name selfRef">COSE key reference types</a>
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-cose-key-reference-types" class="section-name selfRef">COSE Key Reference Types</a>
       </h2>
 <p id="section-3-1">While keys used by many other algorithms can usually be referenced by a single atomic identifier,
 such as that used in the <code>kid</code> parameter in a COSE_Key object or in the unprotected header of a COSE_Recipient,
@@ -1623,7 +1652,7 @@ $COSE_kty_ref /= TBD      ; Value TBD
 <dl class="references">
 <dt id="fully-spec-algs">[fully-spec-algs]</dt>
         <dd>
-<span class="refAuthor">Jones, M. B.</span>, <span class="refTitle">"Fully-Specified Algorithms for JOSE and COSE"</span>, <time datetime="2024" class="refDate">2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-ietf-jose-fully-specified-algorithms/">https://datatracker.ietf.org/doc/draft-ietf-jose-fully-specified-algorithms/</a>&gt;</span>. </dd>
+<span class="refAuthor">Jones, M. B.</span> and <span class="refAuthor">O. Steele</span>, <span class="refTitle">"Fully-Specified Algorithms for JOSE and COSE"</span>, <time datetime="2024" class="refDate">2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-ietf-jose-fully-specified-algorithms/">https://datatracker.ietf.org/doc/draft-ietf-jose-fully-specified-algorithms/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IANA.cose">[IANA.cose]</dt>
         <dd>
@@ -1730,15 +1759,20 @@ $COSE_kty_ref /= TBD      ; Value TBD
 <div id="document-history">
 <section id="appendix-A">
       <h2 id="name-document-history">
-<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-document-history" class="section-name selfRef">Document History</a>
+<a href="#name-document-history" class="section-name selfRef">Document History</a>
       </h2>
-<p id="appendix-A-1">THIS IS A TEMPORARY DOCUMENT JUST TO MOCK UP THE IDEA<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">-00<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-A-2.1">
+          <p id="appendix-A-2.1.1">Initial individual draft<a href="#appendix-A-2.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
 </section>
 </div>
 <div id="authors-addresses">
 <section id="appendix-B">
-      <h2 id="name-authors-address">
-<a href="#name-authors-address" class="section-name selfRef">Author's Address</a>
+      <h2 id="name-authors-addresses">
+<a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Emil Lundberg (<span class="role">editor</span>)</span></div>
@@ -1749,6 +1783,19 @@ $COSE_kty_ref /= TBD      ; Value TBD
 <div class="email">
 <span>Email:</span>
 <a href="mailto:emil@emlun.se" class="email">emil@emlun.se</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Michael B. Jones</span></div>
+<div dir="auto" class="left"><span class="org">Self-Issued Consulting</span></div>
+<div dir="auto" class="left"><span class="country-name">United States</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:michael_b_jones@hotmail.com" class="email">michael_b_jones@hotmail.com</a>
+</div>
+<div class="url">
+<span>URI:</span>
+<a href="https://self-issued.info/" class="url">https://self-issued.info/</a>
 </div>
 </address>
 </section>

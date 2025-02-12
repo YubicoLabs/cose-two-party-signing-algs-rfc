@@ -2,22 +2,29 @@
 
 
 
-TBD                                                     E. Lundberg, Ed.
+COSE                                                    E. Lundberg, Ed.
 Internet-Draft                                                    Yubico
-Intended status: Informational                          11 February 2025
-Expires: 15 August 2025
+Intended status: Standards Track                             M. B. Jones
+Expires: 16 August 2025                           Self-Issued Consulting
+                                                        12 February 2025
 
 
-            TEMPORARY: COSE algorithms for two-party signing
+                 COSE Algorithms for Two-Party Signing
            draft-lundberg-cose-two-party-signing-algs-latest
 
 Abstract
 
-   TODO
-
-   THIS DOCUMENT IS A TEMPORARY PROTOTYPE AREA FOR ILLUSTRATING SOME
-   IDEAS FOR DISCUSSION.  THESE IDEAS ARE PLANNED TO MOVE TO A DIFFERENT
-   DOCUMENT WHEN MORE MATURE.
+   This specification defines COSE algorithm identifiers used when the
+   signing operation is performed cooperatively between two parties.
+   When performing two-party signing, the first party typically hashes
+   the data to be signed and the second party signs the hashed data
+   computed by the first party.  This can be useful when communication
+   with the party holding the signing private key occurs over a limited-
+   bandwidth channel, such as NFC or Bluetooth Low Energy (BLE), in
+   which it is infeasible to send the complete set of data to be signed.
+   The resulting signatures are identical in structure to those computed
+   by a single party, and can be verified using the same verification
+   procedure without additional steps to preprocess the signed data.
 
 About This Document
 
@@ -27,8 +34,13 @@ About This Document
    https://datatracker.ietf.org/doc/draft-lundberg-cose-two-party-
    signing-algs/.
 
+   Discussion of this document takes place on the COSE Working Group
+   mailing list (mailto:cose@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/cose/.  Subscribe at
+   https://www.ietf.org/mailman/listinfo/cose/.
+
    Source for this draft and an issue tracker can be found at
-   https://github.com/Yubico/cose-two-party-signing-algs-rfc.
+   https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc.
 
 Status of This Memo
 
@@ -45,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 August 2025.
+   This Internet-Draft will expire on 16 August 2025.
 
 Copyright Notice
 
@@ -64,19 +76,19 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction
-   2.  Two-party signing algorithms
+   2.  Two-Party Signing Algorithms
      2.1.  ECDSA
      2.2.  HashEdDSA
      2.3.  HashML-DSA
-   3.  COSE key reference types
+   3.  COSE Key Reference Types
    4.  IANA Considerations
      4.1.  COSE Key Types Registrations
      4.2.  COSE Key Type Parameters Registrations
    5.  References
      5.1.  Normative References
      5.2.  Informative References
-   Appendix A.  Document History
-   Author's Address
+   Document History
+   Authors' Addresses
 
 1.  Introduction
 
@@ -125,7 +137,7 @@ Table of Contents
    algorithm may be assigned a two-party signing algorithm identifier
    instead.
 
-2.  Two-party signing algorithms
+2.  Two-Party Signing Algorithms
 
    This section defines divisions of signing algorithm steps between a
    _digester_ and a _signer_ in a two-party signing protocol, and
@@ -137,11 +149,11 @@ Table of Contents
    message to insert domain separation tags, this message formatting is
    also performed by the _signer_.
 
-   The algorithm identifiers defined in this document SHALL NOT appear
-   in COSE structures other than COSE_Key_Ref (see Section 3).  They are
-   meant only for coordination between _digester_ and _signer_ in a two-
-   party signing protocol.  External representations of used keys and
-   resulting signatures SHALL use the corresponding conventional
+   The algorithm identifiers defined in this document MUST NOT appear in
+   COSE structures other than COSE_Key_Ref (see Section 3).  They are
+   meant only for coordination between the _digester_ and the _signer_
+   in a two-party signing protocol.  Representations of the keys used
+   and the resulting signatures MUST use the corresponding conventional
    algorithm identifiers instead.  These are listed in the "Base
    algorithm" column in the tables defining two-party signing algorithm
    identifiers.
@@ -290,7 +302,7 @@ Table of Contents
 
                                   Table 3
 
-3.  COSE key reference types
+3.  COSE Key Reference Types
 
    While keys used by many other algorithms can usually be referenced by
    a single atomic identifier, such as that used in the kid parameter in
@@ -427,9 +439,10 @@ Table of Contents
 5.1.  Normative References
 
    [fully-spec-algs]
-              Jones, M. B., "Fully-Specified Algorithms for JOSE and
-              COSE", 2024, <https://datatracker.ietf.org/doc/draft-ietf-
-              jose-fully-specified-algorithms/>.
+              Jones, M. B. and O. Steele, "Fully-Specified Algorithms
+              for JOSE and COSE", 2024,
+              <https://datatracker.ietf.org/doc/draft-ietf-jose-fully-
+              specified-algorithms/>.
 
    [IANA.cose]
               IANA, "CBOR Object Signing and Encryption (COSE)",
@@ -541,11 +554,13 @@ Table of Contents
               Passwordless Authentication. Master's thesis", 2023,
               <http://hdl.handle.net/10012/19316>.
 
-Appendix A.  Document History
+Document History
 
-   THIS IS A TEMPORARY DOCUMENT JUST TO MOCK UP THE IDEA
+   -00
 
-Author's Address
+   *  Initial individual draft
+
+Authors' Addresses
 
    Emil Lundberg (editor)
    Yubico
@@ -553,3 +568,10 @@ Author's Address
    Stockholm
    Sweden
    Email: emil@emlun.se
+
+
+   Michael B. Jones
+   Self-Issued Consulting
+   United States
+   Email: michael_b_jones@hotmail.com
+   URI:   https://self-issued.info/
