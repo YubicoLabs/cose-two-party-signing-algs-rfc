@@ -288,8 +288,8 @@ The following algorithm identifiers are defined:
 
 | Name         | COSE Value | Base algorithm | Description |
 | ------------ | ---------- | -------------- | ----------- |
-| Ed25519ph-2p | TBD        | Ed25519ph      | Ed25519ph [fully-spec-algs] divided as defined in {{eddsa-2p}} of this document (NOTE: Ed25519ph not yet defined) |
-| Ed448ph-2p   | TBD        | Ed448ph        | Ed448ph [fully-spec-algs] divided as defined in {{eddsa-2p}} of this document (NOTE: Ed448ph not yet defined) |
+| Ed25519ph-2p | TBD        | Ed25519ph      | Ed25519ph [fully-spec-algs] divided as defined in {{eddsa-2p}} of this document (NOTE: Ed25519ph not yet registered) |
+| Ed448ph-2p   | TBD        | Ed448ph        | Ed448ph [fully-spec-algs] divided as defined in {{eddsa-2p}} of this document (NOTE: Ed448ph not yet registered) |
 
 
 ## HashML-DSA {#ml-dsa-2p}
@@ -301,7 +301,7 @@ of the steps of the HashML-DSA.Sign algorithm:
 - The _digester_ computes the value PH<sub>_M_</sub> defined in steps 10 to 22 of the signing procedure.
 - The message input to the _signer_ is the value PH<sub>_M_</sub> defined in the signing procedure.
   The additional _ctx_ input must also be transmitted to the _signer_.
-  This may for example be done using the `ctx (-1)` parameter of a `COSE_Key_Ref` with `kty (1): Ref-ML-DSA (TBD)`
+  This may, for example, be done using the `ctx (-1)` parameter of a `COSE_Key_Ref` with `kty (1): Ref-ML-DSA (TBD)`
   (see {{cose-key-types-reg}} and {{cose-key-type-params-reg}}).
 - The _signer_ executes all steps of the signing procedure
   except the steps 13, 16, 19 or similar that compute the value PH<sub>_M_</sub>.
@@ -311,7 +311,7 @@ of the steps of the HashML-DSA.Sign algorithm:
 The "pure" ML-DSA version [FIPS-204] cannot be divided in this way
 because of how the embedding of the _ctx_ and _tr_ values is constructed
 in `ML-DSA.Sign` and `ML-DSA.Sign_Internal`.
-A division like the above for HashML-DSA would move control of this embedding from the _signer_ to the _digester_.
+A division like the one above for HashML-DSA would move control of this embedding from the _signer_ to the _digester_.
 This would break the domain separation enforced by the embedding
 and possibly enable signature malleability attacks or protocol confusion attacks.
 
@@ -319,9 +319,9 @@ The following algorithm identifiers are defined:
 
 | Name             | COSE Value | Base algorithm | Description |
 | ---------------- | ---------- | -------------- | ----------- |
-| HashML-DSA-44-2p | TBD        | HashML-DSA-44  | HashML-DSA-44 [TODO] divided as defined in {{ml-dsa-2p}} of this document (NOTE: HashML-DSA-44 not yet defined) |
-| HashML-DSA-65-2p | TBD        | HashML-DSA-65  | HashML-DSA-65 [TODO] divided as defined in {{ml-dsa-2p}} of this document (NOTE: HashML-DSA-65 not yet defined) |
-| HashML-DSA-87-2p | TBD        | HashML-DSA-87  | HashML-DSA-87 [TODO] divided as defined in {{ml-dsa-2p}} of this document (NOTE: HashML-DSA-87 not yet defined) |
+| HashML-DSA-44-2p | TBD        | HashML-DSA-44  | HashML-DSA-44 [TODO] divided as defined in {{ml-dsa-2p}} of this document (NOTE: HashML-DSA-44 not yet registered) |
+| HashML-DSA-65-2p | TBD        | HashML-DSA-65  | HashML-DSA-65 [TODO] divided as defined in {{ml-dsa-2p}} of this document (NOTE: HashML-DSA-65 not yet registered) |
+| HashML-DSA-87-2p | TBD        | HashML-DSA-87  | HashML-DSA-87 [TODO] divided as defined in {{ml-dsa-2p}} of this document (NOTE: HashML-DSA-87 not yet registered) |
 
 
 # COSE Key Reference Types {#cose-key-refs}
@@ -331,13 +331,13 @@ such as that used in the `kid` parameter in a COSE_Key object or in the unprotec
 some signature algorithms use additional parameters to the signature generation
 beyond the signing private key and message to be signed.
 For example, ML-DSA [FIPS-204] has the additional parameter _ctx_
-and `ARKG-Derive-Secret-Key` [ARKG] has the parameters `kh` and `info` in addition to the private key.
+and `ARKG-Derive-Secret-Key` [ARKG] has the parameters `kh` and `info`, in addition to the private key.
 
 While these additional parameters are simple to provide to the API of the signing procedure
 in a single-party context,
-in a two-party context these additional parameters also need to be conveyed from _digester_ to _signer_.
-For this purpose we define new COSE key types, collectively called "COSE key reference types".
-This enables defining a unified, algorithm-agnostic protocol between _digester_ and _signer_,
+in a two-party context these additional parameters also need to be conveyed from the _digester_ to the _signer_.
+For this purpose, we define new COSE key types, collectively called "COSE key reference types".
+This enables defining a unified, algorithm-agnostic protocol between the _digester_ and the _signer_,
 rather than requiring a distinct protocol for each signature algorithm for the sake of conveying algorithm-specific parameters.
 
 A COSE key reference is a COSE_Key object whose `kty` value is defined to represent a reference to a key.
@@ -369,7 +369,7 @@ along with the value of the _ctx_ parameter to ML-DSA.Sign [FIPS-204]:
 ~~~
 
 
-The following CDDL example represents a reference to a key derived by `ARKG-P256ADD-ECDH`
+The following CDDL example represents a reference to a key derived by `ARKG-P256ADD-ECDH` [ARKG]
 and restricted for use with the ESP256 [fully-spec-algs] signature algorithm:
 
 ~~~cddl
