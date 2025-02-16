@@ -267,7 +267,7 @@ of the steps of the HashML-DSA.Sign algorithm:
   (see {{cose-key-types-reg}} and {{cose-key-type-params-reg}}).
 - The _signer_ executes all steps of the signing procedure
   except the Steps 13, 16, 19 or similar that compute the value PH<sub>_M_</sub>.
-  Note in particular that the _signer_ generates the value _rnd_ in Steps 5-8
+  Note in particular, that the _signer_ generates the value _rnd_ in Steps 5-8
   and constructs the value _M'_ in Step 23.
 
 The "pure" ML-DSA version [FIPS-204] cannot be divided in this way
