@@ -76,7 +76,7 @@ normative:
     author:
     - org: Certicom Research
     date: May 2009
-    title: SEC 1: Elliptic Curve Cryptography
+    title: "SEC 1: Elliptic Curve Cryptography"
 
 informative:
   FIPS-204:
