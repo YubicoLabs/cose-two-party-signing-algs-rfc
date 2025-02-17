@@ -54,47 +54,54 @@ normative:
       ins: M.B. Jones
       org: Self-Issued Consulting
       email: michael_b_jones@hotmail.com
-      uri: https://self-issued.info
+      uri: https://self-issued.info/
     - name: Orie Steele
       ins: O. Steele
       org: Transmute
       email: orie@transmute.industries
     date: 2024
-  IANA.cose:
-  RFC2104:
-  RFC4949:
-  RFC5869:
-  RFC6090:
-  RFC7748:
+  IANA.COSE:
+    target: https://www.iana.org/assignments/cose/
+    title: CBOR Object Signing and Encryption (COSE)
+    author:
+    - org: IANA
+  RFC2119:
   RFC8032:
+  RFC8174:
   RFC8610:
-  RFC8812:
   RFC9052:
   RFC9380:
   SEC1:
-    target: http://www.secg.org/sec1-v2.pdf
+    target: https://www.secg.org/sec1-v2.pdf
     author:
     - org: Certicom Research
-    date: 2009
-    title: 'SEC 1: Elliptic Curve Cryptography'
-  SEC2:
-    target: http://www.secg.org/sec2-v2.pdf
-    author:
-    - org: Certicom Research
-    date: 2010
-    title: 'SEC 2: Recommended Elliptic Curve Domain Parameters'
+    date: May 2009
+    title: "SEC 1: Elliptic Curve Cryptography"
 
 informative:
+  FIPS-204:
+    target: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf
+    title: Module-Lattice-Based Digital Signature Standard
+    author:
+    - org: National Institute of Standards and Technology
+    date: August 2024
+  FIPS-186-5:
+    target: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf
+    title: Digital Signature Standard (DSS)
+    author:
+    - org: National Institute of Standards and Technology
+    date: February 2023
   ARKG:
     target: https://datatracker.ietf.org/doc/draft-bradleylundberg-cfrg-arkg/
     title: The Asynchronous Remote Key Generation (ARKG) algorithm
-    date: 2024
-  BIP32:
-    target: https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki
-    title: BIP 32 Hierarchical Deterministic Wallets
     author:
-    - name: Pieter Wuille
-    date: 2012
+    - name: Emil Lundberg
+      organization: Yubico
+      email: emil@emlun.se
+    - name: John Bradley
+      organization: Yubico
+      email: ve7jtb@ve7jtb.com
+    date: 2024
   COSE-Hash-Envelope:
     title: COSE Hash Envelope
     target: https://datatracker.ietf.org/doc/draft-ietf-cose-hash-envelope/
@@ -110,54 +117,6 @@ informative:
       org: Fraunhofer SIT
       email: henk.birkholz@ietf.contact
     date: 2024
-  Clermont:
-    target: https://www.cryptoplexity.informatik.tu-darmstadt.de/media/crypt/teaching_1/theses_1/Sebastian_Clermont_Thesis.pdf
-    author:
-    - name: Sebastian A. Clermont
-      org: "Technische Universität Darmstadt"
-    date: 2022
-    title: "Post Quantum Asynchronous Remote Key Generation. Master's thesis"
-  WebAuthn-Recovery:
-    author:
-    - name: Emil Lundberg
-    - name: Dain Nilsson
-    title: "WebAuthn recovery extension: Asynchronous delegated key generation without shared secrets. GitHub"
-    date: 2019
-    target: https://github.com/Yubico/webauthn-recovery-extension
-  Frymann2020:
-    author:
-    - name: Nick Frymann
-    - name: Daniel Gardham
-    - name: Franziskus Kiefer
-    - name: Emil Lundberg
-    - name: Mark Manulis
-    - name: Dain Nilsson
-    title: "Asynchronous Remote Key Generation: An Analysis of Yubico's Proposal for W3C WebAuthn. CCS '20: Proceedings of the 2020 ACM SIGSAC Conference on Computer and Communications Security"
-    date: 2020
-    target: https://eprint.iacr.org/2020/1004
-  Frymann2023:
-    author:
-    - name: Nick Frymann
-    - name: Daniel Gardham
-    - name: Mark Manulis
-    title: Asynchronous Remote Key Generation for Post-Quantum Cryptosystems from Lattices. 2023 IEEE 8th European Symposium on Security and Privacy
-    date: 2023
-    target: https://eprint.iacr.org/2023/419
-  Shoup:
-    author:
-    - name: Victor Shoup
-      org: IBM Zurich Research Lab
-    title: A Proposal for an ISO Standard for Public Key Encryption (version 2.0)
-    date: 2001
-    target: https://www.shoup.net/papers/iso-2.pdf
-  Wilson:
-    author:
-    - name: Spencer MacLaren Wilson
-      org: University of Waterloo,
-    title: "Post-Quantum Account Recovery for Passwordless Authentication. Master's thesis"
-    date: 2023
-    target: http://hdl.handle.net/10012/19316
-
 
 
 --- abstract
@@ -227,6 +186,9 @@ If such a signature algorithm defines a "pre-hashed" variant,
 such as Ed25519ph [RFC8032] or HashML-DSA [FIPS-204],
 that algorithm can be assigned a two-party signing algorithm identifier instead.
 
+## Requirements Notation and Conventions
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all capitals, as shown here.
 
 # Two-Party Signing Algorithms
 
@@ -249,13 +211,13 @@ These are listed in the "Base algorithm" column in the tables defining two-party
 
 ## ECDSA {#ecdsa-2p}
 
-Two-party ECDSA [FIPS-186-5] uses the following division between _digester_ and _signer_
+Two-party ECDSA [FIPS-186-5] uses the following division between the _digester_ and the _signer_
 of the steps of the ECDSA signature generation algorithm [FIPS-186-5]:
 
-- The signing procedure is defined in [Section 6.4.1 of FIPS-186-5].
-- The _digester_ performs step 1 of the signing procedure.
+- The signing procedure is defined in Section 6.4.1 of [FIPS-186-5].
+- The _digester_ performs Step 1 of the signing procedure - hashing the message, producing the value _H_.
 - The message input to the _signer_ is the value _H_ defined in the signing procedure.
-- The _signer_ resumes the signing procedure from step 2.
+- The _signer_ resumes the signing procedure from Step 2.
 
 The following algorithm identifiers are defined:
 
@@ -268,7 +230,7 @@ The following algorithm identifiers are defined:
 
 ## HashEdDSA {#eddsa-2p}
 
-Two-party HashEdDSA [RFC8032] uses the following division between _digester_ and _signer_
+Two-party HashEdDSA [RFC8032] uses the following division between the _digester_ and the _signer_
 of the steps of the HashEdDSA signing algorithm [RFC8032]:
 
 - HashEdDSA is a combination of the EdDSA signing procedure and the PureEdDSA signing procedure.
@@ -294,19 +256,19 @@ The following algorithm identifiers are defined:
 
 ## HashML-DSA {#ml-dsa-2p}
 
-Two-party HashML-DSA [FIPS-204] uses the following division between _digester_ and _signer_
+Two-party HashML-DSA [FIPS-204] uses the following division between the _digester_ and the _signer_
 of the steps of the HashML-DSA.Sign algorithm:
 
-- The signing procedure is defined in [Section 5.4.1 of FIPS-204].
-- The _digester_ computes the value PH<sub>_M_</sub> defined in steps 10 to 22 of the signing procedure.
+- The signing procedure is defined in Section 5.4.1 of [FIPS-204].
+- The _digester_ computes the value PH<sub>_M_</sub> defined in Steps 10 to 22 of the signing procedure.
 - The message input to the _signer_ is the value PH<sub>_M_</sub> defined in the signing procedure.
   The additional _ctx_ input must also be transmitted to the _signer_.
   This may for example be done using the `ctx (-1)` parameter of a `COSE_Key_Ref` with `kty (1): Ref-ML-DSA (TBD)`
   (see {{cose-key-types-reg}} and {{cose-key-type-params-reg}}).
 - The _signer_ executes all steps of the signing procedure
-  except the steps 13, 16, 19 or similar that compute the value PH<sub>_M_</sub>.
-  Note in particular that the _signer_ generates the value _rnd_ in steps 5-8
-  and constructs the value _M'_ in step 23.
+  except the Steps 13, 16, 19 or similar that compute the value PH<sub>_M_</sub>.
+  Note in particular, that the _signer_ generates the value _rnd_ in Steps 5-8
+  and constructs the value _M'_ in Step 23.
 
 The "pure" ML-DSA version [FIPS-204] cannot be divided in this way
 because of how the embedding of the _ctx_ and _tr_ values is constructed
@@ -319,9 +281,9 @@ The following algorithm identifiers are defined:
 
 | Name             | COSE Value | Base algorithm | Description |
 | ---------------- | ---------- | -------------- | ----------- |
-| HashML-DSA-44-2p | TBD        | HashML-DSA-44  | HashML-DSA-44 [TODO] divided as defined in {{ml-dsa-2p}} of this document (NOTE: HashML-DSA-44 not yet defined) |
-| HashML-DSA-65-2p | TBD        | HashML-DSA-65  | HashML-DSA-65 [TODO] divided as defined in {{ml-dsa-2p}} of this document (NOTE: HashML-DSA-65 not yet defined) |
-| HashML-DSA-87-2p | TBD        | HashML-DSA-87  | HashML-DSA-87 [TODO] divided as defined in {{ml-dsa-2p}} of this document (NOTE: HashML-DSA-87 not yet defined) |
+| HashML-DSA-44-2p | TBD        | HashML-DSA-44  | HashML-DSA-44 TODO: divided as defined in {{ml-dsa-2p}} of this document (NOTE: HashML-DSA-44 not yet defined) |
+| HashML-DSA-65-2p | TBD        | HashML-DSA-65  | HashML-DSA-65 TODO: divided as defined in {{ml-dsa-2p}} of this document (NOTE: HashML-DSA-65 not yet defined) |
+| HashML-DSA-87-2p | TBD        | HashML-DSA-87  | HashML-DSA-87 TODO: divided as defined in {{ml-dsa-2p}} of this document (NOTE: HashML-DSA-87 not yet defined) |
 
 
 # COSE Key Reference Types {#cose-key-refs}
@@ -337,7 +299,7 @@ While these additional parameters are simple to provide to the API of the signin
 in a single-party context,
 in a two-party context these additional parameters also need to be conveyed from _digester_ to _signer_.
 For this purpose we define new COSE key types, collectively called "COSE key reference types".
-This enables defining a unified, algorithm-agnostic protocol between _digester_ and _signer_,
+This enables defining a unified, algorithm-agnostic protocol between the _digester_ and the _signer_,
 rather than requiring a distinct protocol for each signature algorithm for the sake of conveying algorithm-specific parameters.
 
 A COSE key reference is a COSE_Key object whose `kty` value is defined to represent a reference to a key.
@@ -399,7 +361,7 @@ and restricted for use with the ESP256 [fully-spec-algs] signature algorithm:
 
 ## COSE Key Types Registrations {#cose-key-types-reg}
 
-This section registers the following values in the IANA "COSE Key Types" registry [IANA.COSE].
+This section registers the following values in the IANA "COSE Key Types" registry [IANA.COSE]:
 
 - Name: Ref-OKP
   - Value: TBD (Requested assignment -1)
@@ -430,7 +392,7 @@ $COSE_kty_ref /= TBD      ; Value TBD
 
 ## COSE Key Type Parameters Registrations {#cose-key-type-params-reg}
 
-This section registers the following values in the IANA "COSE Key Type Parameters" registry [IANA.COSE].
+This section registers the following values in the IANA "COSE Key Type Parameters" registry [IANA.COSE]:
 
 - Key Type: TBD (Ref-ML-DSA)
   - Name: ctx
