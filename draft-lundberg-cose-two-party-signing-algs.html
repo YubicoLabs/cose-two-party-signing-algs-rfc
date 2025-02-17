@@ -1405,13 +1405,13 @@ since such a division would require that the <em>digester</em> has access to the
               <td class="text-left" rowspan="1" colspan="1">Ed25519ph-2p</td>
               <td class="text-left" rowspan="1" colspan="1">TBD</td>
               <td class="text-left" rowspan="1" colspan="1">Ed25519ph</td>
-              <td class="text-left" rowspan="1" colspan="1">Ed25519ph <span>[<a href="#fully-spec-algs" class="cite xref">fully-spec-algs</a>]</span> divided as defined in <a href="#eddsa-2p" class="auto internal xref">Section 2.2</a> of this document (NOTE: Ed25519ph not yet defined)</td>
+              <td class="text-left" rowspan="1" colspan="1">Ed25519ph <span>[<a href="#fully-spec-algs" class="cite xref">fully-spec-algs</a>]</span> divided as defined in <a href="#eddsa-2p" class="auto internal xref">Section 2.2</a> of this document (NOTE: Ed25519ph not yet registered)</td>
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">Ed448ph-2p</td>
               <td class="text-left" rowspan="1" colspan="1">TBD</td>
               <td class="text-left" rowspan="1" colspan="1">Ed448ph</td>
-              <td class="text-left" rowspan="1" colspan="1">Ed448ph <span>[<a href="#fully-spec-algs" class="cite xref">fully-spec-algs</a>]</span> divided as defined in <a href="#eddsa-2p" class="auto internal xref">Section 2.2</a> of this document (NOTE: Ed448ph not yet defined)</td>
+              <td class="text-left" rowspan="1" colspan="1">Ed448ph <span>[<a href="#fully-spec-algs" class="cite xref">fully-spec-algs</a>]</span> divided as defined in <a href="#eddsa-2p" class="auto internal xref">Section 2.2</a> of this document (NOTE: Ed448ph not yet registered)</td>
             </tr>
           </tbody>
         </table>
@@ -1434,7 +1434,7 @@ of the steps of the HashML-DSA.Sign algorithm:<a href="#section-2.3-1" class="pi
           <li class="normal" id="section-2.3-2.3">
             <p id="section-2.3-2.3.1">The message input to the <em>signer</em> is the value PH<sub><em>M</em></sub> defined in the signing procedure.
 The additional <em>ctx</em> input must also be transmitted to the <em>signer</em>.
-This may for example be done using the <code>ctx (-1)</code> parameter of a <code>COSE_Key_Ref</code> with <code>kty (1): Ref-ML-DSA (TBD)</code>
+This may, for example, be done using the <code>ctx (-1)</code> parameter of a <code>COSE_Key_Ref</code> with <code>kty (1): Ref-ML-DSA (TBD)</code>
 (see <a href="#cose-key-types-reg" class="auto internal xref">Section 4.1</a> and <a href="#cose-key-type-params-reg" class="auto internal xref">Section 4.2</a>).<a href="#section-2.3-2.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.3-2.4">
@@ -1447,7 +1447,7 @@ and constructs the value <em>M'</em> in Step 23.<a href="#section-2.3-2.4.1" cla
 <p id="section-2.3-3">The "pure" ML-DSA version <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> cannot be divided in this way
 because of how the embedding of the <em>ctx</em> and <em>tr</em> values is constructed
 in <code>ML-DSA.Sign</code> and <code>ML-DSA.Sign_Internal</code>.
-A division like the above for HashML-DSA would move control of this embedding from the <em>signer</em> to the <em>digester</em>.
+A division like the one above for HashML-DSA would move control of this embedding from the <em>signer</em> to the <em>digester</em>.
 This would break the domain separation enforced by the embedding
 and possibly enable signature malleability attacks or protocol confusion attacks.<a href="#section-2.3-3" class="pilcrow">¶</a></p>
 <p id="section-2.3-4">The following algorithm identifiers are defined:<a href="#section-2.3-4" class="pilcrow">¶</a></p>
@@ -1466,19 +1466,19 @@ and possibly enable signature malleability attacks or protocol confusion attacks
               <td class="text-left" rowspan="1" colspan="1">HashML-DSA-44-2p</td>
               <td class="text-left" rowspan="1" colspan="1">TBD</td>
               <td class="text-left" rowspan="1" colspan="1">HashML-DSA-44</td>
-              <td class="text-left" rowspan="1" colspan="1">HashML-DSA-44 TODO: divided as defined in <a href="#ml-dsa-2p" class="auto internal xref">Section 2.3</a> of this document (NOTE: HashML-DSA-44 not yet defined)</td>
+              <td class="text-left" rowspan="1" colspan="1">HashML-DSA-44 TODO: divided as defined in <a href="#ml-dsa-2p" class="auto internal xref">Section 2.3</a> of this document (NOTE: HashML-DSA-44 not yet registered)</td>
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">HashML-DSA-65-2p</td>
               <td class="text-left" rowspan="1" colspan="1">TBD</td>
               <td class="text-left" rowspan="1" colspan="1">HashML-DSA-65</td>
-              <td class="text-left" rowspan="1" colspan="1">HashML-DSA-65 TODO: divided as defined in <a href="#ml-dsa-2p" class="auto internal xref">Section 2.3</a> of this document (NOTE: HashML-DSA-65 not yet defined)</td>
+              <td class="text-left" rowspan="1" colspan="1">HashML-DSA-65 TODO: divided as defined in <a href="#ml-dsa-2p" class="auto internal xref">Section 2.3</a> of this document (NOTE: HashML-DSA-65 not yet registered)</td>
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">HashML-DSA-87-2p</td>
               <td class="text-left" rowspan="1" colspan="1">TBD</td>
               <td class="text-left" rowspan="1" colspan="1">HashML-DSA-87</td>
-              <td class="text-left" rowspan="1" colspan="1">HashML-DSA-87 TODO: divided as defined in <a href="#ml-dsa-2p" class="auto internal xref">Section 2.3</a> of this document (NOTE: HashML-DSA-87 not yet defined)</td>
+              <td class="text-left" rowspan="1" colspan="1">HashML-DSA-87 TODO: divided as defined in <a href="#ml-dsa-2p" class="auto internal xref">Section 2.3</a> of this document (NOTE: HashML-DSA-87 not yet registered)</td>
             </tr>
           </tbody>
         </table>
@@ -1496,11 +1496,11 @@ such as that used in the <code>kid</code> parameter in a COSE_Key object or in t
 some signature algorithms use additional parameters to the signature generation
 beyond the signing private key and message to be signed.
 For example, ML-DSA <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> has the additional parameter <em>ctx</em>
-and <code>ARKG-Derive-Secret-Key</code> <span>[<a href="#ARKG" class="cite xref">ARKG</a>]</span> has the parameters <code>kh</code> and <code>info</code> in addition to the private key.<a href="#section-3-1" class="pilcrow">¶</a></p>
+and <code>ARKG-Derive-Secret-Key</code> <span>[<a href="#ARKG" class="cite xref">ARKG</a>]</span> has the parameters <code>kh</code> and <code>info</code>, in addition to the private key.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">While these additional parameters are simple to provide to the API of the signing procedure
 in a single-party context,
-in a two-party context these additional parameters also need to be conveyed from <em>digester</em> to <em>signer</em>.
-For this purpose we define new COSE key types, collectively called "COSE key reference types".
+in a two-party context these additional parameters also need to be conveyed from the <em>digester</em> to the <em>signer</em>.
+For this purpose, we define new COSE key types, collectively called "COSE key reference types".
 This enables defining a unified, algorithm-agnostic protocol between the <em>digester</em> and the <em>signer</em>,
 rather than requiring a distinct protocol for each signature algorithm for the sake of conveying algorithm-specific parameters.<a href="#section-3-2" class="pilcrow">¶</a></p>
 <p id="section-3-3">A COSE key reference is a COSE_Key object whose <code>kty</code> value is defined to represent a reference to a key.
@@ -1531,7 +1531,7 @@ along with the value of the <em>ctx</em> parameter to ML-DSA.Sign <span>[<a href
 }
 </pre><a href="#section-3-6" class="pilcrow">¶</a>
 </div>
-<p id="section-3-7">The following CDDL example represents a reference to a key derived by <code>ARKG-P256ADD-ECDH</code>
+<p id="section-3-7">The following CDDL example represents a reference to a key derived by <code>ARKG-P256ADD-ECDH</code> <span>[<a href="#ARKG" class="cite xref">ARKG</a>]</span>
 and restricted for use with the ESP256 <span>[<a href="#fully-spec-algs" class="cite xref">fully-spec-algs</a>]</span> signature algorithm:<a href="#section-3-7" class="pilcrow">¶</a></p>
 <div class="lang-cddl sourcecode" id="section-3-8">
 <pre>
