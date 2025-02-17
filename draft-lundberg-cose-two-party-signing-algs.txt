@@ -5,8 +5,8 @@
 COSE                                                    E. Lundberg, Ed.
 Internet-Draft                                                    Yubico
 Intended status: Standards Track                             M. B. Jones
-Expires: 16 August 2025                           Self-Issued Consulting
-                                                        12 February 2025
+Expires: 21 August 2025                           Self-Issued Consulting
+                                                        17 February 2025
 
 
                  COSE Algorithms for Two-Party Signing
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 August 2025.
+   This Internet-Draft will expire on 21 August 2025.
 
 Copyright Notice
 
@@ -76,6 +76,7 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction
+     1.1.  Requirements Notation and Conventions
    2.  Two-Party Signing Algorithms
      2.1.  ECDSA
      2.2.  HashEdDSA
@@ -143,6 +144,14 @@ Table of Contents
    Ed25519ph [RFC8032] or HashML-DSA [FIPS-204], that algorithm can be
    assigned a two-party signing algorithm identifier instead.
 
+1.1.  Requirements Notation and Conventions
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in BCP
+   14 RFC2119 [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
 2.  Two-Party Signing Algorithms
 
    This section defines divisions of signing algorithm steps between a
@@ -167,18 +176,19 @@ Table of Contents
 
 2.1.  ECDSA
 
-   Two-party ECDSA [FIPS-186-5] uses the following division between
-   _digester_ and _signer_ of the steps of the ECDSA signature
+   Two-party ECDSA [FIPS-186-5] uses the following division between the
+   _digester_ and the _signer_ of the steps of the ECDSA signature
    generation algorithm [FIPS-186-5]:
 
-   *  The signing procedure is defined in [Section 6.4.1 of FIPS-186-5].
+   *  The signing procedure is defined in Section 6.4.1 of [FIPS-186-5].
 
-   *  The _digester_ performs step 1 of the signing procedure.
+   *  The _digester_ performs Step 1 of the signing procedure - hashing
+      the message, producing the value _H_.
 
    *  The message input to the _signer_ is the value _H_ defined in the
       signing procedure.
 
-   *  The _signer_ resumes the signing procedure from step 2.
+   *  The _signer_ resumes the signing procedure from Step 2.
 
    The following algorithm identifiers are defined:
 
@@ -203,8 +213,8 @@ Table of Contents
 
 2.2.  HashEdDSA
 
-   Two-party HashEdDSA [RFC8032] uses the following division between
-   _digester_ and _signer_ of the steps of the HashEdDSA signing
+   Two-party HashEdDSA [RFC8032] uses the following division between the
+   _digester_ and the _signer_ of the steps of the HashEdDSA signing
    algorithm [RFC8032]:
 
    *  HashEdDSA is a combination of the EdDSA signing procedure and the
@@ -252,12 +262,12 @@ Table of Contents
 2.3.  HashML-DSA
 
    Two-party HashML-DSA [FIPS-204] uses the following division between
-   _digester_ and _signer_ of the steps of the HashML-DSA.Sign
+   the _digester_ and the _signer_ of the steps of the HashML-DSA.Sign
    algorithm:
 
-   *  The signing procedure is defined in [Section 5.4.1 of FIPS-204].
+   *  The signing procedure is defined in Section 5.4.1 of [FIPS-204].
 
-   *  The _digester_ computes the value PH_(_M_) defined in steps 10 to
+   *  The _digester_ computes the value PH_(_M_) defined in Steps 10 to
       22 of the signing procedure.
 
    *  The message input to the _signer_ is the value PH_(_M_) defined in
@@ -267,9 +277,9 @@ Table of Contents
       (TBD) (see Section 4.1 and Section 4.2).
 
    *  The _signer_ executes all steps of the signing procedure except
-      the steps 13, 16, 19 or similar that compute the value PH_(_M_).
-      Note in particular that the _signer_ generates the value _rnd_ in
-      steps 5-8 and constructs the value _M'_ in step 23.
+      the Steps 13, 16, 19 or similar that compute the value PH_(_M_).
+      Note in particular, that the _signer_ generates the value _rnd_ in
+      Steps 5-8 and constructs the value _M'_ in Step 23.
 
    The "pure" ML-DSA version [FIPS-204] cannot be divided in this way
    because of how the embedding of the _ctx_ and _tr_ values is
@@ -285,21 +295,21 @@ Table of Contents
     | Name             | COSE  | Base          | Description          |
     |                  | Value | algorithm     |                      |
     +==================+=======+===============+======================+
-    | HashML-DSA-44-2p | TBD   | HashML-DSA-44 | HashML-DSA-44 [TODO] |
+    | HashML-DSA-44-2p | TBD   | HashML-DSA-44 | HashML-DSA-44 TODO:  |
     |                  |       |               | divided as defined   |
     |                  |       |               | in Section 2.3 of    |
     |                  |       |               | this document (NOTE: |
     |                  |       |               | HashML-DSA-44 not    |
     |                  |       |               | yet defined)         |
     +------------------+-------+---------------+----------------------+
-    | HashML-DSA-65-2p | TBD   | HashML-DSA-65 | HashML-DSA-65 [TODO] |
+    | HashML-DSA-65-2p | TBD   | HashML-DSA-65 | HashML-DSA-65 TODO:  |
     |                  |       |               | divided as defined   |
     |                  |       |               | in Section 2.3 of    |
     |                  |       |               | this document (NOTE: |
     |                  |       |               | HashML-DSA-65 not    |
     |                  |       |               | yet defined)         |
     +------------------+-------+---------------+----------------------+
-    | HashML-DSA-87-2p | TBD   | HashML-DSA-87 | HashML-DSA-87 [TODO] |
+    | HashML-DSA-87-2p | TBD   | HashML-DSA-87 | HashML-DSA-87 TODO:  |
     |                  |       |               | divided as defined   |
     |                  |       |               | in Section 2.3 of    |
     |                  |       |               | this document (NOTE: |
@@ -325,10 +335,10 @@ Table of Contents
    context these additional parameters also need to be conveyed from
    _digester_ to _signer_. For this purpose we define new COSE key
    types, collectively called "COSE key reference types".  This enables
-   defining a unified, algorithm-agnostic protocol between _digester_
-   and _signer_, rather than requiring a distinct protocol for each
-   signature algorithm for the sake of conveying algorithm-specific
-   parameters.
+   defining a unified, algorithm-agnostic protocol between the
+   _digester_ and the _signer_, rather than requiring a distinct
+   protocol for each signature algorithm for the sake of conveying
+   algorithm-specific parameters.
 
    A COSE key reference is a COSE_Key object whose kty value is defined
    to represent a reference to a key.  The kid parameter MUST be present
@@ -385,7 +395,7 @@ Table of Contents
 4.1.  COSE Key Types Registrations
 
    This section registers the following values in the IANA "COSE Key
-   Types" registry [IANA.cose].
+   Types" registry [IANA.COSE]:
 
    *  Name: Ref-OKP
 
@@ -427,7 +437,7 @@ Table of Contents
 4.2.  COSE Key Type Parameters Registrations
 
    This section registers the following values in the IANA "COSE Key
-   Type Parameters" registry [IANA.cose].
+   Type Parameters" registry [IANA.COSE]:
 
    *  Key Type: TBD (Ref-ML-DSA)
 
@@ -451,49 +461,29 @@ Table of Contents
               <https://datatracker.ietf.org/doc/draft-ietf-jose-fully-
               specified-algorithms/>.
 
-   [IANA.cose]
-              IANA, "CBOR Object Signing and Encryption (COSE)",
-              <https://www.iana.org/assignments/cose>.
+   [IANA.COSE]
+              IANA, "CBOR Object Signing and Encryption (COSE)", n.d.,
+              <https://www.iana.org/assignments/cose/>.
 
-   [RFC2104]  Krawczyk, H., Bellare, M., and R. Canetti, "HMAC: Keyed-
-              Hashing for Message Authentication", RFC 2104,
-              DOI 10.17487/RFC2104, February 1997,
-              <https://www.rfc-editor.org/rfc/rfc2104>.
-
-   [RFC4949]  Shirey, R., "Internet Security Glossary, Version 2",
-              FYI 36, RFC 4949, DOI 10.17487/RFC4949, August 2007,
-              <https://www.rfc-editor.org/rfc/rfc4949>.
-
-   [RFC5869]  Krawczyk, H. and P. Eronen, "HMAC-based Extract-and-Expand
-              Key Derivation Function (HKDF)", RFC 5869,
-              DOI 10.17487/RFC5869, May 2010,
-              <https://www.rfc-editor.org/rfc/rfc5869>.
-
-   [RFC6090]  McGrew, D., Igoe, K., and M. Salter, "Fundamental Elliptic
-              Curve Cryptography Algorithms", RFC 6090,
-              DOI 10.17487/RFC6090, February 2011,
-              <https://www.rfc-editor.org/rfc/rfc6090>.
-
-   [RFC7748]  Langley, A., Hamburg, M., and S. Turner, "Elliptic Curves
-              for Security", RFC 7748, DOI 10.17487/RFC7748, January
-              2016, <https://www.rfc-editor.org/rfc/rfc7748>.
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
 
    [RFC8032]  Josefsson, S. and I. Liusvaara, "Edwards-Curve Digital
               Signature Algorithm (EdDSA)", RFC 8032,
               DOI 10.17487/RFC8032, January 2017,
               <https://www.rfc-editor.org/rfc/rfc8032>.
 
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
    [RFC8610]  Birkholz, H., Vigano, C., and C. Bormann, "Concise Data
               Definition Language (CDDL): A Notational Convention to
               Express Concise Binary Object Representation (CBOR) and
               JSON Data Structures", RFC 8610, DOI 10.17487/RFC8610,
               June 2019, <https://www.rfc-editor.org/rfc/rfc8610>.
-
-   [RFC8812]  Jones, M., "CBOR Object Signing and Encryption (COSE) and
-              JSON Object Signing and Encryption (JOSE) Registrations
-              for Web Authentication (WebAuthn) Algorithms", RFC 8812,
-              DOI 10.17487/RFC8812, August 2020,
-              <https://www.rfc-editor.org/rfc/rfc8812>.
 
    [RFC9052]  Schaad, J., "CBOR Object Signing and Encryption (COSE):
               Structures and Process", STD 96, RFC 9052,
@@ -506,60 +496,30 @@ Table of Contents
               <https://www.rfc-editor.org/rfc/rfc9380>.
 
    [SEC1]     Certicom Research, "SEC 1: Elliptic Curve Cryptography",
-              2009, <http://www.secg.org/sec1-v2.pdf>.
-
-   [SEC2]     Certicom Research, "SEC 2: Recommended Elliptic Curve
-              Domain Parameters", 2010,
-              <http://www.secg.org/sec2-v2.pdf>.
+              May 2009, <https://www.secg.org/sec1-v2.pdf>.
 
 5.2.  Informative References
 
-   [ARKG]     "The Asynchronous Remote Key Generation (ARKG) algorithm",
-              2024, <https://datatracker.ietf.org/doc/draft-
-              bradleylundberg-cfrg-arkg/>.
-
-   [BIP32]    Wuille, P., "BIP 32 Hierarchical Deterministic Wallets",
-              2012, <https://github.com/bitcoin/bips/blob/master/bip-
-              0032.mediawiki>.
-
-   [Clermont] Clermont, S. A., "Post Quantum Asynchronous Remote Key
-              Generation. Master's thesis", 2022,
-              <https://www.cryptoplexity.informatik.tu-
-              darmstadt.de/media/crypt/teaching_1/theses_1/
-              Sebastian_Clermont_Thesis.pdf>.
+   [ARKG]     Lundberg, E. and J. Bradley, "The Asynchronous Remote Key
+              Generation (ARKG) algorithm", 2024,
+              <https://datatracker.ietf.org/doc/draft-bradleylundberg-
+              cfrg-arkg/>.
 
    [COSE-Hash-Envelope]
               Steele, O., Lasker, S., and H. Birkholz, "COSE Hash
               Envelope", 2024, <https://datatracker.ietf.org/doc/draft-
               ietf-cose-hash-envelope/>.
 
-   [Frymann2020]
-              Frymann, N., Gardham, D., Kiefer, F., Lundberg, E.,
-              Manulis, M., and D. Nilsson, "Asynchronous Remote Key
-              Generation: An Analysis of Yubico's Proposal for W3C
-              WebAuthn. CCS '20: Proceedings of the 2020 ACM SIGSAC
-              Conference on Computer and Communications Security", 2020,
-              <https://eprint.iacr.org/2020/1004>.
+   [FIPS-186-5]
+              National Institute of Standards and Technology, "Digital
+              Signature Standard (DSS)", February 2023,
+              <https://nvlpubs.nist.gov/nistpubs/FIPS/
+              NIST.FIPS.186-5.pdf>.
 
-   [Frymann2023]
-              Frymann, N., Gardham, D., and M. Manulis, "Asynchronous
-              Remote Key Generation for Post-Quantum Cryptosystems from
-              Lattices. 2023 IEEE 8th European Symposium on Security and
-              Privacy", 2023, <https://eprint.iacr.org/2023/419>.
-
-   [Shoup]    Shoup, V., "A Proposal for an ISO Standard for Public Key
-              Encryption (version 2.0)", 2001,
-              <https://www.shoup.net/papers/iso-2.pdf>.
-
-   [WebAuthn-Recovery]
-              Lundberg, E. and D. Nilsson, "WebAuthn recovery extension:
-              Asynchronous delegated key generation without shared
-              secrets. GitHub", 2019,
-              <https://github.com/Yubico/webauthn-recovery-extension>.
-
-   [Wilson]   Wilson, S. M., "Post-Quantum Account Recovery for
-              Passwordless Authentication. Master's thesis", 2023,
-              <http://hdl.handle.net/10012/19316>.
+   [FIPS-204] National Institute of Standards and Technology, "Module-
+              Lattice-Based Digital Signature Standard", August 2024,
+              <https://nvlpubs.nist.gov/nistpubs/FIPS/
+              NIST.FIPS.204.pdf>.
 
 Document History
 
