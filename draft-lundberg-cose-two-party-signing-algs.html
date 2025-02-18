@@ -20,15 +20,15 @@ The resulting signatures are identical in structure to those computed by a singl
 and can be verified using the same verification procedure
 without additional steps to preprocess the signed data. 
     " name="description">
-<meta content="xml2rfc 3.26.0" name="generator">
+<meta content="xml2rfc 3.27.0" name="generator">
 <meta content="COSE" name="keyword">
 <meta content="Signing" name="keyword">
 <meta content="Two-Party" name="keyword">
 <meta content="Algorithms" name="keyword">
 <meta content="draft-lundberg-cose-two-party-signing-algs-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.26.0
-    Python 3.12.8
+  xml2rfc 3.27.0
+    Python 3.12.9
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
@@ -1062,7 +1062,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Lundberg &amp; Jones</td>
-<td class="center">Expires 21 August 2025</td>
+<td class="center">Expires 22 August 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1075,12 +1075,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-lundberg-cose-two-party-signing-algs-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-02-17" class="published">17 February 2025</time>
+<time datetime="2025-02-18" class="published">18 February 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-08-21">21 August 2025</time></dd>
+<dd class="expires"><time datetime="2025-08-22">22 August 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1144,7 +1144,7 @@ without additional steps to preprocess the signed data.<a href="#section-abstrac
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 21 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 22 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1272,11 +1272,13 @@ The resulting signatures are identical to those computed by a single party,
 and can be verified using the same verification procedures
 without additional special steps to process the signed data.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <p id="section-1-5">However some signature algorithms,
-for example PureEdDSA <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span> and ML-DSA <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>,
+for example, PureEdDSA <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span> and ML-DSA <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>,
 cannot be split in this way and therefore cannot be assigned two-party signing algorithm identifiers.
-If such a signature algorithm defines a "pre-hashed" variant,
+However, if such a signature algorithm defines a "pre-hashed" variant,
 such as Ed25519ph <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span> or HashML-DSA <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>,
-that algorithm can be assigned a two-party signing algorithm identifier instead.<a href="#section-1-5" class="pilcrow">¶</a></p>
+that "pre-hashed" algorithm can also be assigned a two-party signing algorithm identifier,
+enabling the hashing step to be performed by the <em>digester</em>
+and the signing step to be executed by the <em>signer</em>.<a href="#section-1-5" class="pilcrow">¶</a></p>
 <div id="requirements-notation-and-conventions">
 <section id="section-1.1">
         <h3 id="name-requirements-notation-and-c">
