@@ -46,6 +46,27 @@ author:
   country: United States
 
 normative:
+  COSE-ML-DSA:
+    title: ML-DSA for JOSE and COSE
+    target: https://datatracker.ietf.org/doc/draft-ietf-cose-dilithium/
+    author:
+    - name: Michael Prorock
+      org: mesur.io
+      email: mprorock@mesur.io
+    - name: Orie Steele
+      ins: O. Steele
+      org: Transmute
+      email: orie@transmute.industries
+    - name: Rafael Misoczki
+      org: Google
+      email: rafaelmisoczki@google.com
+    - name: Michael Osborne
+      org: IBM
+      email: osb@zurich.ibm.com
+    - name: Christine Cloostermans
+      org: NXP
+      email: christine.cloostermans@nxp.com
+    date: 2024
   fully-spec-algs:
     title: Fully-Specified Algorithms for JOSE and COSE
     target: https://datatracker.ietf.org/doc/draft-ietf-jose-fully-specified-algorithms/
@@ -317,12 +338,13 @@ COSE_Key_Ref = COSE_Key .within {
 ~~~
 
 The following CDDL example represents a reference to an ML-DSA-65 key,
+which uses the `AKP` key type [COSE-ML-DSA],
 along with the value of the _ctx_ parameter to ML-DSA.Sign [FIPS-204]:
 
 ~~~cddl
 {
-  1: TBD,      ; kty: Ref-ML-DSA
-               ; kid: Opaque identifier of the ML-DSA key
+  1: TBD,      ; kty: Ref-AKP
+               ; kid: Opaque identifier of the AKP key
   2: h'92bc2bfa738f5bb07803fb9c0c58020791acd29fbe253baa7a03ac84f4b26d44',
 
   3: TBD,      ; alg: ML-DSA-65
@@ -369,19 +391,19 @@ This section registers the following values in the IANA "COSE Key Types" registr
   - Value: TBD (Requested assignment -1)
   - Description: Reference to a key pair of key type "OKP"
   - Capabilities: \[kty(-1), crv\]
-  - Reference: {{cose-key-refs}} of this document
+  - Reference: {{cose-key-refs}} of this specification
 
 - Name: Ref-EC2
   - Value: TBD (Requested assignment -2)
   - Description: Reference to a key pair of key type "EC2"
-  - Capabilities: \[kty(-1), crv\]
-  - Reference: {{cose-key-refs}} of this document
+  - Capabilities: \[kty(-2), crv\]
+  - Reference: {{cose-key-refs}} of this specification
 
-- Name: Ref-ML-DSA
-  - Value: TBD
-  - Description: Reference to a key pair of key type "ML-DSA"
+- Name: Ref-AKP
+  - Value: TBD (Requested assignment -7)
+  - Description: Reference to a key pair of key type "AKP"
   - Capabilities: \[kty(TBD), ctx\]
-  - Reference: TBD
+  - Reference: {{cose-key-refs}} of this specification
 
 These registrations add the following choices to the CDDL [RFC8610] type socket `$COSE_kty_ref`:
 
@@ -396,12 +418,12 @@ $COSE_kty_ref /= TBD      ; Value TBD
 
 This section registers the following values in the IANA "COSE Key Type Parameters" registry [IANA.COSE]:
 
-- Key Type: TBD (Ref-ML-DSA)
+- Key Type: TBD (Ref-AKP)
   - Name: ctx
   - Label: -1
   - CBOR Type: bstr
   - Description: ctx argument to ML-DSA.Sign or HashML-DSA.Sign
-  - Reference: TBD
+  - Reference: {{cose-key-refs}} of this specification
 
 
 --- back
