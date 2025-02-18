@@ -436,7 +436,7 @@ This section registers the following values in the IANA "COSE Key Types" registr
   - Reference: {{cose-key-refs}} of this specification
 
 - Name: Ref-AKP
-  - Value: TBD (Requested assignment -3)
+  - Value: TBD (Requested assignment -7)
   - Description: Reference to a key pair of key type "AKP"
   - Capabilities: \[kty(TBD), ctx\]
   - Reference: {{cose-key-refs}} of this specification
