@@ -1518,12 +1518,13 @@ COSE_Key_Ref = COSE_Key .within {
 </pre><a href="#section-3-4" class="pilcrow">¶</a>
 </div>
 <p id="section-3-5">The following CDDL example represents a reference to an ML-DSA-65 key,
+which uses the <code>AKP</code> key type <span>[<a href="#COSE-ML-DSA" class="cite xref">COSE-ML-DSA</a>]</span>,
 along with the value of the <em>ctx</em> parameter to ML-DSA.Sign <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>:<a href="#section-3-5" class="pilcrow">¶</a></p>
 <div class="lang-cddl sourcecode" id="section-3-6">
 <pre>
 {
-  1: TBD,      ; kty: Ref-ML-DSA
-               ; kid: Opaque identifier of the ML-DSA key
+  1: TBD,      ; kty: Ref-AKP
+               ; kid: Opaque identifier of the AKP key
   2: h'92bc2bfa738f5bb07803fb9c0c58020791acd29fbe253baa7a03ac84f4b26d44',
 
   3: TBD,      ; alg: ML-DSA-65
@@ -1585,7 +1586,7 @@ and restricted for use with the ESP256 <span>[<a href="#fully-spec-algs" class="
                 <p id="section-4.1-2.1.2.3.1">Capabilities: [kty(-1), crv]<a href="#section-4.1-2.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-4.1-2.1.2.4">
-                <p id="section-4.1-2.1.2.4.1">Reference: <a href="#cose-key-refs" class="auto internal xref">Section 3</a> of this document<a href="#section-4.1-2.1.2.4.1" class="pilcrow">¶</a></p>
+                <p id="section-4.1-2.1.2.4.1">Reference: <a href="#cose-key-refs" class="auto internal xref">Section 3</a> of this specification<a href="#section-4.1-2.1.2.4.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
@@ -1599,27 +1600,27 @@ and restricted for use with the ESP256 <span>[<a href="#fully-spec-algs" class="
                 <p id="section-4.1-2.2.2.2.1">Description: Reference to a key pair of key type "EC2"<a href="#section-4.1-2.2.2.2.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-4.1-2.2.2.3">
-                <p id="section-4.1-2.2.2.3.1">Capabilities: [kty(-1), crv]<a href="#section-4.1-2.2.2.3.1" class="pilcrow">¶</a></p>
+                <p id="section-4.1-2.2.2.3.1">Capabilities: [kty(-2), crv]<a href="#section-4.1-2.2.2.3.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-4.1-2.2.2.4">
-                <p id="section-4.1-2.2.2.4.1">Reference: <a href="#cose-key-refs" class="auto internal xref">Section 3</a> of this document<a href="#section-4.1-2.2.2.4.1" class="pilcrow">¶</a></p>
+                <p id="section-4.1-2.2.2.4.1">Reference: <a href="#cose-key-refs" class="auto internal xref">Section 3</a> of this specification<a href="#section-4.1-2.2.2.4.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
           <li class="normal" id="section-4.1-2.3">
-            <p id="section-4.1-2.3.1">Name: Ref-ML-DSA<a href="#section-4.1-2.3.1" class="pilcrow">¶</a></p>
+            <p id="section-4.1-2.3.1">Name: Ref-AKP<a href="#section-4.1-2.3.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4.1-2.3.2.1">
-                <p id="section-4.1-2.3.2.1.1">Value: TBD<a href="#section-4.1-2.3.2.1.1" class="pilcrow">¶</a></p>
+                <p id="section-4.1-2.3.2.1.1">Value: TBD (Requested assignment -7)<a href="#section-4.1-2.3.2.1.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-4.1-2.3.2.2">
-                <p id="section-4.1-2.3.2.2.1">Description: Reference to a key pair of key type "ML-DSA"<a href="#section-4.1-2.3.2.2.1" class="pilcrow">¶</a></p>
+                <p id="section-4.1-2.3.2.2.1">Description: Reference to a key pair of key type "AKP"<a href="#section-4.1-2.3.2.2.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-4.1-2.3.2.3">
                 <p id="section-4.1-2.3.2.3.1">Capabilities: [kty(TBD), ctx]<a href="#section-4.1-2.3.2.3.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-4.1-2.3.2.4">
-                <p id="section-4.1-2.3.2.4.1">Reference: TBD<a href="#section-4.1-2.3.2.4.1" class="pilcrow">¶</a></p>
+                <p id="section-4.1-2.3.2.4.1">Reference: <a href="#cose-key-refs" class="auto internal xref">Section 3</a> of this specification<a href="#section-4.1-2.3.2.4.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
@@ -1642,7 +1643,7 @@ $COSE_kty_ref /= TBD      ; Value TBD
 <p id="section-4.2-1">This section registers the following values in the IANA "COSE Key Type Parameters" registry <span>[<a href="#IANA.COSE" class="cite xref">IANA.COSE</a>]</span>:<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4.2-2.1">
-            <p id="section-4.2-2.1.1">Key Type: TBD (Ref-ML-DSA)<a href="#section-4.2-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-4.2-2.1.1">Key Type: TBD (Ref-AKP)<a href="#section-4.2-2.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4.2-2.1.2.1">
                 <p id="section-4.2-2.1.2.1.1">Name: ctx<a href="#section-4.2-2.1.2.1.1" class="pilcrow">¶</a></p>
@@ -1657,7 +1658,7 @@ $COSE_kty_ref /= TBD      ; Value TBD
                 <p id="section-4.2-2.1.2.4.1">Description: ctx argument to ML-DSA.Sign or HashML-DSA.Sign<a href="#section-4.2-2.1.2.4.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-4.2-2.1.2.5">
-                <p id="section-4.2-2.1.2.5.1">Reference: TBD<a href="#section-4.2-2.1.2.5.1" class="pilcrow">¶</a></p>
+                <p id="section-4.2-2.1.2.5.1">Reference: <a href="#cose-key-refs" class="auto internal xref">Section 3</a> of this specification<a href="#section-4.2-2.1.2.5.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
@@ -1677,6 +1678,10 @@ $COSE_kty_ref /= TBD      ; Value TBD
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
+<dt id="COSE-ML-DSA">[COSE-ML-DSA]</dt>
+        <dd>
+<span class="refAuthor">Prorock, M.</span>, <span class="refAuthor">Steele, O.</span>, <span class="refAuthor">Misoczki, R.</span>, <span class="refAuthor">Osborne, M.</span>, and <span class="refAuthor">C. Cloostermans</span>, <span class="refTitle">"ML-DSA for JOSE and COSE"</span>, <time datetime="2024" class="refDate">2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-ietf-cose-dilithium/">https://datatracker.ietf.org/doc/draft-ietf-cose-dilithium/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="fully-spec-algs">[fully-spec-algs]</dt>
         <dd>
 <span class="refAuthor">Jones, M. B.</span> and <span class="refAuthor">O. Steele</span>, <span class="refTitle">"Fully-Specified Algorithms for JOSE and COSE"</span>, <time datetime="2024" class="refDate">2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-ietf-jose-fully-specified-algorithms/">https://datatracker.ietf.org/doc/draft-ietf-jose-fully-specified-algorithms/</a>&gt;</span>. </dd>

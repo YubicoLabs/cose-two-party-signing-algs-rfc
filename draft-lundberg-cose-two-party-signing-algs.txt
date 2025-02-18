@@ -354,12 +354,12 @@ Table of Contents
    }
 
    The following CDDL example represents a reference to an ML-DSA-65
-   key, along with the value of the _ctx_ parameter to ML-DSA.Sign
-   [FIPS-204]:
+   key, which uses the AKP key type [COSE-ML-DSA], along with the value
+   of the _ctx_ parameter to ML-DSA.Sign [FIPS-204]:
 
    {
-     1: TBD,      ; kty: Ref-ML-DSA
-                  ; kid: Opaque identifier of the ML-DSA key
+     1: TBD,      ; kty: Ref-AKP
+                  ; kid: Opaque identifier of the AKP key
      2: h'92bc2bfa738f5bb07803fb9c0c58020791acd29fbe253baa7a03ac84f4b26d44',
 
      3: TBD,      ; alg: ML-DSA-65
@@ -407,7 +407,7 @@ Table of Contents
 
       -  Capabilities: [kty(-1), crv]
 
-      -  Reference: Section 3 of this document
+      -  Reference: Section 3 of this specification
 
    *  Name: Ref-EC2
 
@@ -415,19 +415,19 @@ Table of Contents
 
       -  Description: Reference to a key pair of key type "EC2"
 
-      -  Capabilities: [kty(-1), crv]
+      -  Capabilities: [kty(-2), crv]
 
-      -  Reference: Section 3 of this document
+      -  Reference: Section 3 of this specification
 
-   *  Name: Ref-ML-DSA
+   *  Name: Ref-AKP
 
-      -  Value: TBD
+      -  Value: TBD (Requested assignment -7)
 
-      -  Description: Reference to a key pair of key type "ML-DSA"
+      -  Description: Reference to a key pair of key type "AKP"
 
       -  Capabilities: [kty(TBD), ctx]
 
-      -  Reference: TBD
+      -  Reference: Section 3 of this specification
 
    These registrations add the following choices to the CDDL [RFC8610]
    type socket $COSE_kty_ref:
@@ -441,7 +441,7 @@ Table of Contents
    This section registers the following values in the IANA "COSE Key
    Type Parameters" registry [IANA.COSE]:
 
-   *  Key Type: TBD (Ref-ML-DSA)
+   *  Key Type: TBD (Ref-AKP)
 
       -  Name: ctx
 
@@ -451,11 +451,17 @@ Table of Contents
 
       -  Description: ctx argument to ML-DSA.Sign or HashML-DSA.Sign
 
-      -  Reference: TBD
+      -  Reference: Section 3 of this specification
 
 5.  References
 
 5.1.  Normative References
+
+   [COSE-ML-DSA]
+              Prorock, M., Steele, O., Misoczki, R., Osborne, M., and C.
+              Cloostermans, "ML-DSA for JOSE and COSE", 2024,
+              <https://datatracker.ietf.org/doc/draft-ietf-cose-
+              dilithium/>.
 
    [fully-spec-algs]
               Jones, M. B. and O. Steele, "Fully-Specified Algorithms
