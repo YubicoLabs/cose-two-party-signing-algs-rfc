@@ -432,7 +432,7 @@ This section registers the following values in the IANA "COSE Key Types" registr
 - Name: Ref-EC2
   - Value: TBD (Requested assignment -2)
   - Description: Reference to a key pair of key type "EC2"
-  - Capabilities: \[kty(-1), crv\]
+  - Capabilities: \[kty(-2), crv\]
   - Reference: {{cose-key-refs}} of this specification
 
 - Name: Ref-AKP
