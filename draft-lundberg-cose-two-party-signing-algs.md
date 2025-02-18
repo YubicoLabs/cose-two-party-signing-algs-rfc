@@ -180,11 +180,13 @@ and can be verified using the same verification procedures
 without additional special steps to process the signed data.
 
 However some signature algorithms,
-for example PureEdDSA [RFC8032] and ML-DSA [FIPS-204],
+for example, PureEdDSA [RFC8032] and ML-DSA [FIPS-204],
 cannot be split in this way and therefore cannot be assigned two-party signing algorithm identifiers.
-If such a signature algorithm defines a "pre-hashed" variant,
+However, if such a signature algorithm defines a "pre-hashed" variant,
 such as Ed25519ph [RFC8032] or HashML-DSA [FIPS-204],
-that algorithm can be assigned a two-party signing algorithm identifier instead.
+that "pre-hashed" algorithm can also be assigned a two-party signing algorithm identifier,
+enabling the hashing step to be performed by the _digester_
+and the signing step to be executed by the _signer_.
 
 ## Requirements Notation and Conventions
 
