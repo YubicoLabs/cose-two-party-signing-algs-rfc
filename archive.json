@@ -1,0 +1,414 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2025-02-20T00:04:31.585122+00:00",
+  "repo": "YubicoLabs/cose-two-party-signing-algs-rfc",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDON32VH86K3AFL",
+      "title": "Clerical Updates",
+      "url": "https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/pull/1",
+      "state": "MERGED",
+      "author": "selfissued",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Updates saying that the work is happening in the COSE working group and other editorial updates.",
+      "createdAt": "2025-02-11T20:23:14Z",
+      "updatedAt": "2025-02-12T12:00:22Z",
+      "baseRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "baseRefName": "main",
+      "baseRefOid": "bd8c33dead2a3213eb368dd9452c3634a5e11e58",
+      "headRepository": "selfissued/cose-two-party-signing-algs-rfc",
+      "headRefName": "mbj-clerical-updates",
+      "headRefOid": "f290959fe1b526cbf8487c46acf71eed49212141",
+      "closedAt": "2025-02-12T12:00:22Z",
+      "mergedAt": "2025-02-12T12:00:22Z",
+      "mergedBy": "emlun",
+      "mergeCommit": {
+        "oid": "f184e4afe0a9dd2316eca4426e79d3dfabfb3263"
+      },
+      "comments": [
+        {
+          "author": "emlun",
+          "authorAssociation": "MEMBER",
+          "body": "Thanks and welcome!",
+          "createdAt": "2025-02-12T11:51:27Z",
+          "updatedAt": "2025-02-12T11:51:27Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDON32VH86bqwgK",
+          "commit": {
+            "abbreviatedOid": "87a5944"
+          },
+          "author": "emlun",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-12T11:51:12Z",
+          "updatedAt": "2025-02-12T11:51:12Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDON32VH86K5_C5",
+      "title": "Tighten Introduction",
+      "url": "https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/pull/2",
+      "state": "MERGED",
+      "author": "selfissued",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-12T06:29:09Z",
+      "updatedAt": "2025-02-12T14:42:41Z",
+      "baseRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "baseRefName": "main",
+      "baseRefOid": "bd8c33dead2a3213eb368dd9452c3634a5e11e58",
+      "headRepository": "selfissued/cose-two-party-signing-algs-rfc",
+      "headRefName": "mbj-tighten-introduction",
+      "headRefOid": "5ad262a88bb06b8e14f4c09fbc3ee2f1c85ffcce",
+      "closedAt": "2025-02-12T14:42:41Z",
+      "mergedAt": "2025-02-12T14:42:41Z",
+      "mergedBy": "emlun",
+      "mergeCommit": {
+        "oid": "e43aa3da7625c3d9a8bc89419c526f7941e3626f"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDON32VH86bq3VD",
+          "commit": {
+            "abbreviatedOid": "161b33c"
+          },
+          "author": "emlun",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-12T12:03:52Z",
+          "updatedAt": "2025-02-12T12:08:41Z",
+          "comments": [
+            {
+              "originalPosition": 56,
+              "body": "Typo?\r\n```suggestion\r\nRather, these identifiers correspond to existing signature algorithms\r\nthat would typically be executed by a single party,\r\n```",
+              "createdAt": "2025-02-12T12:03:52Z",
+              "updatedAt": "2025-02-12T12:08:41Z"
+            },
+            {
+              "originalPosition": 56,
+              "body": "Alternatively:\r\n```suggestion\r\nRather, these identifiers represent existing signature algorithms\r\nthat would typically be executed by a single party,\r\n```",
+              "createdAt": "2025-02-12T12:04:17Z",
+              "updatedAt": "2025-02-12T12:08:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON32VH86bsnEg",
+          "commit": {
+            "abbreviatedOid": "5ad262a"
+          },
+          "author": "emlun",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-12T14:42:37Z",
+          "updatedAt": "2025-02-12T14:42:37Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDON32VH86LW9CB",
+      "title": "Improve references",
+      "url": "https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/pull/3",
+      "state": "MERGED",
+      "author": "selfissued",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Also add missing articles and capitalize \"Step\" when needed.",
+      "createdAt": "2025-02-16T05:05:50Z",
+      "updatedAt": "2025-02-17T15:45:41Z",
+      "baseRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "baseRefName": "main",
+      "baseRefOid": "e43aa3da7625c3d9a8bc89419c526f7941e3626f",
+      "headRepository": "selfissued/cose-two-party-signing-algs-rfc",
+      "headRefName": "mbj-references",
+      "headRefOid": "6519d9215a2a9e07c568b6b821da99115c1c7324",
+      "closedAt": "2025-02-17T15:45:40Z",
+      "mergedAt": "2025-02-17T15:45:40Z",
+      "mergedBy": "emlun",
+      "mergeCommit": {
+        "oid": "12a042073406c2e361e45a8908eb2521d41a6fd7"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDON32VH86cP5i5",
+          "commit": {
+            "abbreviatedOid": "6519d92"
+          },
+          "author": "emlun",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "Thanks!",
+          "createdAt": "2025-02-17T15:45:36Z",
+          "updatedAt": "2025-02-17T15:45:36Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDON32VH86LXx4x",
+      "title": "Tighten algorithm descriptions",
+      "url": "https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/pull/4",
+      "state": "MERGED",
+      "author": "selfissued",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-16T15:06:06Z",
+      "updatedAt": "2025-02-17T16:41:33Z",
+      "baseRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "baseRefName": "main",
+      "baseRefOid": "12a042073406c2e361e45a8908eb2521d41a6fd7",
+      "headRepository": "selfissued/cose-two-party-signing-algs-rfc",
+      "headRefName": "mbj-tighten-algs",
+      "headRefOid": "fcab7d0b549cca5efd4cf9ac5d7bdde62fe6abc1",
+      "closedAt": "2025-02-17T16:41:33Z",
+      "mergedAt": "2025-02-17T16:41:33Z",
+      "mergedBy": "emlun",
+      "mergeCommit": {
+        "oid": "70251f9e4e625b61a518958f38bf51a52d34f9f7"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDON32VH86cP7Kt",
+          "commit": {
+            "abbreviatedOid": "a7f573b"
+          },
+          "author": "emlun",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-17T15:48:33Z",
+          "updatedAt": "2025-02-17T15:48:33Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDON32VH86LX1f6",
+      "title": "ML-DSA uses AKP Key Type",
+      "url": "https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/pull/5",
+      "state": "MERGED",
+      "author": "selfissued",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "There is no ML-DSA Key Type.",
+      "createdAt": "2025-02-16T15:40:23Z",
+      "updatedAt": "2025-02-18T14:46:22Z",
+      "baseRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "baseRefName": "main",
+      "baseRefOid": "e43aa3da7625c3d9a8bc89419c526f7941e3626f",
+      "headRepository": "selfissued/cose-two-party-signing-algs-rfc",
+      "headRefName": "mbj-akp",
+      "headRefOid": "670a57504fbd1839096718350edc8423935f8337",
+      "closedAt": "2025-02-18T14:46:22Z",
+      "mergedAt": "2025-02-18T14:46:21Z",
+      "mergedBy": "emlun",
+      "mergeCommit": {
+        "oid": "c732ae784f0212cd7092c1d2037c417249bca6bb"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDON32VH86cQfZC",
+          "commit": {
+            "abbreviatedOid": "bdd3de0"
+          },
+          "author": "emlun",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-17T16:55:29Z",
+          "updatedAt": "2025-02-17T16:55:30Z",
+          "comments": [
+            {
+              "originalPosition": 62,
+              "body": "The pattern I've been toying with for the `Ref-` values is to use the negative of the corresponding key type value, which would be -7 in this case. But I also guess it would be unwise to (even if unofficially) commit half the value space to that purpose. What do you think?",
+              "createdAt": "2025-02-17T16:55:29Z",
+              "updatedAt": "2025-02-17T16:55:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON32VH86cQfnh",
+          "commit": {
+            "abbreviatedOid": "bdd3de0"
+          },
+          "author": "emlun",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-17T16:56:01Z",
+          "updatedAt": "2025-02-17T16:56:02Z",
+          "comments": [
+            {
+              "originalPosition": 54,
+              "body": "Unrelated to the PR, but I noticed now that `kty(-1)` here should be `kty(-2)`.",
+              "createdAt": "2025-02-17T16:56:01Z",
+              "updatedAt": "2025-02-17T16:56:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON32VH86cSnwO",
+          "commit": {
+            "abbreviatedOid": "bdd3de0"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-18T00:36:24Z",
+          "updatedAt": "2025-02-18T00:36:24Z",
+          "comments": [
+            {
+              "originalPosition": 54,
+              "body": "Corrected in https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/pull/5/commits/ed5f2ea7b0622bdd081c90f5dfea3a1e4ab0d5b8",
+              "createdAt": "2025-02-18T00:36:24Z",
+              "updatedAt": "2025-02-18T00:36:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON32VH86cSpcx",
+          "commit": {
+            "abbreviatedOid": "bdd3de0"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-18T00:43:13Z",
+          "updatedAt": "2025-02-18T00:43:13Z",
+          "comments": [
+            {
+              "originalPosition": 62,
+              "body": "Updated to match the pattern in https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/pull/5/commits/670a57504fbd1839096718350edc8423935f8337.\r\n\r\nThat's a fine pattern to follow.  I agree with you that we couldn't get away with officially reserving half the space.",
+              "createdAt": "2025-02-18T00:43:13Z",
+              "updatedAt": "2025-02-18T00:43:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON32VH86cZIC0",
+          "commit": {
+            "abbreviatedOid": "bdd3de0"
+          },
+          "author": "emlun",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-18T14:46:16Z",
+          "updatedAt": "2025-02-18T14:46:16Z",
+          "comments": [
+            {
+              "originalPosition": 54,
+              "body": "Thanks!",
+              "createdAt": "2025-02-18T14:46:16Z",
+              "updatedAt": "2025-02-18T14:46:17Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDON32VH86LfmkR",
+      "title": "Pre-hash clarifications",
+      "url": "https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/pull/6",
+      "state": "MERGED",
+      "author": "selfissued",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-17T17:45:54Z",
+      "updatedAt": "2025-02-18T14:45:10Z",
+      "baseRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "baseRefName": "main",
+      "baseRefOid": "70251f9e4e625b61a518958f38bf51a52d34f9f7",
+      "headRepository": "selfissued/cose-two-party-signing-algs-rfc",
+      "headRefName": "mbj-pre-hash-clarifications",
+      "headRefOid": "088e17dbdf457d8ce845dbc6f3b77c2eeff0b8f4",
+      "closedAt": "2025-02-18T14:45:10Z",
+      "mergedAt": "2025-02-18T14:45:10Z",
+      "mergedBy": "emlun",
+      "mergeCommit": {
+        "oid": "bf2d96aecdaf2fe61a3dead2ed203167f1616dc7"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
+}
