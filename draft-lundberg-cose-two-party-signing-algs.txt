@@ -5,8 +5,8 @@
 COSE                                                    E. Lundberg, Ed.
 Internet-Draft                                                    Yubico
 Intended status: Standards Track                             M. B. Jones
-Expires: 22 August 2025                           Self-Issued Consulting
-                                                        18 February 2025
+Expires: 31 August 2025                           Self-Issued Consulting
+                                                        27 February 2025
 
 
                  COSE Algorithms for Two-Party Signing
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 August 2025.
+   This Internet-Draft will expire on 31 August 2025.
 
 Copyright Notice
 
@@ -194,24 +194,27 @@ Table of Contents
 
    The following algorithm identifiers are defined:
 
-     +===========+=======+===========+==============================+
-     | Name      | COSE  | Base      | Description                  |
-     |           | Value | algorithm |                              |
-     +===========+=======+===========+==============================+
-     | ESP256-2p | TBD   | ESP256    | ESP256 [fully-spec-algs]     |
-     |           |       |           | divided as defined in        |
-     |           |       |           | Section 2.1 of this document |
-     +-----------+-------+-----------+------------------------------+
-     | ESP384-2p | TBD   | ESP384    | ESP384 [fully-spec-algs]     |
-     |           |       |           | divided as defined in        |
-     |           |       |           | Section 2.1 of this document |
-     +-----------+-------+-----------+------------------------------+
-     | ESP512-2p | TBD   | ESP512    | ESP512 [fully-spec-algs]     |
-     |           |       |           | divided as defined in        |
-     |           |       |           | Section 2.1 of this document |
-     +-----------+-------+-----------+------------------------------+
+   +===========+=======+===========+===================================+
+   | Name      | COSE  | Base      | Description                       |
+   |           | Value | algorithm |                                   |
+   +===========+=======+===========+===================================+
+   | ESP256-2p | TBD   | ESP256    | ESP256                            |
+   |           |       |           | [I-D.jose-fully-spec-algs]        |
+   |           |       |           | divided as defined in             |
+   |           |       |           | Section 2.1 of this document      |
+   +-----------+-------+-----------+-----------------------------------+
+   | ESP384-2p | TBD   | ESP384    | ESP384                            |
+   |           |       |           | [I-D.jose-fully-spec-algs]        |
+   |           |       |           | divided as defined in             |
+   |           |       |           | Section 2.1 of this document      |
+   +-----------+-------+-----------+-----------------------------------+
+   | ESP512-2p | TBD   | ESP512    | ESP512                            |
+   |           |       |           | [I-D.jose-fully-spec-algs]        |
+   |           |       |           | divided as defined in             |
+   |           |       |           | Section 2.1 of this document      |
+   +-----------+-------+-----------+-----------------------------------+
 
-                                 Table 1
+                                  Table 1
 
 2.2.  HashEdDSA
 
@@ -242,24 +245,26 @@ Table of Contents
 
    The following algorithm identifiers are defined:
 
-    +==============+=======+===========+=============================+
-    | Name         | COSE  | Base      | Description                 |
-    |              | Value | algorithm |                             |
-    +==============+=======+===========+=============================+
-    | Ed25519ph-2p | TBD   | Ed25519ph | Ed25519ph [fully-spec-algs] |
-    |              |       |           | divided as defined in       |
-    |              |       |           | Section 2.2 of this         |
-    |              |       |           | document (NOTE: Ed25519ph   |
-    |              |       |           | not yet registered)         |
-    +--------------+-------+-----------+-----------------------------+
-    | Ed448ph-2p   | TBD   | Ed448ph   | Ed448ph [fully-spec-algs]   |
-    |              |       |           | divided as defined in       |
-    |              |       |           | Section 2.2 of this         |
-    |              |       |           | document (NOTE: Ed448ph not |
-    |              |       |           | yet registered)             |
-    +--------------+-------+-----------+-----------------------------+
+     +==============+=======+===========+============================+
+     | Name         | COSE  | Base      | Description                |
+     |              | Value | algorithm |                            |
+     +==============+=======+===========+============================+
+     | Ed25519ph-2p | TBD   | Ed25519ph | Ed25519ph                  |
+     |              |       |           | [I-D.jose-fully-spec-algs] |
+     |              |       |           | divided as defined in      |
+     |              |       |           | Section 2.2 of this        |
+     |              |       |           | document (NOTE: Ed25519ph  |
+     |              |       |           | not yet registered)        |
+     +--------------+-------+-----------+----------------------------+
+     | Ed448ph-2p   | TBD   | Ed448ph   | Ed448ph                    |
+     |              |       |           | [I-D.jose-fully-spec-algs] |
+     |              |       |           | divided as defined in      |
+     |              |       |           | Section 2.2 of this        |
+     |              |       |           | document (NOTE: Ed448ph    |
+     |              |       |           | not yet registered)        |
+     +--------------+-------+-----------+----------------------------+
 
-                                 Table 2
+                                  Table 2
 
 2.3.  HashML-DSA
 
@@ -323,14 +328,14 @@ Table of Contents
 
 3.  COSE Key Reference Types
 
-   While keys used by many other algorithms can usually be referenced by
-   a single atomic identifier, such as that used in the kid parameter in
-   a COSE_Key object or in the unprotected header of a COSE_Recipient,
+   While keys used by many algorithms can usually be referenced by a
+   single atomic identifier, such as that used in the kid parameter in a
+   COSE_Key object or in the unprotected header of a COSE_Recipient,
    some signature algorithms use additional parameters to the signature
    generation beyond the signing private key and message to be signed.
    For example, ML-DSA [FIPS-204] has the additional parameter _ctx_ and
-   ARKG-Derive-Secret-Key [ARKG] has the parameters kh and info, in
-   addition to the private key.
+   ARKG-Derive-Secret-Key [I-D.bradleylundberg-ARKG] has the parameters
+   kh and info, in addition to the private key.
 
    While these additional parameters are simple to provide to the API of
    the signing procedure in a single-party context, in a two-party
@@ -369,8 +374,8 @@ Table of Contents
    }
 
    The following CDDL example represents a reference to a key derived by
-   ARKG-P256ADD-ECDH [ARKG] and restricted for use with the ESP256
-   [fully-spec-algs] signature algorithm:
+   ARKG-P256ADD-ECDH [I-D.bradleylundberg-ARKG] and restricted for use
+   with the ESP256 [I-D.jose-fully-spec-algs] signature algorithm:
 
    {
      1: -65538,   ; kty: Ref-ARKG-derived
@@ -434,7 +439,7 @@ Table of Contents
 
    $COSE_kty_ref /= -1       ; Value TBD
    $COSE_kty_ref /= -2       ; Value TBD
-   $COSE_kty_ref /= TBD      ; Value TBD
+   $COSE_kty_ref /= -7       ; Value TBD
 
 4.2.  COSE Key Type Parameters Registrations
 
@@ -463,11 +468,19 @@ Table of Contents
               <https://datatracker.ietf.org/doc/draft-ietf-cose-
               dilithium/>.
 
-   [fully-spec-algs]
+   [I-D.bradleylundberg-ARKG]
+              Lundberg, E. and J. Bradley, "The Asynchronous Remote Key
+              Generation (ARKG) algorithm", Work in Progress, Internet-
+              Draft, draft-bradleylundberg-cfrg-arkg-03, 27 November
+              2024, <https://datatracker.ietf.org/doc/html/draft-
+              bradleylundberg-cfrg-arkg-03>.
+
+   [I-D.jose-fully-spec-algs]
               Jones, M. B. and O. Steele, "Fully-Specified Algorithms
-              for JOSE and COSE", 2024,
-              <https://datatracker.ietf.org/doc/draft-ietf-jose-fully-
-              specified-algorithms/>.
+              for JOSE and COSE", Work in Progress, Internet-Draft,
+              draft-ietf-jose-fully-specified-algorithms-07, 20 February
+              2025, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              jose-fully-specified-algorithms-07>.
 
    [IANA.COSE]
               IANA, "CBOR Object Signing and Encryption (COSE)", n.d.,
@@ -507,11 +520,6 @@ Table of Contents
               May 2009, <https://www.secg.org/sec1-v2.pdf>.
 
 5.2.  Informative References
-
-   [ARKG]     Lundberg, E. and J. Bradley, "The Asynchronous Remote Key
-              Generation (ARKG) algorithm", 2024,
-              <https://datatracker.ietf.org/doc/draft-bradleylundberg-
-              cfrg-arkg/>.
 
    [COSE-Hash-Envelope]
               Steele, O., Lasker, S., and H. Birkholz, "COSE Hash
