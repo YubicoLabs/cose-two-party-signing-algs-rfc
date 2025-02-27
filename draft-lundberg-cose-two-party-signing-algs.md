@@ -67,20 +67,7 @@ normative:
       org: NXP
       email: christine.cloostermans@nxp.com
     date: 2024
-  fully-spec-algs:
-    title: Fully-Specified Algorithms for JOSE and COSE
-    target: https://datatracker.ietf.org/doc/draft-ietf-jose-fully-specified-algorithms/
-    author:
-    - name: Michael B. Jones
-      ins: M.B. Jones
-      org: Self-Issued Consulting
-      email: michael_b_jones@hotmail.com
-      uri: https://self-issued.info/
-    - name: Orie Steele
-      ins: O. Steele
-      org: Transmute
-      email: orie@transmute.industries
-    date: 2024
+  I-D.jose-fully-spec-algs: I-D.draft-ietf-jose-fully-specified-algorithms
   IANA.COSE:
     target: https://www.iana.org/assignments/cose/
     title: CBOR Object Signing and Encryption (COSE)
@@ -246,9 +233,9 @@ The following algorithm identifiers are defined:
 
 | Name      | COSE Value | Base algorithm | Description |
 | --------- | ---------- | -------------- | ----------- |
-| ESP256-2p | TBD        | ESP256         | ESP256 [fully-spec-algs] divided as defined in {{ecdsa-2p}} of this document |
-| ESP384-2p | TBD        | ESP384         | ESP384 [fully-spec-algs] divided as defined in {{ecdsa-2p}} of this document |
-| ESP512-2p | TBD        | ESP512         | ESP512 [fully-spec-algs] divided as defined in {{ecdsa-2p}} of this document |
+| ESP256-2p | TBD        | ESP256         | ESP256 [I-D.jose-fully-spec-algs] divided as defined in {{ecdsa-2p}} of this document |
+| ESP384-2p | TBD        | ESP384         | ESP384 [I-D.jose-fully-spec-algs] divided as defined in {{ecdsa-2p}} of this document |
+| ESP512-2p | TBD        | ESP512         | ESP512 [I-D.jose-fully-spec-algs] divided as defined in {{ecdsa-2p}} of this document |
 
 
 ## HashEdDSA {#eddsa-2p}
@@ -273,8 +260,8 @@ The following algorithm identifiers are defined:
 
 | Name         | COSE Value | Base algorithm | Description |
 | ------------ | ---------- | -------------- | ----------- |
-| Ed25519ph-2p | TBD        | Ed25519ph      | Ed25519ph [fully-spec-algs] divided as defined in {{eddsa-2p}} of this document (NOTE: Ed25519ph not yet registered) |
-| Ed448ph-2p   | TBD        | Ed448ph        | Ed448ph [fully-spec-algs] divided as defined in {{eddsa-2p}} of this document (NOTE: Ed448ph not yet registered) |
+| Ed25519ph-2p | TBD        | Ed25519ph      | Ed25519ph [I-D.jose-fully-spec-algs] divided as defined in {{eddsa-2p}} of this document (NOTE: Ed25519ph not yet registered) |
+| Ed448ph-2p   | TBD        | Ed448ph        | Ed448ph [I-D.jose-fully-spec-algs] divided as defined in {{eddsa-2p}} of this document (NOTE: Ed448ph not yet registered) |
 
 
 ## HashML-DSA {#ml-dsa-2p}
@@ -356,7 +343,7 @@ along with the value of the _ctx_ parameter to ML-DSA.Sign [FIPS-204]:
 
 
 The following CDDL example represents a reference to a key derived by `ARKG-P256ADD-ECDH` [ARKG]
-and restricted for use with the ESP256 [fully-spec-algs] signature algorithm:
+and restricted for use with the ESP256 [I-D.jose-fully-spec-algs] signature algorithm:
 
 ~~~cddl
 {
