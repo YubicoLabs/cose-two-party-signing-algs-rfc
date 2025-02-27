@@ -83,8 +83,9 @@ Table of Contents
      2.3.  HashML-DSA
    3.  COSE Key Reference Types
    4.  IANA Considerations
-     4.1.  COSE Key Types Registrations
-     4.2.  COSE Key Type Parameters Registrations
+     4.1.  COSE Algorithms Registrations
+     4.2.  COSE Key Types Registrations
+     4.3.  COSE Key Type Parameters Registrations
    5.  References
      5.1.  Normative References
      5.2.  Informative References
@@ -120,7 +121,7 @@ Table of Contents
    Since different signature algorithms digest the message in different
    ways and at different stages of the algorithm, there is no generally-
    applicable way to define such a division point for every possible
-   signature algorithm.  Therefore, this document defines algorithm
+   signature algorithm.  Therefore, this specification defines algorithm
    identifiers encoding, for a specific set of signature algorithms,
    which steps of the signature algorithm are performed by the
    _digester_ (e.g., software application) and which are performed by
@@ -167,14 +168,14 @@ Table of Contents
    Section 2.2.5 of [RFC9380], this message formatting is also performed
    by the _signer_.
 
-   The algorithm identifiers defined in this document MUST NOT appear in
-   COSE structures other than COSE_Key_Ref (see Section 3).  They are
-   meant only for coordination between the _digester_ and the _signer_
-   in a two-party signing protocol.  Representations of the keys used
-   and the resulting signatures MUST use the corresponding conventional
-   algorithm identifiers instead.  These are listed in the "Base
-   algorithm" column in the tables defining two-party signing algorithm
-   identifiers.
+   The algorithm identifiers defined in this specification MUST NOT
+   appear in COSE structures other than COSE_Key_Ref (see Section 3).
+   They are meant only for coordination between the _digester_ and the
+   _signer_ in a two-party signing protocol.  Representations of the
+   keys used and the resulting signatures MUST use the corresponding
+   conventional algorithm identifiers instead.  These are listed in the
+   "Base algorithm" column in the tables defining two-party signing
+   algorithm identifiers.
 
 2.1.  ECDSA
 
@@ -200,18 +201,18 @@ Table of Contents
    +===========+=======+===========+===================================+
    | ESP256-2p | TBD   | ESP256    | ESP256                            |
    |           |       |           | [I-D.jose-fully-spec-algs]        |
-   |           |       |           | divided as defined in             |
-   |           |       |           | Section 2.1 of this document      |
+   |           |       |           | divided for two-party             |
+   |           |       |           | signing as defined here           |
    +-----------+-------+-----------+-----------------------------------+
    | ESP384-2p | TBD   | ESP384    | ESP384                            |
    |           |       |           | [I-D.jose-fully-spec-algs]        |
-   |           |       |           | divided as defined in             |
-   |           |       |           | Section 2.1 of this document      |
+   |           |       |           | divided for two-party             |
+   |           |       |           | signing as defined here           |
    +-----------+-------+-----------+-----------------------------------+
    | ESP512-2p | TBD   | ESP512    | ESP512                            |
    |           |       |           | [I-D.jose-fully-spec-algs]        |
-   |           |       |           | divided as defined in             |
-   |           |       |           | Section 2.1 of this document      |
+   |           |       |           | divided for two-party             |
+   |           |       |           | signing as defined here           |
    +-----------+-------+-----------+-----------------------------------+
 
                                   Table 1
@@ -245,26 +246,24 @@ Table of Contents
 
    The following algorithm identifiers are defined:
 
-     +==============+=======+===========+============================+
-     | Name         | COSE  | Base      | Description                |
-     |              | Value | algorithm |                            |
-     +==============+=======+===========+============================+
-     | Ed25519ph-2p | TBD   | Ed25519ph | Ed25519ph                  |
-     |              |       |           | [I-D.jose-fully-spec-algs] |
-     |              |       |           | divided as defined in      |
-     |              |       |           | Section 2.2 of this        |
-     |              |       |           | document (NOTE: Ed25519ph  |
-     |              |       |           | not yet registered)        |
-     +--------------+-------+-----------+----------------------------+
-     | Ed448ph-2p   | TBD   | Ed448ph   | Ed448ph                    |
-     |              |       |           | [I-D.jose-fully-spec-algs] |
-     |              |       |           | divided as defined in      |
-     |              |       |           | Section 2.2 of this        |
-     |              |       |           | document (NOTE: Ed448ph    |
-     |              |       |           | not yet registered)        |
-     +--------------+-------+-----------+----------------------------+
+   +==============+=======+===========+===============================+
+   | Name         | COSE  | Base      | Description                   |
+   |              | Value | algorithm |                               |
+   +==============+=======+===========+===============================+
+   | Ed25519ph-2p | TBD   | Ed25519ph | Ed25519ph                     |
+   |              |       |           | [I-D.jose-fully-spec-algs]    |
+   |              |       |           | divided for two-party signing |
+   |              |       |           | as defined here (NOTE:        |
+   |              |       |           | Ed25519ph not yet registered) |
+   +--------------+-------+-----------+-------------------------------+
+   | Ed448ph-2p   | TBD   | Ed448ph   | Ed448ph                       |
+   |              |       |           | [I-D.jose-fully-spec-algs]    |
+   |              |       |           | divided for two-party signing |
+   |              |       |           | as defined here (NOTE:        |
+   |              |       |           | Ed448ph not yet registered)   |
+   +--------------+-------+-----------+-------------------------------+
 
-                                  Table 2
+                                 Table 2
 
 2.3.  HashML-DSA
 
@@ -281,7 +280,7 @@ Table of Contents
       the signing procedure.  The additional _ctx_ input must also be
       transmitted to the _signer_. This may, for example, be done using
       the ctx (-1) parameter of a COSE_Key_Ref with kty (1): Ref-ML-DSA
-      (TBD) (see Section 4.1 and Section 4.2).
+      (TBD) (see Section 4.2 and Section 4.3).
 
    *  The _signer_ executes all steps of the signing procedure except
       the Steps 13, 16, 19 or similar that compute the value PH_(_M_).
@@ -298,33 +297,30 @@ Table of Contents
 
    The following algorithm identifiers are defined:
 
-    +==================+=======+===============+======================+
-    | Name             | COSE  | Base          | Description          |
-    |                  | Value | algorithm     |                      |
-    +==================+=======+===============+======================+
-    | HashML-DSA-44-2p | TBD   | HashML-DSA-44 | HashML-DSA-44 TODO:  |
-    |                  |       |               | divided as defined   |
-    |                  |       |               | in Section 2.3 of    |
-    |                  |       |               | this document (NOTE: |
-    |                  |       |               | HashML-DSA-44 not    |
-    |                  |       |               | yet registered)      |
-    +------------------+-------+---------------+----------------------+
-    | HashML-DSA-65-2p | TBD   | HashML-DSA-65 | HashML-DSA-65 TODO:  |
-    |                  |       |               | divided as defined   |
-    |                  |       |               | in Section 2.3 of    |
-    |                  |       |               | this document (NOTE: |
-    |                  |       |               | HashML-DSA-65 not    |
-    |                  |       |               | yet registered)      |
-    +------------------+-------+---------------+----------------------+
-    | HashML-DSA-87-2p | TBD   | HashML-DSA-87 | HashML-DSA-87 TODO:  |
-    |                  |       |               | divided as defined   |
-    |                  |       |               | in Section 2.3 of    |
-    |                  |       |               | this document (NOTE: |
-    |                  |       |               | HashML-DSA-87 not    |
-    |                  |       |               | yet registered)      |
-    +------------------+-------+---------------+----------------------+
+   +==================+=======+===============+=======================+
+   | Name             | COSE  | Base          | Description           |
+   |                  | Value | algorithm     |                       |
+   +==================+=======+===============+=======================+
+   | HashML-DSA-44-2p | TBD   | HashML-DSA-44 | HashML-DSA-44 divided |
+   |                  |       |               | for two-party signing |
+   |                  |       |               | as defined here       |
+   |                  |       |               | (NOTE: HashML-DSA-44  |
+   |                  |       |               | not yet registered)   |
+   +------------------+-------+---------------+-----------------------+
+   | HashML-DSA-65-2p | TBD   | HashML-DSA-65 | HashML-DSA-65 divided |
+   |                  |       |               | for two-party signing |
+   |                  |       |               | as defined here       |
+   |                  |       |               | (NOTE: HashML-DSA-65  |
+   |                  |       |               | not yet registered)   |
+   +------------------+-------+---------------+-----------------------+
+   | HashML-DSA-87-2p | TBD   | HashML-DSA-87 | HashML-DSA-87 divided |
+   |                  |       |               | for two-party signing |
+   |                  |       |               | as defined here       |
+   |                  |       |               | (NOTE: HashML-DSA-87  |
+   |                  |       |               | not yet registered)   |
+   +------------------+-------+---------------+-----------------------+
 
-                                  Table 3
+                                 Table 3
 
 3.  COSE Key Reference Types
 
@@ -399,7 +395,129 @@ Table of Contents
 
 4.  IANA Considerations
 
-4.1.  COSE Key Types Registrations
+4.1.  COSE Algorithms Registrations
+
+   This section registers the following values in the IANA "COSE
+   Algorithms" registry [IANA.COSE]:
+
+   *  Name: ESP256-2p
+
+      -  Value: TBD (Requested Assignment -300)
+
+      -  Description: ESP256 [I-D.jose-fully-spec-algs] divided for two-
+         party signing
+
+      -  Capabilities: [kty]
+
+      -  Change Controller: IETF
+
+      -  Reference: Section 2.1 of this specification
+
+      -  Recommended: Yes
+
+   *  Name: ESP384-2p
+
+      -  Value: TBD (Requested Assignment -301)
+
+      -  Description: ESP384 [I-D.jose-fully-spec-algs] divided for two-
+         party signing
+
+      -  Capabilities: [kty]
+
+      -  Change Controller: IETF
+
+      -  Reference: Section 2.1 of this specification
+
+      -  Recommended: Yes
+
+   *  Name: ESP512-2p
+
+      -  Value: TBD (Requested Assignment -302)
+
+      -  Description: ESP512 [I-D.jose-fully-spec-algs] divided for two-
+         party signing
+
+      -  Capabilities: [kty]
+
+      -  Change Controller: IETF
+
+      -  Reference: Section 2.1 of this specification
+
+      -  Recommended: Yes
+
+   *  Name: Ed25519ph-2p
+
+      -  Value: TBD (Requested Assignment -303)
+
+      -  Description: Ed25519ph [I-D.jose-fully-spec-algs] divided for
+         two-party signing
+
+      -  Capabilities: [kty]
+
+      -  Change Controller: IETF
+
+      -  Reference: Section 2.2 of this specification
+
+      -  Recommended: Yes
+
+   *  Name: Ed448ph-2p
+
+      -  Value: TBD (Requested Assignment -304)
+
+      -  Description: Ed448ph [I-D.jose-fully-spec-algs] divided for
+         two-party signing
+
+      -  Capabilities: [kty]
+
+      -  Change Controller: IETF
+
+      -  Reference: Section 2.2 of this specification
+
+      -  Recommended: Yes
+
+   *  Name: HashML-DSA-44-2p
+
+      -  Value: TBD (Requested Assignment -305)
+
+      -  Description: HashML-DSA-44 divided for two-party signing
+
+      -  Capabilities: [kty]
+
+      -  Change Controller: IETF
+
+      -  Reference: Section 2.3 of this specification
+
+      -  Recommended: Yes
+
+   *  Name: HashML-DSA-65-2p
+
+      -  Value: TBD (Requested Assignment -306)
+
+      -  Description: HashML-DSA-65 divided for two-party signing
+
+      -  Capabilities: [kty]
+
+      -  Change Controller: IETF
+
+      -  Reference: Section 2.3 of this specification
+
+      -  Recommended: Yes
+
+   *  Name: HashML-DSA-87-2p
+
+      -  Value: TBD (Requested Assignment -307)
+
+      -  Description: HashML-DSA-87 divided for two-party signing
+
+      -  Capabilities: [kty]
+
+      -  Change Controller: IETF
+
+      -  Reference: Section 2.3 of this specification
+
+      -  Recommended: Yes
+
+4.2.  COSE Key Types Registrations
 
    This section registers the following values in the IANA "COSE Key
    Types" registry [IANA.COSE]:
@@ -441,7 +559,7 @@ Table of Contents
    $COSE_kty_ref /= -2       ; Value TBD
    $COSE_kty_ref /= -7       ; Value TBD
 
-4.2.  COSE Key Type Parameters Registrations
+4.3.  COSE Key Type Parameters Registrations
 
    This section registers the following values in the IANA "COSE Key
    Type Parameters" registry [IANA.COSE]:
@@ -538,6 +656,12 @@ Table of Contents
               NIST.FIPS.204.pdf>.
 
 Document History
+
+   -01
+
+   *  Added IANA registration requests for algorithms defined.
+
+   *  Updated references and other editorial tweaks.
 
    -00
 
