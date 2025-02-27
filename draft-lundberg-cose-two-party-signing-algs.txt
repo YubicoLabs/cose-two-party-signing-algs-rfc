@@ -547,7 +547,7 @@ Authors' Addresses
 
    Emil Lundberg (editor)
    Yubico
-   Kungsgatan 44
+   Gävlegatan 22
    Stockholm
    Sweden
    Email: emil@emlun.se
