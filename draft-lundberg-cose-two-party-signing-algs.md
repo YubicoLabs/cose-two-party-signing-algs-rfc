@@ -403,6 +403,67 @@ This section registers the following values in the IANA "COSE Key Type Parameter
   - Reference: {{cose-key-refs}} of this specification
 
 
+## COSE Algorithms Registrations
+
+This section registers the following values in the IANA "COSE Algorithms" registry [IANA.COSE].
+
+- Name: ESP256-ARKG
+  - Value: TBD (Placeholder -65539)
+  - Description: ESP256 with key derived by ARKG-P256ADD-ECDH
+  - Capabilities: \[kty\]
+  - Change Controller: TBD
+  - Reference: [I-D.jose-fully-spec-algs], {{Section 4.1 of I-D.bradleylundberg-ARKG}}
+  - Recommended: Yes
+
+- Name: ESP256-2p-ARKG
+  - Value: TBD (Placeholder -65539)
+  - Description: ESP256-2p with key derived by ARKG-P256ADD-ECDH
+  - Capabilities: \[kty\]
+  - Change Controller: TBD
+  - Reference: [I-D.jose-fully-spec-algs], {{Section 4.1 of I-D.bradleylundberg-ARKG}}
+  - Recommended: Yes
+
+- Name: ESP384-ARKG
+  - Value: TBD (Placeholder -65540)
+  - Description: ESP384 with key derived by ARKG-P384ADD-ECDH
+  - Capabilities: \[kty\]
+  - Change Controller: TBD
+  - Reference: [I-D.jose-fully-spec-algs], {{Section 4.2 of I-D.bradleylundberg-ARKG}}
+  - Recommended: Yes
+
+- Name: ESP512-ARKG
+  - Value: TBD (Placeholder -65541)
+  - Description: ESP512 with key derived by ARKG-P521ADD-ECDH
+  - Capabilities: \[kty\]
+  - Change Controller: TBD
+  - Reference: [I-D.jose-fully-spec-algs], {{Section 4.3 of I-D.bradleylundberg-ARKG}}
+  - Recommended: Yes
+
+- Name: ES256K-ARKG
+  - Value: TBD (Placeholder -65542)
+  - Description: ES256K with key derived by ARKG-P256kADD-ECDH
+  - Capabilities: \[kty\]
+  - Change Controller: TBD
+  - Reference: [RFC8812], {{Section 4.4 of I-D.bradleylundberg-ARKG}}
+  - Recommended: Yes
+
+- Name: Ed25519-ARKG
+  - Value: TBD (Placeholder -65543)
+  - Description: Ed25519 with key derived by ARKG-edwards25519ADD-X25519
+  - Capabilities: \[kty\]
+  - Change Controller: TBD
+  - Reference: [I-D.jose-fully-spec-algs], {{Section 4.7 of I-D.bradleylundberg-ARKG}}
+  - Recommended: Yes
+
+- Name: Ed448-ARKG
+  - Value: TBD (Placeholder -65544)
+  - Description: Ed448 with key derived by ARKG-edwards448ADD-X448
+  - Capabilities: \[kty\]
+  - Change Controller: TBD
+  - Reference: [I-D.jose-fully-spec-algs], {{Section 4.8 of I-D.bradleylundberg-ARKG}}
+  - Recommended: Yes
+
+
 --- back
 
 # Document History
