@@ -334,7 +334,7 @@ Table of Contents
    some signature algorithms use additional parameters to the signature
    generation beyond the signing private key and message to be signed.
    For example, ML-DSA [FIPS-204] has the additional parameter _ctx_ and
-   ARKG-Derive-Secret-Key [I-D.bradleylundberg-ARKG] has the parameters
+   ARKG-Derive-Private-Key [I-D.bradleylundberg-ARKG] has the parameters
    kh and info, in addition to the private key.
 
    While these additional parameters are simple to provide to the API of

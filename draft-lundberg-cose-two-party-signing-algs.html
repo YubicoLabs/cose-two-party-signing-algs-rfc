@@ -1498,7 +1498,7 @@ such as that used in the <code>kid</code> parameter in a COSE_Key object or in t
 some signature algorithms use additional parameters to the signature generation
 beyond the signing private key and message to be signed.
 For example, ML-DSA <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> has the additional parameter <em>ctx</em>
-and <code>ARKG-Derive-Secret-Key</code> <span>[<a href="#I-D.bradleylundberg-ARKG" class="cite xref">I-D.bradleylundberg-ARKG</a>]</span> has the parameters <code>kh</code> and <code>info</code>, in addition to the private key.<a href="#section-3-1" class="pilcrow">¶</a></p>
+and <code>ARKG-Derive-Private-Key</code> <span>[<a href="#I-D.bradleylundberg-ARKG" class="cite xref">I-D.bradleylundberg-ARKG</a>]</span> has the parameters <code>kh</code> and <code>info</code>, in addition to the private key.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">While these additional parameters are simple to provide to the API of the signing procedure
 in a single-party context,
 in a two-party context these additional parameters also need to be conveyed from the <em>digester</em> to the <em>signer</em>.
