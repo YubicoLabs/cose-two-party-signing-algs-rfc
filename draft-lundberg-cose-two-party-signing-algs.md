@@ -409,7 +409,7 @@ This section registers the following values in the IANA "COSE Algorithms" regist
   - Description: HashML-DSA-44 divided for two-party signing
   - Capabilities: \[kty\]
   - Change Controller: IETF
-  - Reference: {{#ml-dsa-2p}} of this specification
+  - Reference: {{ml-dsa-2p}} of this specification
   - Recommended: Yes
 
 - Name: HashML-DSA-65-2p
@@ -417,7 +417,7 @@ This section registers the following values in the IANA "COSE Algorithms" regist
   - Description: HashML-DSA-65 divided for two-party signing
   - Capabilities: \[kty\]
   - Change Controller: IETF
-  - Reference: {{#ml-dsa-2p}} of this specification
+  - Reference: {{ml-dsa-2p}} of this specification
   - Recommended: Yes
 
 - Name: HashML-DSA-87-2p
@@ -425,7 +425,7 @@ This section registers the following values in the IANA "COSE Algorithms" regist
   - Description: HashML-DSA-87 divided for two-party signing
   - Capabilities: \[kty\]
   - Change Controller: IETF
-  - Reference: {{#ml-dsa-2p}} of this specification
+  - Reference: {{ml-dsa-2p}} of this specification
   - Recommended: Yes
 
 
