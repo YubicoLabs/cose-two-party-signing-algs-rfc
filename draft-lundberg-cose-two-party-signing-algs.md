@@ -365,7 +365,7 @@ and restricted for use with the ESP256 [I-D.jose-fully-spec-algs] signature algo
 This section registers the following values in the IANA "COSE Algorithms" registry [IANA.COSE]:
 
 - Name: ESP256-2p
-  - Value: TBD (Requested Assignment -65550)
+  - Value: TBD (Requested Assignment -300)
   - Description: ESP256 [I-D.jose-fully-spec-algs] divided for two-party signing
   - Capabilities: \[kty\]
   - Change Controller: IETF
@@ -373,7 +373,7 @@ This section registers the following values in the IANA "COSE Algorithms" regist
   - Recommended: Yes
 
 - Name: ESP384-2p
-  - Value: TBD (Requested Assignment -65551)
+  - Value: TBD (Requested Assignment -301)
   - Description: ESP384 [I-D.jose-fully-spec-algs] divided for two-party signing
   - Capabilities: \[kty\]
   - Change Controller: IETF
@@ -381,7 +381,7 @@ This section registers the following values in the IANA "COSE Algorithms" regist
   - Recommended: Yes
 
 - Name: ESP512-2p
-  - Value: TBD (Requested Assignment -65552)
+  - Value: TBD (Requested Assignment -302)
   - Description: ESP512 [I-D.jose-fully-spec-algs] divided for two-party signing
   - Capabilities: \[kty\]
   - Change Controller: IETF
@@ -389,7 +389,7 @@ This section registers the following values in the IANA "COSE Algorithms" regist
   - Recommended: Yes
 
 - Name: Ed25519ph-2p
-  - Value: TBD (Requested Assignment -65553)
+  - Value: TBD (Requested Assignment -303)
   - Description: Ed25519ph [I-D.jose-fully-spec-algs] divided for two-party signing
   - Capabilities: \[kty\]
   - Change Controller: IETF
@@ -397,7 +397,7 @@ This section registers the following values in the IANA "COSE Algorithms" regist
   - Recommended: Yes
 
 - Name: Ed448ph-2p
-  - Value: TBD (Requested Assignment -65554)
+  - Value: TBD (Requested Assignment -304)
   - Description: Ed448ph [I-D.jose-fully-spec-algs] divided for two-party signing
   - Capabilities: \[kty\]
   - Change Controller: IETF
@@ -405,7 +405,7 @@ This section registers the following values in the IANA "COSE Algorithms" regist
   - Recommended: Yes
 
 - Name: HashML-DSA-44-2p
-  - Value: TBD (Requested Assignment -65555)
+  - Value: TBD (Requested Assignment -305)
   - Description: HashML-DSA-44 divided for two-party signing
   - Capabilities: \[kty\]
   - Change Controller: IETF
@@ -413,7 +413,7 @@ This section registers the following values in the IANA "COSE Algorithms" regist
   - Recommended: Yes
 
 - Name: HashML-DSA-65-2p
-  - Value: TBD (Requested Assignment -65556)
+  - Value: TBD (Requested Assignment -306)
   - Description: HashML-DSA-65 divided for two-party signing
   - Capabilities: \[kty\]
   - Change Controller: IETF
@@ -421,7 +421,7 @@ This section registers the following values in the IANA "COSE Algorithms" regist
   - Recommended: Yes
 
 - Name: HashML-DSA-87-2p
-  - Value: TBD (Requested Assignment -65557)
+  - Value: TBD (Requested Assignment -307)
   - Description: HashML-DSA-87 divided for two-party signing
   - Capabilities: \[kty\]
   - Change Controller: IETF
