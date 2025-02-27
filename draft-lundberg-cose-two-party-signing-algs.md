@@ -67,6 +67,7 @@ normative:
       org: NXP
       email: christine.cloostermans@nxp.com
     date: 2024
+  I-D.bradleylundberg-ARKG: I-D.draft-bradleylundberg-cfrg-arkg
   I-D.jose-fully-spec-algs: I-D.draft-ietf-jose-fully-specified-algorithms
   IANA.COSE:
     target: https://www.iana.org/assignments/cose/
@@ -99,17 +100,6 @@ informative:
     author:
     - org: National Institute of Standards and Technology
     date: February 2023
-  ARKG:
-    target: https://datatracker.ietf.org/doc/draft-bradleylundberg-cfrg-arkg/
-    title: The Asynchronous Remote Key Generation (ARKG) algorithm
-    author:
-    - name: Emil Lundberg
-      organization: Yubico
-      email: emil@emlun.se
-    - name: John Bradley
-      organization: Yubico
-      email: ve7jtb@ve7jtb.com
-    date: 2024
   COSE-Hash-Envelope:
     title: COSE Hash Envelope
     target: https://datatracker.ietf.org/doc/draft-ietf-cose-hash-envelope/
@@ -303,7 +293,7 @@ such as that used in the `kid` parameter in a COSE_Key object or in the unprotec
 some signature algorithms use additional parameters to the signature generation
 beyond the signing private key and message to be signed.
 For example, ML-DSA [FIPS-204] has the additional parameter _ctx_
-and `ARKG-Derive-Secret-Key` [ARKG] has the parameters `kh` and `info`, in addition to the private key.
+and `ARKG-Derive-Secret-Key` [I-D.bradleylundberg-ARKG] has the parameters `kh` and `info`, in addition to the private key.
 
 While these additional parameters are simple to provide to the API of the signing procedure
 in a single-party context,
@@ -342,7 +332,7 @@ along with the value of the _ctx_ parameter to ML-DSA.Sign [FIPS-204]:
 ~~~
 
 
-The following CDDL example represents a reference to a key derived by `ARKG-P256ADD-ECDH` [ARKG]
+The following CDDL example represents a reference to a key derived by `ARKG-P256ADD-ECDH` [I-D.bradleylundberg-ARKG]
 and restricted for use with the ESP256 [I-D.jose-fully-spec-algs] signature algorithm:
 
 ~~~cddl
