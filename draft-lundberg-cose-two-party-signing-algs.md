@@ -288,7 +288,7 @@ The following algorithm identifiers are defined:
 
 # COSE Key Reference Types {#cose-key-refs}
 
-While keys used by many other algorithms can usually be referenced by a single atomic identifier,
+While keys used by many algorithms can usually be referenced by a single atomic identifier,
 such as that used in the `kid` parameter in a COSE_Key object or in the unprotected header of a COSE_Recipient,
 some signature algorithms use additional parameters to the signature generation
 beyond the signing private key and message to be signed.
@@ -387,7 +387,7 @@ These registrations add the following choices to the CDDL [RFC8610] type socket 
 ~~~cddl
 $COSE_kty_ref /= -1       ; Value TBD
 $COSE_kty_ref /= -2       ; Value TBD
-$COSE_kty_ref /= TBD      ; Value TBD
+$COSE_kty_ref /= -7       ; Value TBD
 ~~~
 
 
