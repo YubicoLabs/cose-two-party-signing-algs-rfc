@@ -67,20 +67,8 @@ normative:
       org: NXP
       email: christine.cloostermans@nxp.com
     date: 2024
-  fully-spec-algs:
-    title: Fully-Specified Algorithms for JOSE and COSE
-    target: https://datatracker.ietf.org/doc/draft-ietf-jose-fully-specified-algorithms/
-    author:
-    - name: Michael B. Jones
-      ins: M.B. Jones
-      org: Self-Issued Consulting
-      email: michael_b_jones@hotmail.com
-      uri: https://self-issued.info/
-    - name: Orie Steele
-      ins: O. Steele
-      org: Transmute
-      email: orie@transmute.industries
-    date: 2024
+  I-D.bradleylundberg-ARKG: I-D.draft-bradleylundberg-cfrg-arkg
+  I-D.jose-fully-spec-algs: I-D.draft-ietf-jose-fully-specified-algorithms
   IANA.COSE:
     target: https://www.iana.org/assignments/cose/
     title: CBOR Object Signing and Encryption (COSE)
@@ -112,17 +100,6 @@ informative:
     author:
     - org: National Institute of Standards and Technology
     date: February 2023
-  ARKG:
-    target: https://datatracker.ietf.org/doc/draft-bradleylundberg-cfrg-arkg/
-    title: The Asynchronous Remote Key Generation (ARKG) algorithm
-    author:
-    - name: Emil Lundberg
-      organization: Yubico
-      email: emil@emlun.se
-    - name: John Bradley
-      organization: Yubico
-      email: ve7jtb@ve7jtb.com
-    date: 2024
   COSE-Hash-Envelope:
     title: COSE Hash Envelope
     target: https://datatracker.ietf.org/doc/draft-ietf-cose-hash-envelope/
@@ -246,9 +223,9 @@ The following algorithm identifiers are defined:
 
 | Name      | COSE Value | Base algorithm | Description |
 | --------- | ---------- | -------------- | ----------- |
-| ESP256-2p | TBD        | ESP256         | ESP256 [fully-spec-algs] divided as defined in {{ecdsa-2p}} of this document |
-| ESP384-2p | TBD        | ESP384         | ESP384 [fully-spec-algs] divided as defined in {{ecdsa-2p}} of this document |
-| ESP512-2p | TBD        | ESP512         | ESP512 [fully-spec-algs] divided as defined in {{ecdsa-2p}} of this document |
+| ESP256-2p | TBD        | ESP256         | ESP256 [I-D.jose-fully-spec-algs] divided as defined in {{ecdsa-2p}} of this document |
+| ESP384-2p | TBD        | ESP384         | ESP384 [I-D.jose-fully-spec-algs] divided as defined in {{ecdsa-2p}} of this document |
+| ESP512-2p | TBD        | ESP512         | ESP512 [I-D.jose-fully-spec-algs] divided as defined in {{ecdsa-2p}} of this document |
 
 
 ## HashEdDSA {#eddsa-2p}
@@ -273,8 +250,8 @@ The following algorithm identifiers are defined:
 
 | Name         | COSE Value | Base algorithm | Description |
 | ------------ | ---------- | -------------- | ----------- |
-| Ed25519ph-2p | TBD        | Ed25519ph      | Ed25519ph [fully-spec-algs] divided as defined in {{eddsa-2p}} of this document (NOTE: Ed25519ph not yet registered) |
-| Ed448ph-2p   | TBD        | Ed448ph        | Ed448ph [fully-spec-algs] divided as defined in {{eddsa-2p}} of this document (NOTE: Ed448ph not yet registered) |
+| Ed25519ph-2p | TBD        | Ed25519ph      | Ed25519ph [I-D.jose-fully-spec-algs] divided as defined in {{eddsa-2p}} of this document (NOTE: Ed25519ph not yet registered) |
+| Ed448ph-2p   | TBD        | Ed448ph        | Ed448ph [I-D.jose-fully-spec-algs] divided as defined in {{eddsa-2p}} of this document (NOTE: Ed448ph not yet registered) |
 
 
 ## HashML-DSA {#ml-dsa-2p}
@@ -311,12 +288,12 @@ The following algorithm identifiers are defined:
 
 # COSE Key Reference Types {#cose-key-refs}
 
-While keys used by many other algorithms can usually be referenced by a single atomic identifier,
+While keys used by many algorithms can usually be referenced by a single atomic identifier,
 such as that used in the `kid` parameter in a COSE_Key object or in the unprotected header of a COSE_Recipient,
 some signature algorithms use additional parameters to the signature generation
 beyond the signing private key and message to be signed.
 For example, ML-DSA [FIPS-204] has the additional parameter _ctx_
-and `ARKG-Derive-Secret-Key` [ARKG] has the parameters `kh` and `info`, in addition to the private key.
+and `ARKG-Derive-Secret-Key` [I-D.bradleylundberg-ARKG] has the parameters `kh` and `info`, in addition to the private key.
 
 While these additional parameters are simple to provide to the API of the signing procedure
 in a single-party context,
@@ -355,8 +332,8 @@ along with the value of the _ctx_ parameter to ML-DSA.Sign [FIPS-204]:
 ~~~
 
 
-The following CDDL example represents a reference to a key derived by `ARKG-P256ADD-ECDH` [ARKG]
-and restricted for use with the ESP256 [fully-spec-algs] signature algorithm:
+The following CDDL example represents a reference to a key derived by `ARKG-P256ADD-ECDH` [I-D.bradleylundberg-ARKG]
+and restricted for use with the ESP256 [I-D.jose-fully-spec-algs] signature algorithm:
 
 ~~~cddl
 {
@@ -410,7 +387,7 @@ These registrations add the following choices to the CDDL [RFC8610] type socket 
 ~~~cddl
 $COSE_kty_ref /= -1       ; Value TBD
 $COSE_kty_ref /= -2       ; Value TBD
-$COSE_kty_ref /= TBD      ; Value TBD
+$COSE_kty_ref /= -7       ; Value TBD
 ~~~
 
 
