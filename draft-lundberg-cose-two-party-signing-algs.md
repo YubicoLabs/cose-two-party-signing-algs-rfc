@@ -293,7 +293,7 @@ such as that used in the `kid` parameter in a COSE_Key object or in the unprotec
 some signature algorithms use additional parameters to the signature generation
 beyond the signing private key and message to be signed.
 For example, ML-DSA [FIPS-204] has the additional parameter _ctx_
-and `ARKG-Derive-Secret-Key` [I-D.bradleylundberg-ARKG] has the parameters `kh` and `info`, in addition to the private key.
+and `ARKG-Derive-Private-Key` [I-D.bradleylundberg-ARKG] has the parameters `kh` and `info`, in addition to the private key.
 
 While these additional parameters are simple to provide to the API of the signing procedure
 in a single-party context,
