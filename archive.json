@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-27T00:04:28.487661+00:00",
+  "timestamp": "2025-03-02T00:04:56.457887+00:00",
   "repo": "YubicoLabs/cose-two-party-signing-algs-rfc",
   "labels": [
     {
@@ -409,6 +409,172 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDON32VH86MzRmz",
+      "title": "Miscellaneous editorial tweaks",
+      "url": "https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/pull/7",
+      "state": "MERGED",
+      "author": "emlun",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "- I figured out how to refer to Internet-Drafts by datatracker identifier rather than hard-coding the reference details, so let's use that instead\r\n- Minor tweak to \"COSE Key Reference Types\" text after moving it out from the ARKG spec\r\n- Replace the ARKG placeholder `$COSE_kty_ref` choice with the new value for AKP",
+      "createdAt": "2025-02-27T13:44:13Z",
+      "updatedAt": "2025-02-27T14:12:46Z",
+      "baseRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "baseRefName": "main",
+      "baseRefOid": "34d819360fb89fd9e3a76d6b81022835ad9221fd",
+      "headRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "headRefName": "misc-editorial",
+      "headRefOid": "3e5d3a80cbac75938de5fc396311f42a097cfcb9",
+      "closedAt": "2025-02-27T14:12:44Z",
+      "mergedAt": "2025-02-27T14:12:44Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "b33719d149b5f8fda1d974febce37a82021bfc5e"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDON32VH86d0-fH",
+          "commit": {
+            "abbreviatedOid": "3e5d3a8"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thanks",
+          "createdAt": "2025-02-27T14:12:30Z",
+          "updatedAt": "2025-02-27T14:12:30Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDON32VH86MzjLV",
+      "title": "Fix name of ARKG-Derive-Private-Key procedure",
+      "url": "https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/pull/8",
+      "state": "MERGED",
+      "author": "emlun",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "See: https://yubico.github.io/arkg-rfc/draft-bradleylundberg-cfrg-arkg.html#name-the-function-arkg-derive-pr",
+      "createdAt": "2025-02-27T14:15:11Z",
+      "updatedAt": "2025-02-27T14:17:35Z",
+      "baseRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "baseRefName": "main",
+      "baseRefOid": "b33719d149b5f8fda1d974febce37a82021bfc5e",
+      "headRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "headRefName": "misc-editorial",
+      "headRefOid": "bcdc397a0d4ea93eee488c8b238be8f6b705ff08",
+      "closedAt": "2025-02-27T14:17:32Z",
+      "mergedAt": "2025-02-27T14:17:32Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "a12163bd8e6289397a77998f4154f4bee334dcaf"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDON32VH86d1CDH",
+          "commit": {
+            "abbreviatedOid": "bcdc397"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-27T14:17:20Z",
+          "updatedAt": "2025-02-27T14:17:20Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "id": "PR_kwDON32VH86M0KQP",
+      "title": "Add IANA registration requests for algorithms defined",
+      "url": "https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/pull/9",
+      "state": "MERGED",
+      "author": "selfissued",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Also adds history entry for -01.",
+      "createdAt": "2025-02-27T15:15:53Z",
+      "updatedAt": "2025-02-27T16:35:47Z",
+      "baseRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "baseRefName": "main",
+      "baseRefOid": "e44f508d7250afacba24c52ec4f81688e4fe39b9",
+      "headRepository": "selfissued/cose-two-party-signing-algs-rfc",
+      "headRefName": "mbj-register-algs",
+      "headRefOid": "02cd869635bf93e62f21bd5267751202f678387d",
+      "closedAt": "2025-02-27T16:35:47Z",
+      "mergedAt": "2025-02-27T16:35:46Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "0b01eb12d3605daca96b1c4da93f3ba52e58d8bc"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDON32VH86d2iQi",
+          "commit": {
+            "abbreviatedOid": "31f51b6"
+          },
+          "author": "emlun",
+          "authorAssociation": "MEMBER",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2025-02-27T16:09:15Z",
+          "updatedAt": "2025-02-27T16:09:20Z",
+          "comments": [
+            {
+              "originalPosition": 64,
+              "body": "Values less than -65536 are [designated for private use](https://www.iana.org/assignments/cose/cose.xhtml#algorithms), which is why I've used values in that range as placeholders for prototypes. But I assume that for the actual IANA assignment, these should rather be in one of the ranges from -65536 to 65535?",
+              "createdAt": "2025-02-27T16:09:15Z",
+              "updatedAt": "2025-02-27T16:09:20Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON32VH86d2lCc",
+          "commit": {
+            "abbreviatedOid": "31f51b6"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-27T16:12:25Z",
+          "updatedAt": "2025-02-27T16:12:25Z",
+          "comments": [
+            {
+              "originalPosition": 64,
+              "body": "Thanks for the context.  I'll change the numbers.",
+              "createdAt": "2025-02-27T16:12:25Z",
+              "updatedAt": "2025-02-27T16:12:25Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON32VH86d2x2Y",
+          "commit": {
+            "abbreviatedOid": "02cd869"
+          },
+          "author": "emlun",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "LGTM!",
+          "createdAt": "2025-02-27T16:26:56Z",
+          "updatedAt": "2025-02-27T16:26:56Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
