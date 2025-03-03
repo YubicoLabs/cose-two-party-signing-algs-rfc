@@ -20,14 +20,14 @@ The resulting signatures are identical in structure to those computed by a singl
 and can be verified using the same verification procedure
 without additional steps to preprocess the signed data. 
     " name="description">
-<meta content="xml2rfc 3.27.0" name="generator">
+<meta content="xml2rfc 3.28.0" name="generator">
 <meta content="COSE" name="keyword">
 <meta content="Signing" name="keyword">
 <meta content="Two-Party" name="keyword">
 <meta content="Algorithms" name="keyword">
 <meta content="draft-lundberg-cose-two-party-signing-algs-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.27.0
+  xml2rfc 3.28.0
     Python 3.12.9
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
@@ -1058,11 +1058,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">COSE Algs for Two-Party Signing</td>
-<td class="right">February 2025</td>
+<td class="right">March 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Lundberg &amp; Jones</td>
-<td class="center">Expires 31 August 2025</td>
+<td class="center">Expires 4 September 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1075,12 +1075,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-lundberg-cose-two-party-signing-algs-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-02-27" class="published">27 February 2025</time>
+<time datetime="2025-03-03" class="published">3 March 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-08-31">31 August 2025</time></dd>
+<dd class="expires"><time datetime="2025-09-04">4 September 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1144,7 +1144,7 @@ without additional steps to preprocess the signed data.<a href="#section-abstrac
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 31 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 4 September 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1259,7 +1259,7 @@ into a fixed-length intermediate input, this initial digest can be computed by t
 while the HSM computes the rest of the signature algorithm on the digest.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">Since different signature algorithms digest the message in different ways
 and at different stages of the algorithm,
-there is no generally-applicable way to define such a division point
+there is no one generally-applicable way to define such a division point
 for every possible signature algorithm.
 Therefore, this specification defines algorithm identifiers encoding,
 for a specific set of signature algorithms,
@@ -1267,7 +1267,7 @@ which steps of the signature algorithm are performed by the <em>digester</em> (e
 and which are performed by the <em>signer</em> (e.g., HSM).
 In general, the <em>signer</em> holds exclusive control of the signing private key.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4">Note that these algorithm identifiers do not define new "pre-hashed" variants of the base signature algorithm,
-nor an intermediate "hash envelope" data structure, such as that defined in <span>[<a href="#COSE-Hash-Envelope" class="cite xref">COSE-Hash-Envelope</a>]</span>.
+nor an intermediate "hash envelope" data structure, such as that defined in <span>[<a href="#I-D.COSE-Hash-Envelope" class="cite xref">I-D.COSE-Hash-Envelope</a>]</span>.
 Rather, these identifiers correspond to existing signature algorithms
 that would typically be executed by a single party,
 but split into two stages.
@@ -1303,7 +1303,7 @@ and assigns algorithm identifiers to these algorithm divisions.
 The <em>digester</em> performs the first part of the divided algorithm and does not have access to the signing private key,
 while the <em>signer</em> performs the second part of the divided algorithm and has access to the signing private key.
 For signing algorithms that format the message to insert domain separation tags,
-as described in Section 2.2.5 of <span>[<a href="#RFC9380" class="cite xref">RFC9380</a>]</span>,
+as described in <span><a href="https://rfc-editor.org/rfc/rfc9380#section-2.2.5" class="relref">Section 2.2.5</a> of [<a href="#RFC9380" class="cite xref">RFC9380</a>]</span>,
 this message formatting is also performed by the <em>signer</em>.<a href="#section-2-1" class="pilcrow">¶</a></p>
 <p id="section-2-2">The algorithm identifiers defined in this specification MUST NOT appear in COSE structures
 other than COSE_Key_Ref (see <a href="#cose-key-refs" class="auto internal xref">Section 3</a>).
@@ -1521,7 +1521,7 @@ COSE_Key_Ref = COSE_Key .within {
 </pre><a href="#section-3-4" class="pilcrow">¶</a>
 </div>
 <p id="section-3-5">The following CDDL example represents a reference to an ML-DSA-65 key,
-which uses the <code>AKP</code> key type <span>[<a href="#COSE-ML-DSA" class="cite xref">COSE-ML-DSA</a>]</span>,
+which uses the <code>AKP</code> key type <span>[<a href="#I-D.COSE-ML-DSA" class="cite xref">I-D.COSE-ML-DSA</a>]</span>,
 along with the value of the <em>ctx</em> parameter to ML-DSA.Sign <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>:<a href="#section-3-5" class="pilcrow">¶</a></p>
 <div class="lang-cddl sourcecode" id="section-3-6">
 <pre>
@@ -1875,13 +1875,13 @@ $COSE_kty_ref /= -7       ; Value TBD
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
-<dt id="COSE-ML-DSA">[COSE-ML-DSA]</dt>
-        <dd>
-<span class="refAuthor">Prorock, M.</span>, <span class="refAuthor">Steele, O.</span>, <span class="refAuthor">Misoczki, R.</span>, <span class="refAuthor">Osborne, M.</span>, and <span class="refAuthor">C. Cloostermans</span>, <span class="refTitle">"ML-DSA for JOSE and COSE"</span>, <time datetime="2024" class="refDate">2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-ietf-cose-dilithium/">https://datatracker.ietf.org/doc/draft-ietf-cose-dilithium/</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="I-D.bradleylundberg-ARKG">[I-D.bradleylundberg-ARKG]</dt>
         <dd>
 <span class="refAuthor">Lundberg, E.</span> and <span class="refAuthor">J. Bradley</span>, <span class="refTitle">"The Asynchronous Remote Key Generation (ARKG) algorithm"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-bradleylundberg-cfrg-arkg-03</span>, <time datetime="2024-11-27" class="refDate">27 November 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-bradleylundberg-cfrg-arkg-03">https://datatracker.ietf.org/doc/html/draft-bradleylundberg-cfrg-arkg-03</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.COSE-ML-DSA">[I-D.COSE-ML-DSA]</dt>
+        <dd>
+<span class="refAuthor">Prorock, M.</span>, <span class="refAuthor">Steele, O.</span>, <span class="refAuthor">Misoczki, R.</span>, <span class="refAuthor">Osborne, M.</span>, and <span class="refAuthor">C. Cloostermans</span>, <span class="refTitle">"ML-DSA for JOSE and COSE"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-dilithium-05</span>, <time datetime="2024-12-18" class="refDate">18 December 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-dilithium-05">https://datatracker.ietf.org/doc/html/draft-ietf-cose-dilithium-05</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.jose-fully-spec-algs">[I-D.jose-fully-spec-algs]</dt>
         <dd>
@@ -1911,10 +1911,6 @@ $COSE_kty_ref /= -7       ; Value TBD
         <dd>
 <span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Structures and Process"</span>, <span class="seriesInfo">STD 96</span>, <span class="seriesInfo">RFC 9052</span>, <span class="seriesInfo">DOI 10.17487/RFC9052</span>, <time datetime="2022-08" class="refDate">August 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9052">https://www.rfc-editor.org/rfc/rfc9052</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC9380">[RFC9380]</dt>
-        <dd>
-<span class="refAuthor">Faz-Hernandez, A.</span>, <span class="refAuthor">Scott, S.</span>, <span class="refAuthor">Sullivan, N.</span>, <span class="refAuthor">Wahby, R. S.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Hashing to Elliptic Curves"</span>, <span class="seriesInfo">RFC 9380</span>, <span class="seriesInfo">DOI 10.17487/RFC9380</span>, <time datetime="2023-08" class="refDate">August 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9380">https://www.rfc-editor.org/rfc/rfc9380</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="SEC1">[SEC1]</dt>
       <dd>
 <span class="refAuthor">Certicom Research</span>, <span class="refTitle">"SEC 1: Elliptic Curve Cryptography"</span>, <time datetime="2009-05" class="refDate">May 2009</time>, <span>&lt;<a href="https://www.secg.org/sec1-v2.pdf">https://www.secg.org/sec1-v2.pdf</a>&gt;</span>. </dd>
@@ -1928,17 +1924,21 @@ $COSE_kty_ref /= -7       ; Value TBD
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
-<dt id="COSE-Hash-Envelope">[COSE-Hash-Envelope]</dt>
-        <dd>
-<span class="refAuthor">Steele, O.</span>, <span class="refAuthor">Lasker, S.</span>, and <span class="refAuthor">H. Birkholz</span>, <span class="refTitle">"COSE Hash Envelope"</span>, <time datetime="2024" class="refDate">2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-ietf-cose-hash-envelope/">https://datatracker.ietf.org/doc/draft-ietf-cose-hash-envelope/</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="FIPS-186-5">[FIPS-186-5]</dt>
         <dd>
 <span class="refAuthor">National Institute of Standards and Technology</span>, <span class="refTitle">"Digital Signature Standard (DSS)"</span>, <time datetime="2023-02" class="refDate">February 2023</time>, <span>&lt;<a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf">https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="FIPS-204">[FIPS-204]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">National Institute of Standards and Technology</span>, <span class="refTitle">"Module-Lattice-Based Digital Signature Standard"</span>, <time datetime="2024-08" class="refDate">August 2024</time>, <span>&lt;<a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf">https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.COSE-Hash-Envelope">[I-D.COSE-Hash-Envelope]</dt>
+        <dd>
+<span class="refAuthor">Steele, O.</span>, <span class="refAuthor">Lasker, S.</span>, and <span class="refAuthor">H. Birkholz</span>, <span class="refTitle">"COSE Hash Envelope"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-hash-envelope-02</span>, <time datetime="2025-02-21" class="refDate">21 February 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-hash-envelope-02">https://datatracker.ietf.org/doc/html/draft-ietf-cose-hash-envelope-02</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9380">[RFC9380]</dt>
+      <dd>
+<span class="refAuthor">Faz-Hernandez, A.</span>, <span class="refAuthor">Scott, S.</span>, <span class="refAuthor">Sullivan, N.</span>, <span class="refAuthor">Wahby, R. S.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Hashing to Elliptic Curves"</span>, <span class="seriesInfo">RFC 9380</span>, <span class="seriesInfo">DOI 10.17487/RFC9380</span>, <time datetime="2023-08" class="refDate">August 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9380">https://www.rfc-editor.org/rfc/rfc9380</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
