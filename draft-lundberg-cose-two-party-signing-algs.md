@@ -46,28 +46,8 @@ author:
   country: United States
 
 normative:
-  COSE-ML-DSA:
-    title: ML-DSA for JOSE and COSE
-    target: https://datatracker.ietf.org/doc/draft-ietf-cose-dilithium/
-    author:
-    - name: Michael Prorock
-      org: mesur.io
-      email: mprorock@mesur.io
-    - name: Orie Steele
-      ins: O. Steele
-      org: Transmute
-      email: orie@transmute.industries
-    - name: Rafael Misoczki
-      org: Google
-      email: rafaelmisoczki@google.com
-    - name: Michael Osborne
-      org: IBM
-      email: osb@zurich.ibm.com
-    - name: Christine Cloostermans
-      org: NXP
-      email: christine.cloostermans@nxp.com
-    date: 2024
   I-D.bradleylundberg-ARKG: I-D.draft-bradleylundberg-cfrg-arkg
+  I-D.COSE-ML-DSA: I-D.draft-ietf-cose-dilithium
   I-D.jose-fully-spec-algs: I-D.draft-ietf-jose-fully-specified-algorithms
   IANA.COSE:
     target: https://www.iana.org/assignments/cose/
@@ -301,7 +281,7 @@ COSE_Key_Ref = COSE_Key .within {
 ~~~
 
 The following CDDL example represents a reference to an ML-DSA-65 key,
-which uses the `AKP` key type [COSE-ML-DSA],
+which uses the `AKP` key type [I-D.COSE-ML-DSA],
 along with the value of the _ctx_ parameter to ML-DSA.Sign [FIPS-204]:
 
 ~~~cddl
