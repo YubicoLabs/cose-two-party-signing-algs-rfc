@@ -160,7 +160,7 @@ while the HSM computes the rest of the signature algorithm on the digest.
 
 Since different signature algorithms digest the message in different ways
 and at different stages of the algorithm,
-there is no generally-applicable way to define such a division point
+there is no one generally-applicable way to define such a division point
 for every possible signature algorithm.
 Therefore, this specification defines algorithm identifiers encoding,
 for a specific set of signature algorithms,
