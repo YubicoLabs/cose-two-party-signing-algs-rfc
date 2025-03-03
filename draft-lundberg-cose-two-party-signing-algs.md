@@ -99,21 +99,7 @@ informative:
     author:
     - org: National Institute of Standards and Technology
     date: February 2023
-  COSE-Hash-Envelope:
-    title: COSE Hash Envelope
-    target: https://datatracker.ietf.org/doc/draft-ietf-cose-hash-envelope/
-    author:
-    - name: Orie Steele
-      ins: O. Steele
-      org: Transmute
-      email: orie@transmute.industries
-    - name: Steve Lasker
-      org: DataTrails
-      email: steve.lasker@datatrails.ai
-    - name: Henk Birkholz
-      org: Fraunhofer SIT
-      email: henk.birkholz@ietf.contact
-    date: 2024
+  I-D.COSE-Hash-Envelope: I-D.draft-ietf-cose-hash-envelope
   RFC9380:
 
 
@@ -169,7 +155,7 @@ and which are performed by the _signer_ (e.g., HSM).
 In general, the _signer_ holds exclusive control of the signing private key.
 
 Note that these algorithm identifiers do not define new "pre-hashed" variants of the base signature algorithm,
-nor an intermediate "hash envelope" data structure, such as that defined in [COSE-Hash-Envelope].
+nor an intermediate "hash envelope" data structure, such as that defined in [I-D.COSE-Hash-Envelope].
 Rather, these identifiers correspond to existing signature algorithms
 that would typically be executed by a single party,
 but split into two stages.
