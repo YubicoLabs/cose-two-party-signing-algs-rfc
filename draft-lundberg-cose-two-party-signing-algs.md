@@ -198,7 +198,7 @@ and assigns algorithm identifiers to these algorithm divisions.
 The _digester_ performs the first part of the divided algorithm and does not have access to the signing private key,
 while the _signer_ performs the second part of the divided algorithm and has access to the signing private key.
 For signing algorithms that format the message to insert domain separation tags,
-as described in Section 2.2.5 of [RFC9380],
+as described in {{Section 2.2.5 of RFC9380}},
 this message formatting is also performed by the _signer_.
 
 The algorithm identifiers defined in this specification MUST NOT appear in COSE structures
