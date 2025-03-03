@@ -79,7 +79,6 @@ normative:
   RFC8174:
   RFC8610:
   RFC9052:
-  RFC9380:
   SEC1:
     target: https://www.secg.org/sec1-v2.pdf
     author:
@@ -115,6 +114,7 @@ informative:
       org: Fraunhofer SIT
       email: henk.birkholz@ietf.contact
     date: 2024
+  RFC9380:
 
 
 --- abstract
