@@ -46,28 +46,8 @@ author:
   country: United States
 
 normative:
-  COSE-ML-DSA:
-    title: ML-DSA for JOSE and COSE
-    target: https://datatracker.ietf.org/doc/draft-ietf-cose-dilithium/
-    author:
-    - name: Michael Prorock
-      org: mesur.io
-      email: mprorock@mesur.io
-    - name: Orie Steele
-      ins: O. Steele
-      org: Transmute
-      email: orie@transmute.industries
-    - name: Rafael Misoczki
-      org: Google
-      email: rafaelmisoczki@google.com
-    - name: Michael Osborne
-      org: IBM
-      email: osb@zurich.ibm.com
-    - name: Christine Cloostermans
-      org: NXP
-      email: christine.cloostermans@nxp.com
-    date: 2024
   I-D.bradleylundberg-ARKG: I-D.draft-bradleylundberg-cfrg-arkg
+  I-D.COSE-ML-DSA: I-D.draft-ietf-cose-dilithium
   I-D.jose-fully-spec-algs: I-D.draft-ietf-jose-fully-specified-algorithms
   IANA.COSE:
     target: https://www.iana.org/assignments/cose/
@@ -79,7 +59,6 @@ normative:
   RFC8174:
   RFC8610:
   RFC9052:
-  RFC9380:
   SEC1:
     target: https://www.secg.org/sec1-v2.pdf
     author:
@@ -100,21 +79,8 @@ informative:
     author:
     - org: National Institute of Standards and Technology
     date: February 2023
-  COSE-Hash-Envelope:
-    title: COSE Hash Envelope
-    target: https://datatracker.ietf.org/doc/draft-ietf-cose-hash-envelope/
-    author:
-    - name: Orie Steele
-      ins: O. Steele
-      org: Transmute
-      email: orie@transmute.industries
-    - name: Steve Lasker
-      org: DataTrails
-      email: steve.lasker@datatrails.ai
-    - name: Henk Birkholz
-      org: Fraunhofer SIT
-      email: henk.birkholz@ietf.contact
-    date: 2024
+  I-D.COSE-Hash-Envelope: I-D.draft-ietf-cose-hash-envelope
+  RFC9380:
 
 
 --- abstract
@@ -160,7 +126,7 @@ while the HSM computes the rest of the signature algorithm on the digest.
 
 Since different signature algorithms digest the message in different ways
 and at different stages of the algorithm,
-there is no generally-applicable way to define such a division point
+there is no one generally-applicable way to define such a division point
 for every possible signature algorithm.
 Therefore, this specification defines algorithm identifiers encoding,
 for a specific set of signature algorithms,
@@ -169,7 +135,7 @@ and which are performed by the _signer_ (e.g., HSM).
 In general, the _signer_ holds exclusive control of the signing private key.
 
 Note that these algorithm identifiers do not define new "pre-hashed" variants of the base signature algorithm,
-nor an intermediate "hash envelope" data structure, such as that defined in [COSE-Hash-Envelope].
+nor an intermediate "hash envelope" data structure, such as that defined in [I-D.COSE-Hash-Envelope].
 Rather, these identifiers correspond to existing signature algorithms
 that would typically be executed by a single party,
 but split into two stages.
@@ -198,7 +164,7 @@ and assigns algorithm identifiers to these algorithm divisions.
 The _digester_ performs the first part of the divided algorithm and does not have access to the signing private key,
 while the _signer_ performs the second part of the divided algorithm and has access to the signing private key.
 For signing algorithms that format the message to insert domain separation tags,
-as described in Section 2.2.5 of [RFC9380],
+as described in {{Section 2.2.5 of RFC9380}},
 this message formatting is also performed by the _signer_.
 
 The algorithm identifiers defined in this specification MUST NOT appear in COSE structures
@@ -315,7 +281,7 @@ COSE_Key_Ref = COSE_Key .within {
 ~~~
 
 The following CDDL example represents a reference to an ML-DSA-65 key,
-which uses the `AKP` key type [COSE-ML-DSA],
+which uses the `AKP` key type [I-D.COSE-ML-DSA],
 along with the value of the _ctx_ parameter to ML-DSA.Sign [FIPS-204]:
 
 ~~~cddl
