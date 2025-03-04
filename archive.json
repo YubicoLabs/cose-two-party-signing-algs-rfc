@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-02T00:04:56.457887+00:00",
+  "timestamp": "2025-03-04T00:04:22.065188+00:00",
   "repo": "YubicoLabs/cose-two-party-signing-algs-rfc",
   "labels": [
     {
@@ -572,6 +572,48 @@
           "body": "LGTM!",
           "createdAt": "2025-02-27T16:26:56Z",
           "updatedAt": "2025-02-27T16:26:56Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDON32VH86NIKia",
+      "title": "Miscellaneous editorial changes",
+      "url": "https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/pull/10",
+      "state": "MERGED",
+      "author": "emlun",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "- Use `{{section of ref}}` syntax for RFC9380 reference\r\n- Move RFC 9380 to informative references\r\n- Change \"no generally-applicable way\" => \"no one generally applicable way\"\r\n- Use implicit bibliography for COSE-Hash-Envelope\r\n- Use implicit bibliography for COSE-ML-DSA",
+      "createdAt": "2025-03-03T10:14:59Z",
+      "updatedAt": "2025-03-03T16:07:22Z",
+      "baseRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "baseRefName": "main",
+      "baseRefOid": "0b01eb12d3605daca96b1c4da93f3ba52e58d8bc",
+      "headRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "headRefName": "misc-editorial",
+      "headRefOid": "c484964e3cba0a3961c4b20703ae60c67ce7e2f2",
+      "closedAt": "2025-03-03T16:07:20Z",
+      "mergedAt": "2025-03-03T16:07:20Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "f62e1588cc51ac036fcb1d77309e46208f6cbbb4"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDON32VH86eOaxW",
+          "commit": {
+            "abbreviatedOid": "c484964"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-03-03T16:07:02Z",
+          "updatedAt": "2025-03-03T16:07:02Z",
           "comments": []
         }
       ]
