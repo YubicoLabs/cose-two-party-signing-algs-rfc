@@ -49,14 +49,17 @@ normative:
   I-D.bradleylundberg-ARKG: I-D.draft-bradleylundberg-cfrg-arkg
   I-D.COSE-ML-DSA: I-D.draft-ietf-cose-dilithium
   I-D.jose-fully-spec-algs: I-D.draft-ietf-jose-fully-specified-algorithms
+  I-D.pairing-curves: I-D.draft-irtf-cfrg-pairing-friendly-curves
   IANA.COSE:
     target: https://www.iana.org/assignments/cose/
     title: CBOR Object Signing and Encryption (COSE)
     author:
     - org: IANA
   RFC2119:
+  RFC8017:
   RFC8032:
   RFC8174:
+  RFC8235:
   RFC8610:
   RFC9052:
   SEC1:
@@ -250,6 +253,87 @@ The following algorithm identifiers are defined:
 | HashML-DSA-44-2p | TBD        | HashML-DSA-44  | HashML-DSA-44 divided for two-party signing as defined here (NOTE: HashML-DSA-44 not yet registered) |
 | HashML-DSA-65-2p | TBD        | HashML-DSA-65  | HashML-DSA-65 divided for two-party signing as defined here (NOTE: HashML-DSA-65 not yet registered) |
 | HashML-DSA-87-2p | TBD        | HashML-DSA-87  | HashML-DSA-87 divided for two-party signing as defined here (NOTE: HashML-DSA-87 not yet registered) |
+
+
+## Split-BBS
+
+THIS SECTION IS AN EARLY DRAFT AND NOT READY FOR ADOPTION OR STANDARDIZATION.
+FOR PROTOTYPING PURPOSES ONLY.
+
+This is a signing procedure for BBS device binding, based on the "Split-BBS" protocol
+proposed in "Device Binding for BBS Signatures" by Cordian Daniluk and Anja Lehmann.
+
+THIS SIGNING PROCEDURE HAS NOT BEEN THOROUGHLY ANALYZED FOR SECURITY.
+USE FOR TESTING PURPOSES ONLY.
+
+The signing inputs are:
+
+- `crv`: A pairing-friendly elliptic curve
+  with prime order subgroup generator `G` of (prime) order `N`
+  and curve scalars encoded in `Clen` octets.
+- `H`: A cryptographic hash function outputting digests of length `Hlen` octets.
+- `a`: The signing private key, an integer mod `N`.
+- `c_host`: A `Hlen`-length octet string containing the challenge hash to be signed.
+- `t2prime`: A curve point to add to the nonce point before hashing.
+  If not present, `t2prime` is taken as the point at infinity
+  (the identity element of the curve group).
+
+The signature consists of an integer `s` and two byte strings `c` and `n`
+computed by the following protocol
+based on a Schnorr Non-Interactive Zero Knowledge proof [RFC8235]:
+
+ 1. Verify that `t2prime` is a valid point on `crv`.
+ 2. Sample `n` as `Hlen` uniformly random bytes.
+ 3. Sample `v` uniformly random in \[1, `N`-1\]
+ 4. `t_dsk = [v] x G`
+ 5. `t2 = t2prime + t_dsk`
+ 6. `c = H(n || ECP2OS(t2) || c_host)`
+ 7. `s = v - a * c (mod N)`
+ 8. Return `I2OSP(s, 32) || c || n`
+
+`ECP2OS` is the "Elliptic-Curve-Point-to-Octet-String" procedure
+defined in section 2.3.3 of [SEC1], without point compression.
+`I2OSP` is defined in {{Section 4.1 of RFC8017}}
+(also `I2OSP(x, 32)` is equivalent to the
+"Field-Element-to-Octet-String" procedure defined in [SEC1]).
+
+The following algorithm identifiers are defined:
+
+| Name           | COSE Value               | Base algorithm | Description |
+| ---------------| ------------------------ | -------------- | ----------- |
+| SplitBBS-BS256 | TBD (placeholder -65602) | (None)         | Split-BBS as defined here with SHA256 as `H`, 32 as `Hlen`, BLS12-381 [I-D.pairing-curves] as `crv` and 32 as `Clen` |
+
+The following COSE curve identifiers are defined:
+
+| Name      | COSE Value               | Description |
+| --------- | ------------------------ | ----------- |
+| BLS12_381 | TBD (placeholder -65601) | The curve BLS12-381 [I-D.pairing-curves] |
+
+The `t2prime` signing input may be represented as attribute `-10`
+in a COSE_Key_Ref (see {{cose-key-refs}}) with `kty: 2` (EC2).
+The value is a COSE_Key encoding `t2prime` as a public key on `crv`.
+
+The following CDDL example represents a reference to a SplitBBS-BS256 key
+along with a `t2prime` input to use during signing:
+
+~~~cddl
+{
+  1: -2,       ; kty: Ref-EC2
+               ; kid: Opaque identifier of the EC2 key
+  2: h'1b33d9aecb7aa21703845043a706d174203b026dcc40492fec25ab566bb4569f',
+
+  3: -65602,   ; alg: SplitBBS-BS256 (placeholder value)
+
+  -10: {       ; t2prime argument to Split-BBS signing procedure
+    1: 2,        ; kty: EC2
+    -1: -65601,  ; crv: BLS12_381
+                 ; x coordinate of t2prime
+    -2: h'19c902dfc093fe8165c98543dae09a3d4a9006dfb5ba1e6e46b7495f9384e4c26d1af74302ff95bc922d4b1649ed9630',
+                 ; y coordinate of t2prime
+    -3: h'0ef6b57c2fdb550b33287728daed69637201eb53294cc82c304c3e3937fd1c7346e6da79d242c25ffa728130316130a5',
+  },
+}
+~~~
 
 
 # COSE Key Reference Types {#cose-key-refs}
