@@ -5,8 +5,8 @@
 COSE                                                    E. Lundberg, Ed.
 Internet-Draft                                                    Yubico
 Intended status: Standards Track                             M. B. Jones
-Expires: 31 August 2025                           Self-Issued Consulting
-                                                        27 February 2025
+Expires: 16 October 2025                          Self-Issued Consulting
+                                                           14 April 2025
 
 
                  COSE Algorithms for Two-Party Signing
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 August 2025.
+   This Internet-Draft will expire on 16 October 2025.
 
 Copyright Notice
 
@@ -81,11 +81,12 @@ Table of Contents
      2.1.  ECDSA
      2.2.  HashEdDSA
      2.3.  HashML-DSA
+     2.4.  Split-BBS
    3.  COSE Key Reference Types
    4.  IANA Considerations
-     4.1.  COSE Key Types Registrations
-     4.2.  COSE Key Type Parameters Registrations
-     4.3.  COSE Algorithms Registrations
+     4.1.  COSE Algorithms Registrations
+     4.2.  COSE Key Types Registrations
+     4.3.  COSE Key Type Parameters Registrations
    5.  References
      5.1.  Normative References
      5.2.  Informative References
@@ -119,19 +120,19 @@ Table of Contents
    of the signature algorithm on the digest.
 
    Since different signature algorithms digest the message in different
-   ways and at different stages of the algorithm, there is no generally-
-   applicable way to define such a division point for every possible
-   signature algorithm.  Therefore, this document defines algorithm
-   identifiers encoding, for a specific set of signature algorithms,
-   which steps of the signature algorithm are performed by the
-   _digester_ (e.g., software application) and which are performed by
-   the _signer_ (e.g., HSM).  In general, the _signer_ holds exclusive
-   control of the signing private key.
+   ways and at different stages of the algorithm, there is no one
+   generally-applicable way to define such a division point for every
+   possible signature algorithm.  Therefore, this specification defines
+   algorithm identifiers encoding, for a specific set of signature
+   algorithms, which steps of the signature algorithm are performed by
+   the _digester_ (e.g., software application) and which are performed
+   by the _signer_ (e.g., HSM).  In general, the _signer_ holds
+   exclusive control of the signing private key.
 
    Note that these algorithm identifiers do not define new "pre-hashed"
    variants of the base signature algorithm, nor an intermediate "hash
    envelope" data structure, such as that defined in
-   [COSE-Hash-Envelope].  Rather, these identifiers correspond to
+   [I-D.COSE-Hash-Envelope].  Rather, these identifiers correspond to
    existing signature algorithms that would typically be executed by a
    single party, but split into two stages.  The resulting signatures
    are identical to those computed by a single party, and can be
@@ -168,14 +169,14 @@ Table of Contents
    Section 2.2.5 of [RFC9380], this message formatting is also performed
    by the _signer_.
 
-   The algorithm identifiers defined in this document MUST NOT appear in
-   COSE structures other than COSE_Key_Ref (see Section 3).  They are
-   meant only for coordination between the _digester_ and the _signer_
-   in a two-party signing protocol.  Representations of the keys used
-   and the resulting signatures MUST use the corresponding conventional
-   algorithm identifiers instead.  These are listed in the "Base
-   algorithm" column in the tables defining two-party signing algorithm
-   identifiers.
+   The algorithm identifiers defined in this specification MUST NOT
+   appear in COSE structures other than COSE_Key_Ref (see Section 3).
+   They are meant only for coordination between the _digester_ and the
+   _signer_ in a two-party signing protocol.  Representations of the
+   keys used and the resulting signatures MUST use the corresponding
+   conventional algorithm identifiers instead.  These are listed in the
+   "Base algorithm" column in the tables defining two-party signing
+   algorithm identifiers.
 
 2.1.  ECDSA
 
@@ -201,18 +202,18 @@ Table of Contents
    +===========+=======+===========+===================================+
    | ESP256-2p | TBD   | ESP256    | ESP256                            |
    |           |       |           | [I-D.jose-fully-spec-algs]        |
-   |           |       |           | divided as defined in             |
-   |           |       |           | Section 2.1 of this document      |
+   |           |       |           | divided for two-party             |
+   |           |       |           | signing as defined here           |
    +-----------+-------+-----------+-----------------------------------+
    | ESP384-2p | TBD   | ESP384    | ESP384                            |
    |           |       |           | [I-D.jose-fully-spec-algs]        |
-   |           |       |           | divided as defined in             |
-   |           |       |           | Section 2.1 of this document      |
+   |           |       |           | divided for two-party             |
+   |           |       |           | signing as defined here           |
    +-----------+-------+-----------+-----------------------------------+
    | ESP512-2p | TBD   | ESP512    | ESP512                            |
    |           |       |           | [I-D.jose-fully-spec-algs]        |
-   |           |       |           | divided as defined in             |
-   |           |       |           | Section 2.1 of this document      |
+   |           |       |           | divided for two-party             |
+   |           |       |           | signing as defined here           |
    +-----------+-------+-----------+-----------------------------------+
 
                                   Table 1
@@ -246,26 +247,24 @@ Table of Contents
 
    The following algorithm identifiers are defined:
 
-     +==============+=======+===========+============================+
-     | Name         | COSE  | Base      | Description                |
-     |              | Value | algorithm |                            |
-     +==============+=======+===========+============================+
-     | Ed25519ph-2p | TBD   | Ed25519ph | Ed25519ph                  |
-     |              |       |           | [I-D.jose-fully-spec-algs] |
-     |              |       |           | divided as defined in      |
-     |              |       |           | Section 2.2 of this        |
-     |              |       |           | document (NOTE: Ed25519ph  |
-     |              |       |           | not yet registered)        |
-     +--------------+-------+-----------+----------------------------+
-     | Ed448ph-2p   | TBD   | Ed448ph   | Ed448ph                    |
-     |              |       |           | [I-D.jose-fully-spec-algs] |
-     |              |       |           | divided as defined in      |
-     |              |       |           | Section 2.2 of this        |
-     |              |       |           | document (NOTE: Ed448ph    |
-     |              |       |           | not yet registered)        |
-     +--------------+-------+-----------+----------------------------+
+   +==============+=======+===========+===============================+
+   | Name         | COSE  | Base      | Description                   |
+   |              | Value | algorithm |                               |
+   +==============+=======+===========+===============================+
+   | Ed25519ph-2p | TBD   | Ed25519ph | Ed25519ph                     |
+   |              |       |           | [I-D.jose-fully-spec-algs]    |
+   |              |       |           | divided for two-party signing |
+   |              |       |           | as defined here (NOTE:        |
+   |              |       |           | Ed25519ph not yet registered) |
+   +--------------+-------+-----------+-------------------------------+
+   | Ed448ph-2p   | TBD   | Ed448ph   | Ed448ph                       |
+   |              |       |           | [I-D.jose-fully-spec-algs]    |
+   |              |       |           | divided for two-party signing |
+   |              |       |           | as defined here (NOTE:        |
+   |              |       |           | Ed448ph not yet registered)   |
+   +--------------+-------+-----------+-------------------------------+
 
-                                  Table 2
+                                 Table 2
 
 2.3.  HashML-DSA
 
@@ -282,7 +281,7 @@ Table of Contents
       the signing procedure.  The additional _ctx_ input must also be
       transmitted to the _signer_. This may, for example, be done using
       the ctx (-1) parameter of a COSE_Key_Ref with kty (1): Ref-ML-DSA
-      (TBD) (see Section 4.1 and Section 4.2).
+      (TBD) (see Section 4.2 and Section 4.3).
 
    *  The _signer_ executes all steps of the signing procedure except
       the Steps 13, 16, 19 or similar that compute the value PH_(_M_).
@@ -299,33 +298,138 @@ Table of Contents
 
    The following algorithm identifiers are defined:
 
-    +==================+=======+===============+======================+
-    | Name             | COSE  | Base          | Description          |
-    |                  | Value | algorithm     |                      |
-    +==================+=======+===============+======================+
-    | HashML-DSA-44-2p | TBD   | HashML-DSA-44 | HashML-DSA-44 TODO:  |
-    |                  |       |               | divided as defined   |
-    |                  |       |               | in Section 2.3 of    |
-    |                  |       |               | this document (NOTE: |
-    |                  |       |               | HashML-DSA-44 not    |
-    |                  |       |               | yet registered)      |
-    +------------------+-------+---------------+----------------------+
-    | HashML-DSA-65-2p | TBD   | HashML-DSA-65 | HashML-DSA-65 TODO:  |
-    |                  |       |               | divided as defined   |
-    |                  |       |               | in Section 2.3 of    |
-    |                  |       |               | this document (NOTE: |
-    |                  |       |               | HashML-DSA-65 not    |
-    |                  |       |               | yet registered)      |
-    +------------------+-------+---------------+----------------------+
-    | HashML-DSA-87-2p | TBD   | HashML-DSA-87 | HashML-DSA-87 TODO:  |
-    |                  |       |               | divided as defined   |
-    |                  |       |               | in Section 2.3 of    |
-    |                  |       |               | this document (NOTE: |
-    |                  |       |               | HashML-DSA-87 not    |
-    |                  |       |               | yet registered)      |
-    +------------------+-------+---------------+----------------------+
+   +==================+=======+===============+=======================+
+   | Name             | COSE  | Base          | Description           |
+   |                  | Value | algorithm     |                       |
+   +==================+=======+===============+=======================+
+   | HashML-DSA-44-2p | TBD   | HashML-DSA-44 | HashML-DSA-44 divided |
+   |                  |       |               | for two-party signing |
+   |                  |       |               | as defined here       |
+   |                  |       |               | (NOTE: HashML-DSA-44  |
+   |                  |       |               | not yet registered)   |
+   +------------------+-------+---------------+-----------------------+
+   | HashML-DSA-65-2p | TBD   | HashML-DSA-65 | HashML-DSA-65 divided |
+   |                  |       |               | for two-party signing |
+   |                  |       |               | as defined here       |
+   |                  |       |               | (NOTE: HashML-DSA-65  |
+   |                  |       |               | not yet registered)   |
+   +------------------+-------+---------------+-----------------------+
+   | HashML-DSA-87-2p | TBD   | HashML-DSA-87 | HashML-DSA-87 divided |
+   |                  |       |               | for two-party signing |
+   |                  |       |               | as defined here       |
+   |                  |       |               | (NOTE: HashML-DSA-87  |
+   |                  |       |               | not yet registered)   |
+   +------------------+-------+---------------+-----------------------+
 
-                                  Table 3
+                                 Table 3
+
+2.4.  Split-BBS
+
+   THIS SECTION IS AN EARLY DRAFT AND NOT READY FOR ADOPTION OR
+   STANDARDIZATION.  FOR PROTOTYPING PURPOSES ONLY.
+
+   This is a signing procedure for BBS device binding, based on the
+   "Split-BBS" protocol proposed in "Device Binding for BBS Signatures"
+   by Cordian Daniluk and Anja Lehmann.
+
+   THIS SIGNING PROCEDURE HAS NOT BEEN THOROUGHLY ANALYZED FOR SECURITY.
+   USE FOR TESTING PURPOSES ONLY.
+
+   The signing inputs are:
+
+   *  crv: A pairing-friendly elliptic curve with prime order subgroup
+      generator G of (prime) order N and curve scalars encoded in Clen
+      octets.
+
+   *  H: A cryptographic hash function outputting digests of length Hlen
+      octets.
+
+   *  a: The signing private key, an integer mod N.
+
+   *  c_host: A Hlen-length octet string containing the challenge hash
+      to be signed.
+
+   *  t2prime: A curve point to add to the nonce point before hashing.
+      If not present, t2prime is taken as the point at infinity (the
+      identity element of the curve group).
+
+   The signature consists of an integer s and two byte strings c and n
+   computed by the following protocol based on a Schnorr Non-Interactive
+   Zero Knowledge proof [RFC8235]:
+
+   1.  Verify that t2prime is a valid point on crv.
+
+   2.  Sample n as Hlen uniformly random bytes.
+
+   3.  Sample v uniformly random in [1, N-1]
+
+   4.  t_dsk = [v] x G
+
+   5.  t2 = t2prime + t_dsk
+
+   6.  c = H(n || ECP2OS(t2) || c_host)
+
+   7.  s = v - a * c (mod N)
+
+   8.  Return I2OSP(s, 32) || c || n
+
+   ECP2OS is the "Elliptic-Curve-Point-to-Octet-String" procedure
+   defined in section 2.3.3 of [SEC1], without point compression.  I2OSP
+   is defined in Section 4.1 of [RFC8017] (also I2OSP(x, 32) is
+   equivalent to the "Field-Element-to-Octet-String" procedure defined
+   in [SEC1]).
+
+   The following algorithm identifiers are defined:
+
+   +================+==============+===========+=======================+
+   | Name           | COSE Value   | Base      | Description           |
+   |                |              | algorithm |                       |
+   +================+==============+===========+=======================+
+   | SplitBBS-BS256 | TBD          | (None)    | Split-BBS as defined  |
+   |                | (placeholder |           | here with SHA256 as   |
+   |                | -65602)      |           | H, 32 as Hlen,        |
+   |                |              |           | BLS12-381             |
+   |                |              |           | [I-D.pairing-curves]  |
+   |                |              |           | as crv and 32 as      |
+   |                |              |           | Clen                  |
+   +----------------+--------------+-----------+-----------------------+
+
+                                  Table 4
+
+   The following COSE curve identifiers are defined:
+
+      +===========+==========================+======================+
+      | Name      | COSE Value               | Description          |
+      +===========+==========================+======================+
+      | BLS12_381 | TBD (placeholder -65601) | The curve BLS12-381  |
+      |           |                          | [I-D.pairing-curves] |
+      +-----------+--------------------------+----------------------+
+
+                                  Table 5
+
+   The t2prime signing input may be represented as attribute -10 in a
+   COSE_Key_Ref (see Section 3) with kty: 2 (EC2).  The value is a
+   COSE_Key encoding t2prime as a public key on crv.
+
+   The following CDDL example represents a reference to a SplitBBS-BS256
+   key along with a t2prime input to use during signing:
+
+   {
+     1: -2,       ; kty: Ref-EC2
+                  ; kid: Opaque identifier of the EC2 key
+     2: h'1b33d9aecb7aa21703845043a706d174203b026dcc40492fec25ab566bb4569f',
+
+     3: -65602,   ; alg: SplitBBS-BS256 (placeholder value)
+
+     -10: {       ; t2prime argument to Split-BBS signing procedure
+       1: 2,        ; kty: EC2
+       -1: -65601,  ; crv: BLS12_381
+                    ; x coordinate of t2prime
+       -2: h'19c902dfc093fe8165c98543dae09a3d4a9006dfb5ba1e6e46b7495f9384e4c26d1af74302ff95bc922d4b1649ed9630',
+                    ; y coordinate of t2prime
+       -3: h'0ef6b57c2fdb550b33287728daed69637201eb53294cc82c304c3e3937fd1c7346e6da79d242c25ffa728130316130a5',
+     },
+   }
 
 3.  COSE Key Reference Types
 
@@ -335,7 +439,7 @@ Table of Contents
    some signature algorithms use additional parameters to the signature
    generation beyond the signing private key and message to be signed.
    For example, ML-DSA [FIPS-204] has the additional parameter _ctx_ and
-   ARKG-Derive-Secret-Key [I-D.bradleylundberg-ARKG] has the parameters
+   ARKG-Derive-Private-Key [I-D.bradleylundberg-ARKG] has the parameters
    kh and info, in addition to the private key.
 
    While these additional parameters are simple to provide to the API of
@@ -360,8 +464,8 @@ Table of Contents
    }
 
    The following CDDL example represents a reference to an ML-DSA-65
-   key, which uses the AKP key type [COSE-ML-DSA], along with the value
-   of the _ctx_ parameter to ML-DSA.Sign [FIPS-204]:
+   key, which uses the AKP key type [I-D.COSE-ML-DSA], along with the
+   value of the _ctx_ parameter to ML-DSA.Sign [FIPS-204]:
 
    {
      1: TBD,      ; kty: Ref-AKP
@@ -400,7 +504,129 @@ Table of Contents
 
 4.  IANA Considerations
 
-4.1.  COSE Key Types Registrations
+4.1.  COSE Algorithms Registrations
+
+   This section registers the following values in the IANA "COSE
+   Algorithms" registry [IANA.COSE]:
+
+   *  Name: ESP256-2p
+
+      -  Value: TBD (Requested Assignment -300)
+
+      -  Description: ESP256 [I-D.jose-fully-spec-algs] divided for two-
+         party signing
+
+      -  Capabilities: [kty]
+
+      -  Change Controller: IETF
+
+      -  Reference: Section 2.1 of this specification
+
+      -  Recommended: Yes
+
+   *  Name: ESP384-2p
+
+      -  Value: TBD (Requested Assignment -301)
+
+      -  Description: ESP384 [I-D.jose-fully-spec-algs] divided for two-
+         party signing
+
+      -  Capabilities: [kty]
+
+      -  Change Controller: IETF
+
+      -  Reference: Section 2.1 of this specification
+
+      -  Recommended: Yes
+
+   *  Name: ESP512-2p
+
+      -  Value: TBD (Requested Assignment -302)
+
+      -  Description: ESP512 [I-D.jose-fully-spec-algs] divided for two-
+         party signing
+
+      -  Capabilities: [kty]
+
+      -  Change Controller: IETF
+
+      -  Reference: Section 2.1 of this specification
+
+      -  Recommended: Yes
+
+   *  Name: Ed25519ph-2p
+
+      -  Value: TBD (Requested Assignment -303)
+
+      -  Description: Ed25519ph [I-D.jose-fully-spec-algs] divided for
+         two-party signing
+
+      -  Capabilities: [kty]
+
+      -  Change Controller: IETF
+
+      -  Reference: Section 2.2 of this specification
+
+      -  Recommended: Yes
+
+   *  Name: Ed448ph-2p
+
+      -  Value: TBD (Requested Assignment -304)
+
+      -  Description: Ed448ph [I-D.jose-fully-spec-algs] divided for
+         two-party signing
+
+      -  Capabilities: [kty]
+
+      -  Change Controller: IETF
+
+      -  Reference: Section 2.2 of this specification
+
+      -  Recommended: Yes
+
+   *  Name: HashML-DSA-44-2p
+
+      -  Value: TBD (Requested Assignment -305)
+
+      -  Description: HashML-DSA-44 divided for two-party signing
+
+      -  Capabilities: [kty]
+
+      -  Change Controller: IETF
+
+      -  Reference: Section 2.3 of this specification
+
+      -  Recommended: Yes
+
+   *  Name: HashML-DSA-65-2p
+
+      -  Value: TBD (Requested Assignment -306)
+
+      -  Description: HashML-DSA-65 divided for two-party signing
+
+      -  Capabilities: [kty]
+
+      -  Change Controller: IETF
+
+      -  Reference: Section 2.3 of this specification
+
+      -  Recommended: Yes
+
+   *  Name: HashML-DSA-87-2p
+
+      -  Value: TBD (Requested Assignment -307)
+
+      -  Description: HashML-DSA-87 divided for two-party signing
+
+      -  Capabilities: [kty]
+
+      -  Change Controller: IETF
+
+      -  Reference: Section 2.3 of this specification
+
+      -  Recommended: Yes
+
+4.2.  COSE Key Types Registrations
 
    This section registers the following values in the IANA "COSE Key
    Types" registry [IANA.COSE]:
@@ -442,7 +668,7 @@ Table of Contents
    $COSE_kty_ref /= -2       ; Value TBD
    $COSE_kty_ref /= -7       ; Value TBD
 
-4.2.  COSE Key Type Parameters Registrations
+4.3.  COSE Key Type Parameters Registrations
 
    This section registers the following values in the IANA "COSE Key
    Type Parameters" registry [IANA.COSE]:
@@ -459,139 +685,37 @@ Table of Contents
 
       -  Reference: Section 3 of this specification
 
-4.3.  COSE Algorithms Registrations
-
-   This section registers the following values in the IANA "COSE
-   Algorithms" registry [IANA.COSE].
-
-   *  Name: ESP256-ARKG
-
-      -  Value: TBD (Placeholder -65539)
-
-      -  Description: ESP256 with key derived by ARKG-P256ADD-ECDH
-
-      -  Capabilities: [kty]
-
-      -  Change Controller: TBD
-
-      -  Reference: [I-D.jose-fully-spec-algs], Section 4.1 of
-         [I-D.bradleylundberg-ARKG]
-
-      -  Recommended: Yes
-
-   *  Name: ESP256-2p-ARKG
-
-      -  Value: TBD (Placeholder -65539)
-
-      -  Description: ESP256-2p with key derived by ARKG-P256ADD-ECDH
-
-      -  Capabilities: [kty]
-
-      -  Change Controller: TBD
-
-      -  Reference: [I-D.jose-fully-spec-algs], Section 4.1 of
-         [I-D.bradleylundberg-ARKG]
-
-      -  Recommended: Yes
-
-   *  Name: ESP384-ARKG
-
-      -  Value: TBD (Placeholder -65540)
-
-      -  Description: ESP384 with key derived by ARKG-P384ADD-ECDH
-
-      -  Capabilities: [kty]
-
-      -  Change Controller: TBD
-
-      -  Reference: [I-D.jose-fully-spec-algs], Section 4.2 of
-         [I-D.bradleylundberg-ARKG]
-
-      -  Recommended: Yes
-
-   *  Name: ESP512-ARKG
-
-      -  Value: TBD (Placeholder -65541)
-
-      -  Description: ESP512 with key derived by ARKG-P521ADD-ECDH
-
-      -  Capabilities: [kty]
-
-      -  Change Controller: TBD
-
-      -  Reference: [I-D.jose-fully-spec-algs], Section 4.3 of
-         [I-D.bradleylundberg-ARKG]
-
-      -  Recommended: Yes
-
-   *  Name: ES256K-ARKG
-
-      -  Value: TBD (Placeholder -65542)
-
-      -  Description: ES256K with key derived by ARKG-P256kADD-ECDH
-
-      -  Capabilities: [kty]
-
-      -  Change Controller: TBD
-
-      -  Reference: [RFC8812], Section 4.4 of [I-D.bradleylundberg-ARKG]
-
-      -  Recommended: Yes
-
-   *  Name: Ed25519-ARKG
-
-      -  Value: TBD (Placeholder -65543)
-
-      -  Description: Ed25519 with key derived by ARKG-
-         edwards25519ADD-X25519
-
-      -  Capabilities: [kty]
-
-      -  Change Controller: TBD
-
-      -  Reference: [I-D.jose-fully-spec-algs], Section 4.7 of
-         [I-D.bradleylundberg-ARKG]
-
-      -  Recommended: Yes
-
-   *  Name: Ed448-ARKG
-
-      -  Value: TBD (Placeholder -65544)
-
-      -  Description: Ed448 with key derived by ARKG-edwards448ADD-X448
-
-      -  Capabilities: [kty]
-
-      -  Change Controller: TBD
-
-      -  Reference: [I-D.jose-fully-spec-algs], Section 4.8 of
-         [I-D.bradleylundberg-ARKG]
-
-      -  Recommended: Yes
-
 5.  References
 
 5.1.  Normative References
 
-   [COSE-ML-DSA]
-              Prorock, M., Steele, O., Misoczki, R., Osborne, M., and C.
-              Cloostermans, "ML-DSA for JOSE and COSE", 2024,
-              <https://datatracker.ietf.org/doc/draft-ietf-cose-
-              dilithium/>.
-
    [I-D.bradleylundberg-ARKG]
               Lundberg, E. and J. Bradley, "The Asynchronous Remote Key
               Generation (ARKG) algorithm", Work in Progress, Internet-
-              Draft, draft-bradleylundberg-cfrg-arkg-03, 27 November
-              2024, <https://datatracker.ietf.org/doc/html/draft-
-              bradleylundberg-cfrg-arkg-03>.
+              Draft, draft-bradleylundberg-cfrg-arkg-05, 7 April 2025,
+              <https://datatracker.ietf.org/doc/html/draft-
+              bradleylundberg-cfrg-arkg-05>.
+
+   [I-D.COSE-ML-DSA]
+              Prorock, M., Steele, O., Misoczki, R., Osborne, M., and C.
+              Cloostermans, "ML-DSA for JOSE and COSE", Work in
+              Progress, Internet-Draft, draft-ietf-cose-dilithium-06, 1
+              April 2025, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-cose-dilithium-06>.
 
    [I-D.jose-fully-spec-algs]
               Jones, M. B. and O. Steele, "Fully-Specified Algorithms
               for JOSE and COSE", Work in Progress, Internet-Draft,
-              draft-ietf-jose-fully-specified-algorithms-07, 20 February
+              draft-ietf-jose-fully-specified-algorithms-09, 2 April
               2025, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              jose-fully-specified-algorithms-07>.
+              jose-fully-specified-algorithms-09>.
+
+   [I-D.pairing-curves]
+              Sakemi, Y., Kobayashi, T., Saito, T., and R. S. Wahby,
+              "Pairing-Friendly Curves", Work in Progress, Internet-
+              Draft, draft-irtf-cfrg-pairing-friendly-curves-11, 6
+              November 2022, <https://datatracker.ietf.org/doc/html/
+              draft-irtf-cfrg-pairing-friendly-curves-11>.
 
    [IANA.COSE]
               IANA, "CBOR Object Signing and Encryption (COSE)", n.d.,
@@ -602,6 +726,11 @@ Table of Contents
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
+   [RFC8017]  Moriarty, K., Ed., Kaliski, B., Jonsson, J., and A. Rusch,
+              "PKCS #1: RSA Cryptography Specifications Version 2.2",
+              RFC 8017, DOI 10.17487/RFC8017, November 2016,
+              <https://www.rfc-editor.org/rfc/rfc8017>.
+
    [RFC8032]  Josefsson, S. and I. Liusvaara, "Edwards-Curve Digital
               Signature Algorithm (EdDSA)", RFC 8032,
               DOI 10.17487/RFC8032, January 2017,
@@ -610,6 +739,10 @@ Table of Contents
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [RFC8235]  Hao, F., Ed., "Schnorr Non-interactive Zero-Knowledge
+              Proof", RFC 8235, DOI 10.17487/RFC8235, September 2017,
+              <https://www.rfc-editor.org/rfc/rfc8235>.
 
    [RFC8610]  Birkholz, H., Vigano, C., and C. Bormann, "Concise Data
               Definition Language (CDDL): A Notational Convention to
@@ -622,20 +755,10 @@ Table of Contents
               DOI 10.17487/RFC9052, August 2022,
               <https://www.rfc-editor.org/rfc/rfc9052>.
 
-   [RFC9380]  Faz-Hernandez, A., Scott, S., Sullivan, N., Wahby, R. S.,
-              and C. A. Wood, "Hashing to Elliptic Curves", RFC 9380,
-              DOI 10.17487/RFC9380, August 2023,
-              <https://www.rfc-editor.org/rfc/rfc9380>.
-
    [SEC1]     Certicom Research, "SEC 1: Elliptic Curve Cryptography",
               May 2009, <https://www.secg.org/sec1-v2.pdf>.
 
 5.2.  Informative References
-
-   [COSE-Hash-Envelope]
-              Steele, O., Lasker, S., and H. Birkholz, "COSE Hash
-              Envelope", 2024, <https://datatracker.ietf.org/doc/draft-
-              ietf-cose-hash-envelope/>.
 
    [FIPS-186-5]
               National Institute of Standards and Technology, "Digital
@@ -648,7 +771,25 @@ Table of Contents
               <https://nvlpubs.nist.gov/nistpubs/FIPS/
               NIST.FIPS.204.pdf>.
 
+   [I-D.COSE-Hash-Envelope]
+              Steele, O., Lasker, S., and H. Birkholz, "COSE Hash
+              Envelope", Work in Progress, Internet-Draft, draft-ietf-
+              cose-hash-envelope-05, 28 March 2025,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
+              hash-envelope-05>.
+
+   [RFC9380]  Faz-Hernandez, A., Scott, S., Sullivan, N., Wahby, R. S.,
+              and C. A. Wood, "Hashing to Elliptic Curves", RFC 9380,
+              DOI 10.17487/RFC9380, August 2023,
+              <https://www.rfc-editor.org/rfc/rfc9380>.
+
 Document History
+
+   -01
+
+   *  Added IANA registration requests for algorithms defined.
+
+   *  Updated references and other editorial tweaks.
 
    -00
 
@@ -658,7 +799,7 @@ Authors' Addresses
 
    Emil Lundberg (editor)
    Yubico
-   Kungsgatan 44
+   Gävlegatan 22
    Stockholm
    Sweden
    Email: emil@emlun.se
