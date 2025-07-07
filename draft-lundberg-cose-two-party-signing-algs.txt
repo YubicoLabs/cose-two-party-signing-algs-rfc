@@ -273,9 +273,9 @@ Table of Contents
 3.  COSE Signing Arguments
 
    While many signature algorithms take the private key and data to be
-   signed as the only two parameters, some signature algorithms use
-   additional parameters to the signature generation.  For example, to
-   sign using a key derived by ARKG [I-D.bradleylundberg-ARKG], two
+   signed as the only two parameters, some signature algorithms have
+   additional parameters that must also be set.  For example, to sign
+   using a key derived by ARKG [I-D.bradleylundberg-ARKG], two
    additional arguments kh and info are needed in ARKG-Derive-Private-
    Key to derive the signing private key.
 
@@ -319,14 +319,11 @@ Table of Contents
 
        Table 3: Common parameters of the COSE_Sign_Args structure.
 
-   *  alg: This parameter is used to identify the signing algorithm to
-      use.  If this parameter is present, the signer MUST verify that
-      this algorithm matches any key usage restrictions set on the key
-      to be used.  If the algorithms do not match, then the signature
+   *  alg: This parameter identifies the signing algorithm the
+      additional arguments apply to.  The signer MUST verify that this
+      algorithm matches any key usage restrictions set on the key to be
+      used.  If the algorithms do not match, then the signature
       operation MUST be aborted with an error.
-
-      "alg" MAY be omitted when the algorithm to use is implicit from
-      context.
 
    Definitions of COSE algorithms MAY define additional algorithm-
    specific parameters for COSE_Sign_Args.
