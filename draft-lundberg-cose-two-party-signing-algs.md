@@ -2,8 +2,8 @@
 stand_alone: true
 ipr: trust200902
 
-title: "COSE Algorithms for Two-Party Signing"
-abbrev: "COSE Algs for Two-Party Signing"
+title: "Split signing algorithms for COSE"
+abbrev: "Split signing algorithms for COSE"
 lang: en
 category: std
 
@@ -18,8 +18,9 @@ workgroup: "COSE"
 keyword:
  - COSE
  - Signing
- - Two-Party
  - Algorithms
+ - Split algorithms
+ - Split signing
 
 venue:
   group: "COSE"
@@ -81,13 +82,19 @@ informative:
     date: February 2023
   I-D.COSE-Hash-Envelope: I-D.draft-ietf-cose-hash-envelope
   RFC9380:
+  SECDSA:
+    target: https://eprint.iacr.org/2021/910
+    title: 'SECDSA: Mobile signing and authentication under classical "sole control"'
+    author:
+    - fullname: Eric Verheul
+    date: July 2021
 
 
 --- abstract
 
-This specification defines COSE algorithm identifiers used when the signing operation
-is performed cooperatively between two parties.
-When performing two-party signing,
+This specification defines COSE algorithm identifiers used when one signing operation
+is split between two cooperating parties.
+When performing split signing,
 the first party typically hashes the data to be signed
 and the second party signs the hashed data computed by the first party.
 This can be useful when communication with the party holding the signing private key
@@ -105,19 +112,21 @@ without additional steps to preprocess the signed data.
 
 CBOR Object Signing and Encryption (COSE) [RFC9052]
 algorithm identifiers are used to specify the cryptographic operations
-performed when creating cryptographic data structures,
-but do not record all the details of how the cryptography was performed,
+used to create cryptographic data structures,
+but do not record internal details of how the cryptography was performed,
 since those details are typically irrelevant for the recipient.
-The algorithm identifiers defined by this specification facilitate the
-cooperation of two parties to perform COSE signing operations together.
-They are used to specify the division of responsibilities between the two parties.
-Consumers of the cryptographic data structures thus cooperatively produced
-do not use these algorithm identifiers;
-rather, consumers use the normal COSE algorithm identifiers that correspond
-to the cryptographic operation cooperatively performed together by the two parties.
+The algorithm identifiers defined by this specification facilitate
+splitting a signing operation between two cooperating parties,
+by specifying the division of responsibilities between the two parties.
+The resulting signature can be verified by the same verification procedure
+as if it had been created by a single party,
+so this division of responsibilities is an implementation detail of the signer.
+Verifiers therefore do not use these split algorithm identifiers,
+and instead use the corresponding non-split algorithm identifier
+which identifies the same verification procedure as the split algorithm identifier would.
 
-A use case for this is performing a signature operation split between two parties,
-such as a software application and a discrete hardware security module (HSM) holding the private key.
+A primary use case for this is splitting a signature operation between a software application
+and a discrete hardware security module (HSM) holding the private key.
 In particular, since the data link between them may have limited bandwidth,
 it may not be practical to send the entire original message to the HSM.
 Instead, since most signature algorithms begin with digesting the message
@@ -145,10 +154,10 @@ without additional special steps to process the signed data.
 
 However some signature algorithms,
 for example, PureEdDSA [RFC8032] and ML-DSA [FIPS-204],
-cannot be split in this way and therefore cannot be assigned two-party signing algorithm identifiers.
+cannot be split in this way and therefore cannot be assigned split signing algorithm identifiers.
 However, if such a signature algorithm defines a "pre-hashed" variant,
 such as Ed25519ph [RFC8032] or HashML-DSA [FIPS-204],
-that "pre-hashed" algorithm can also be assigned a two-party signing algorithm identifier,
+that "pre-hashed" algorithm can also be assigned a split signing algorithm identifier,
 enabling the hashing step to be performed by the _digester_
 and the signing step to be executed by the _signer_.
 
@@ -156,28 +165,28 @@ and the signing step to be executed by the _signer_.
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all capitals, as shown here.
 
-# Two-Party Signing Algorithms
+# Split Signing Algorithms
 
 This section defines divisions of signing algorithm steps between a _digester_ and a _signer_
-in a two-party signing protocol,
+in a split signing protocol,
 and assigns algorithm identifiers to these algorithm divisions.
-The _digester_ performs the first part of the divided algorithm and does not have access to the signing private key,
-while the _signer_ performs the second part of the divided algorithm and has access to the signing private key.
+The _digester_ performs the first part of the split algorithm and does not have access to the signing private key,
+while the _signer_ performs the second part of the split algorithm and has access to the signing private key.
 For signing algorithms that format the message to insert domain separation tags,
 as described in {{Section 2.2.5 of RFC9380}},
 this message formatting is also performed by the _signer_.
 
 The algorithm identifiers defined in this specification MUST NOT appear in COSE structures
 other than COSE_Key_Ref (see {{cose-key-refs}}).
-They are meant only for coordination between the _digester_ and the _signer_ in a two-party signing protocol.
+They are meant only for coordination between the _digester_ and the _signer_ in a split signing protocol.
 Representations of the keys used and the resulting signatures
 MUST use the corresponding conventional algorithm identifiers instead.
-These are listed in the "Base algorithm" column in the tables defining two-party signing algorithm identifiers.
+These are listed in the "Base algorithm" column in the tables defining split signing algorithm identifiers.
 
 
-## ECDSA {#ecdsa-2p}
+## ECDSA {#ecdsa-split}
 
-Two-party ECDSA [FIPS-186-5] uses the following division between the _digester_ and the _signer_
+ECDSA [FIPS-186-5] split signing uses the following division between the _digester_ and the _signer_
 of the steps of the ECDSA signature generation algorithm [FIPS-186-5]:
 
 - The signing procedure is defined in Section 6.4.1 of [FIPS-186-5].
@@ -187,16 +196,20 @@ of the steps of the ECDSA signature generation algorithm [FIPS-186-5]:
 
 The following algorithm identifiers are defined:
 
-| Name      | COSE Value | Base algorithm | Description |
-| --------- | ---------- | -------------- | ----------- |
-| ESP256-2p | TBD        | ESP256         | ESP256 [I-D.jose-fully-spec-algs] divided for two-party signing as defined here
-| ESP384-2p | TBD        | ESP384         | ESP384 [I-D.jose-fully-spec-algs] divided for two-party signing as defined here
-| ESP512-2p | TBD        | ESP512         | ESP512 [I-D.jose-fully-spec-algs] divided for two-party signing as defined here
+| Name         | COSE Value | Base algorithm | Description |
+| ------------ | ---------- | -------------- | ----------- |
+| ESP256-split | TBD        | ESP256         | ESP256 [I-D.jose-fully-spec-algs] split signing as defined here
+| ESP384-split | TBD        | ESP384         | ESP384 [I-D.jose-fully-spec-algs] split signing as defined here
+| ESP512-split | TBD        | ESP512         | ESP512 [I-D.jose-fully-spec-algs] split signing as defined here
 
 
-## HashEdDSA {#eddsa-2p}
+Note: This is distinct from the similarly named Split-ECDSA (SECDSA) [SECDSA],
+although SECDSA can be implemented using this split procedure as a component.
 
-Two-party HashEdDSA [RFC8032] uses the following division between the _digester_ and the _signer_
+
+## HashEdDSA {#eddsa-split}
+
+Split HashEdDSA [RFC8032] uses the following division between the _digester_ and the _signer_
 of the steps of the HashEdDSA signing algorithm [RFC8032]:
 
 - HashEdDSA is a combination of the EdDSA signing procedure and the PureEdDSA signing procedure.
@@ -214,15 +227,15 @@ since such a division would require that the _digester_ has access to the privat
 
 The following algorithm identifiers are defined:
 
-| Name         | COSE Value | Base algorithm | Description |
-| ------------ | ---------- | -------------- | ----------- |
-| Ed25519ph-2p | TBD        | Ed25519ph      | Ed25519ph [I-D.jose-fully-spec-algs] divided for two-party signing as defined here (NOTE: Ed25519ph not yet registered) |
-| Ed448ph-2p   | TBD        | Ed448ph        | Ed448ph [I-D.jose-fully-spec-algs] divided for two-party signing as defined here (NOTE: Ed448ph not yet registered) |
+| Name            | COSE Value | Base algorithm | Description |
+| --------------- | ---------- | -------------- | ----------- |
+| Ed25519ph-split | TBD        | Ed25519ph      | Ed25519ph [I-D.jose-fully-spec-algs] split signing as defined here (NOTE: Ed25519ph not yet registered) |
+| Ed448ph-split   | TBD        | Ed448ph        | Ed448ph [I-D.jose-fully-spec-algs] split signing as defined here (NOTE: Ed448ph not yet registered) |
 
 
-## HashML-DSA {#ml-dsa-2p}
+## HashML-DSA {#ml-dsa-split}
 
-Two-party HashML-DSA [FIPS-204] uses the following division between the _digester_ and the _signer_
+Split HashML-DSA [FIPS-204] uses the following division between the _digester_ and the _signer_
 of the steps of the HashML-DSA.Sign algorithm:
 
 - The signing procedure is defined in Section 5.4.1 of [FIPS-204].
@@ -245,11 +258,11 @@ and possibly enable signature malleability attacks or protocol confusion attacks
 
 The following algorithm identifiers are defined:
 
-| Name             | COSE Value | Base algorithm | Description |
-| ---------------- | ---------- | -------------- | ----------- |
-| HashML-DSA-44-2p | TBD        | HashML-DSA-44  | HashML-DSA-44 divided for two-party signing as defined here (NOTE: HashML-DSA-44 not yet registered) |
-| HashML-DSA-65-2p | TBD        | HashML-DSA-65  | HashML-DSA-65 divided for two-party signing as defined here (NOTE: HashML-DSA-65 not yet registered) |
-| HashML-DSA-87-2p | TBD        | HashML-DSA-87  | HashML-DSA-87 divided for two-party signing as defined here (NOTE: HashML-DSA-87 not yet registered) |
+| Name                | COSE Value | Base algorithm | Description |
+| ------------------- | ---------- | -------------- | ----------- |
+| HashML-DSA-44-split | TBD        | HashML-DSA-44  | HashML-DSA-44 split signing as defined here (NOTE: HashML-DSA-44 not yet registered) |
+| HashML-DSA-65-split | TBD        | HashML-DSA-65  | HashML-DSA-65 split signing as defined here (NOTE: HashML-DSA-65 not yet registered) |
+| HashML-DSA-87-split | TBD        | HashML-DSA-87  | HashML-DSA-87 split signing as defined here (NOTE: HashML-DSA-87 not yet registered) |
 
 
 # COSE Key Reference Types {#cose-key-refs}
@@ -263,7 +276,7 @@ and `ARKG-Derive-Private-Key` [I-D.bradleylundberg-ARKG] has the parameters `kh`
 
 While these additional parameters are simple to provide to the API of the signing procedure
 in a single-party context,
-in a two-party context these additional parameters also need to be conveyed from the _digester_ to the _signer_.
+in a split signing context these additional parameters also need to be conveyed from the _digester_ to the _signer_.
 For this purpose, we define new COSE key types, collectively called "COSE key reference types".
 This enables defining a unified, algorithm-agnostic protocol between the _digester_ and the _signer_,
 rather than requiring a distinct protocol for each signature algorithm for the sake of conveying algorithm-specific parameters.
@@ -330,68 +343,68 @@ and restricted for use with the ESP256 [I-D.jose-fully-spec-algs] signature algo
 
 This section registers the following values in the IANA "COSE Algorithms" registry [IANA.COSE]:
 
-- Name: ESP256-2p
+- Name: ESP256-split
   - Value: TBD (Requested Assignment -300)
-  - Description: ESP256 [I-D.jose-fully-spec-algs] divided for two-party signing
+  - Description: ESP256 [I-D.jose-fully-spec-algs] split signing
   - Capabilities: \[kty\]
   - Change Controller: IETF
-  - Reference: {{ecdsa-2p}} of this specification
+  - Reference: {{ecdsa-split}} of this specification
   - Recommended: Yes
 
-- Name: ESP384-2p
+- Name: ESP384-split
   - Value: TBD (Requested Assignment -301)
-  - Description: ESP384 [I-D.jose-fully-spec-algs] divided for two-party signing
+  - Description: ESP384 [I-D.jose-fully-spec-algs] split signing
   - Capabilities: \[kty\]
   - Change Controller: IETF
-  - Reference: {{ecdsa-2p}} of this specification
+  - Reference: {{ecdsa-split}} of this specification
   - Recommended: Yes
 
-- Name: ESP512-2p
+- Name: ESP512-split
   - Value: TBD (Requested Assignment -302)
-  - Description: ESP512 [I-D.jose-fully-spec-algs] divided for two-party signing
+  - Description: ESP512 [I-D.jose-fully-spec-algs] split signing
   - Capabilities: \[kty\]
   - Change Controller: IETF
-  - Reference: {{ecdsa-2p}} of this specification
+  - Reference: {{ecdsa-split}} of this specification
   - Recommended: Yes
 
-- Name: Ed25519ph-2p
+- Name: Ed25519ph-split
   - Value: TBD (Requested Assignment -303)
-  - Description: Ed25519ph [I-D.jose-fully-spec-algs] divided for two-party signing
+  - Description: Ed25519ph [I-D.jose-fully-spec-algs] split signing
   - Capabilities: \[kty\]
   - Change Controller: IETF
-  - Reference: {{eddsa-2p}} of this specification
+  - Reference: {{eddsa-split}} of this specification
   - Recommended: Yes
 
-- Name: Ed448ph-2p
+- Name: Ed448ph-split
   - Value: TBD (Requested Assignment -304)
-  - Description: Ed448ph [I-D.jose-fully-spec-algs] divided for two-party signing
+  - Description: Ed448ph [I-D.jose-fully-spec-algs] split signing
   - Capabilities: \[kty\]
   - Change Controller: IETF
-  - Reference: {{eddsa-2p}} of this specification
+  - Reference: {{eddsa-split}} of this specification
   - Recommended: Yes
 
-- Name: HashML-DSA-44-2p
+- Name: HashML-DSA-44-split
   - Value: TBD (Requested Assignment -305)
-  - Description: HashML-DSA-44 divided for two-party signing
+  - Description: HashML-DSA-44 split signing
   - Capabilities: \[kty\]
   - Change Controller: IETF
-  - Reference: {{ml-dsa-2p}} of this specification
+  - Reference: {{ml-dsa-split}} of this specification
   - Recommended: Yes
 
-- Name: HashML-DSA-65-2p
+- Name: HashML-DSA-65-split
   - Value: TBD (Requested Assignment -306)
-  - Description: HashML-DSA-65 divided for two-party signing
+  - Description: HashML-DSA-65 split signing
   - Capabilities: \[kty\]
   - Change Controller: IETF
-  - Reference: {{ml-dsa-2p}} of this specification
+  - Reference: {{ml-dsa-split}} of this specification
   - Recommended: Yes
 
-- Name: HashML-DSA-87-2p
+- Name: HashML-DSA-87-split
   - Value: TBD (Requested Assignment -307)
-  - Description: HashML-DSA-87 divided for two-party signing
+  - Description: HashML-DSA-87 split signing
   - Capabilities: \[kty\]
   - Change Controller: IETF
-  - Reference: {{ml-dsa-2p}} of this specification
+  - Reference: {{ml-dsa-split}} of this specification
   - Recommended: Yes
 
 
@@ -442,6 +455,11 @@ This section registers the following values in the IANA "COSE Key Type Parameter
 
 # Document History
 {: numbered="false"}
+
+-02
+
+* Renamed document from "COSE Algorithms for Two-Party Signing" to "Split signing algorithms for COSE"
+  and updated introduction and terminology accordingly.
 
 -01
 
