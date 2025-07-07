@@ -100,7 +100,7 @@ This can be useful when communication with the party holding the signing private
 occurs over a limited-bandwidth channel, such as NFC or Bluetooth Low Energy (BLE),
 in which it is infeasible to send the complete set of data to be signed.
 The resulting signatures are identical in structure to those computed by a single party,
-and can be verified using the same verification procedure
+and can be verified using the same verification algorithm
 without additional steps to preprocess the signed data.
 
 --- middle
@@ -117,12 +117,12 @@ since those details are typically irrelevant for the recipient.
 The algorithm identifiers defined by this specification facilitate
 splitting a signing operation between two cooperating parties,
 by specifying the division of responsibilities between the two parties.
-The resulting signature can be verified by the same verification procedure
+The resulting signature can be verified by the same verification algorithm
 as if it had been created by a single party,
 so this division of responsibilities is an implementation detail of the signer.
 Verifiers therefore do not use these split algorithm identifiers,
 and instead use the corresponding non-split algorithm identifier
-which identifies the same verification procedure as the split algorithm identifier would.
+which identifies the same verification algorithm as the split algorithm identifier would.
 
 A primary use case for this is splitting a signature operation between a software application
 and a discrete hardware security module (HSM) holding the private key.
@@ -148,7 +148,7 @@ Rather, these identifiers correspond to existing signature algorithms
 that would typically be executed by a single party,
 but split into two stages.
 The resulting signatures are identical to those computed by a single party,
-and can be verified using the same verification procedures
+and can be verified using the same verification algorithms
 without additional special steps to process the signed data.
 
 However some signature algorithms,
@@ -179,8 +179,8 @@ The algorithm identifiers defined in this specification MUST NOT appear in COSE 
 other than COSE_Key_Ref (see {{cose-key-refs}}).
 They are meant only for coordination between the _digester_ and the _signer_ in a split signing protocol.
 Representations of the keys used and the resulting signatures
-MUST use the corresponding conventional algorithm identifiers instead.
-These are listed in the "Base algorithm" column in the tables defining split signing algorithm identifiers.
+MUST instead use the corresponding conventional algorithm identifiers for the verification algorithm.
+These are listed in the "Verification algorithm" column in the tables defining split signing algorithm identifiers.
 
 
 ## ECDSA {#ecdsa-split}
@@ -195,11 +195,11 @@ of the steps of the ECDSA signature generation algorithm [FIPS-186-5]:
 
 The following algorithm identifiers are defined:
 
-| Name         | COSE Value | Base algorithm | Description |
-| ------------ | ---------- | -------------- | ----------- |
-| ESP256-split | TBD        | ESP256         | ESP256 [I-D.jose-fully-spec-algs] split signing as defined here
-| ESP384-split | TBD        | ESP384         | ESP384 [I-D.jose-fully-spec-algs] split signing as defined here
-| ESP512-split | TBD        | ESP512         | ESP512 [I-D.jose-fully-spec-algs] split signing as defined here
+| Name         | COSE Value | Verification algorithm | Description |
+| ------------ | ---------- | ---------------------- | ----------- |
+| ESP256-split | TBD        | ESP256                 | ESP256 [I-D.jose-fully-spec-algs] split signing as defined here
+| ESP384-split | TBD        | ESP384                 | ESP384 [I-D.jose-fully-spec-algs] split signing as defined here
+| ESP512-split | TBD        | ESP512                 | ESP512 [I-D.jose-fully-spec-algs] split signing as defined here
 
 
 Note: This is distinct from the similarly named Split-ECDSA (SECDSA) [SECDSA],
@@ -226,10 +226,10 @@ since such a division would require that the _digester_ has access to the privat
 
 The following algorithm identifiers are defined:
 
-| Name            | COSE Value | Base algorithm | Description |
-| --------------- | ---------- | -------------- | ----------- |
-| Ed25519ph-split | TBD        | Ed25519ph      | Ed25519ph [I-D.jose-fully-spec-algs] split signing as defined here (NOTE: Ed25519ph not yet registered) |
-| Ed448ph-split   | TBD        | Ed448ph        | Ed448ph [I-D.jose-fully-spec-algs] split signing as defined here (NOTE: Ed448ph not yet registered) |
+| Name            | COSE Value | Verification algorithm | Description |
+| --------------- | ---------- | ---------------------- | ----------- |
+| Ed25519ph-split | TBD        | Ed25519ph              | Ed25519ph [I-D.jose-fully-spec-algs] split signing as defined here (NOTE: Ed25519ph not yet registered) |
+| Ed448ph-split   | TBD        | Ed448ph                | Ed448ph [I-D.jose-fully-spec-algs] split signing as defined here (NOTE: Ed448ph not yet registered) |
 
 
 # COSE Key Reference Types {#cose-key-refs}
@@ -374,6 +374,7 @@ $COSE_kty_ref /= -7       ; Value TBD
 * Renamed document from "COSE Algorithms for Two-Party Signing" to "Split signing algorithms for COSE"
   and updated introduction and terminology accordingly.
 * Dropped definitions for HashML-DSA, as split variants of ML-DSA are being actively discussed in other IETF groups.
+* Changed "Base algorithm" heading in definition tables to "Verification algorithm".
 
 -01
 
