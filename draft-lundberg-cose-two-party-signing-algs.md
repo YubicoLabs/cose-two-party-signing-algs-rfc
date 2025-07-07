@@ -48,7 +48,6 @@ author:
 
 normative:
   I-D.bradleylundberg-ARKG: I-D.draft-bradleylundberg-cfrg-arkg
-  I-D.COSE-ML-DSA: I-D.draft-ietf-cose-dilithium
   I-D.jose-fully-spec-algs: I-D.draft-ietf-jose-fully-specified-algorithms
   IANA.COSE:
     target: https://www.iana.org/assignments/cose/
@@ -153,10 +152,10 @@ and can be verified using the same verification procedures
 without additional special steps to process the signed data.
 
 However some signature algorithms,
-for example, PureEdDSA [RFC8032] and ML-DSA [FIPS-204],
+such as PureEdDSA [RFC8032],
 cannot be split in this way and therefore cannot be assigned split signing algorithm identifiers.
 However, if such a signature algorithm defines a "pre-hashed" variant,
-such as Ed25519ph [RFC8032] or HashML-DSA [FIPS-204],
+such as Ed25519ph [RFC8032],
 that "pre-hashed" algorithm can also be assigned a split signing algorithm identifier,
 enabling the hashing step to be performed by the _digester_
 and the signing step to be executed by the _signer_.
@@ -233,46 +232,14 @@ The following algorithm identifiers are defined:
 | Ed448ph-split   | TBD        | Ed448ph        | Ed448ph [I-D.jose-fully-spec-algs] split signing as defined here (NOTE: Ed448ph not yet registered) |
 
 
-## HashML-DSA {#ml-dsa-split}
-
-Split HashML-DSA [FIPS-204] uses the following division between the _digester_ and the _signer_
-of the steps of the HashML-DSA.Sign algorithm:
-
-- The signing procedure is defined in Section 5.4.1 of [FIPS-204].
-- The _digester_ computes the value PH<sub>_M_</sub> defined in Steps 10 to 22 of the signing procedure.
-- The message input to the _signer_ is the value PH<sub>_M_</sub> defined in the signing procedure.
-  The additional _ctx_ input must also be transmitted to the _signer_.
-  This may, for example, be done using the `ctx (-1)` parameter of a `COSE_Key_Ref` with `kty (1): Ref-ML-DSA (TBD)`
-  (see {{cose-key-types-reg}} and {{cose-key-type-params-reg}}).
-- The _signer_ executes all steps of the signing procedure
-  except the Steps 13, 16, 19 or similar that compute the value PH<sub>_M_</sub>.
-  Note in particular, that the _signer_ generates the value _rnd_ in Steps 5-8
-  and constructs the value _M'_ in Step 23.
-
-The "pure" ML-DSA version [FIPS-204] cannot be divided in this way
-because of how the embedding of the _ctx_ and _tr_ values is constructed
-in `ML-DSA.Sign` and `ML-DSA.Sign_Internal`.
-A division like the one above for HashML-DSA would move control of this embedding from the _signer_ to the _digester_.
-This would break the domain separation enforced by the embedding
-and possibly enable signature malleability attacks or protocol confusion attacks.
-
-The following algorithm identifiers are defined:
-
-| Name                | COSE Value | Base algorithm | Description |
-| ------------------- | ---------- | -------------- | ----------- |
-| HashML-DSA-44-split | TBD        | HashML-DSA-44  | HashML-DSA-44 split signing as defined here (NOTE: HashML-DSA-44 not yet registered) |
-| HashML-DSA-65-split | TBD        | HashML-DSA-65  | HashML-DSA-65 split signing as defined here (NOTE: HashML-DSA-65 not yet registered) |
-| HashML-DSA-87-split | TBD        | HashML-DSA-87  | HashML-DSA-87 split signing as defined here (NOTE: HashML-DSA-87 not yet registered) |
-
-
 # COSE Key Reference Types {#cose-key-refs}
 
 While keys used by many algorithms can usually be referenced by a single atomic identifier,
 such as that used in the `kid` parameter in a COSE_Key object or in the unprotected header of a COSE_Recipient,
 some signature algorithms use additional parameters to the signature generation
 beyond the signing private key and message to be signed.
-For example, ML-DSA [FIPS-204] has the additional parameter _ctx_
-and `ARKG-Derive-Private-Key` [I-D.bradleylundberg-ARKG] has the parameters `kh` and `info`, in addition to the private key.
+For example,
+`ARKG-Derive-Private-Key` [I-D.bradleylundberg-ARKG] has the parameters `kh` and `info` in addition to the private key.
 
 While these additional parameters are simple to provide to the API of the signing procedure
 in a single-party context,
@@ -292,24 +259,6 @@ COSE_Key_Ref = COSE_Key .within {
   any => any,            ; Any other entries allowed by COSE_Key
 }
 ~~~
-
-The following CDDL example represents a reference to an ML-DSA-65 key,
-which uses the `AKP` key type [I-D.COSE-ML-DSA],
-along with the value of the _ctx_ parameter to ML-DSA.Sign [FIPS-204]:
-
-~~~cddl
-{
-  1: TBD,      ; kty: Ref-AKP
-               ; kid: Opaque identifier of the AKP key
-  2: h'92bc2bfa738f5bb07803fb9c0c58020791acd29fbe253baa7a03ac84f4b26d44',
-
-  3: TBD,      ; alg: ML-DSA-65
-
-               ; ctx argument to ML-DSA.Sign
-  -1: 'Example application info',
-}
-~~~
-
 
 The following CDDL example represents a reference to a key derived by `ARKG-P256ADD-ECDH` [I-D.bradleylundberg-ARKG]
 and restricted for use with the ESP256 [I-D.jose-fully-spec-algs] signature algorithm:
@@ -383,30 +332,6 @@ This section registers the following values in the IANA "COSE Algorithms" regist
   - Reference: {{eddsa-split}} of this specification
   - Recommended: Yes
 
-- Name: HashML-DSA-44-split
-  - Value: TBD (Requested Assignment -305)
-  - Description: HashML-DSA-44 split signing
-  - Capabilities: \[kty\]
-  - Change Controller: IETF
-  - Reference: {{ml-dsa-split}} of this specification
-  - Recommended: Yes
-
-- Name: HashML-DSA-65-split
-  - Value: TBD (Requested Assignment -306)
-  - Description: HashML-DSA-65 split signing
-  - Capabilities: \[kty\]
-  - Change Controller: IETF
-  - Reference: {{ml-dsa-split}} of this specification
-  - Recommended: Yes
-
-- Name: HashML-DSA-87-split
-  - Value: TBD (Requested Assignment -307)
-  - Description: HashML-DSA-87 split signing
-  - Capabilities: \[kty\]
-  - Change Controller: IETF
-  - Reference: {{ml-dsa-split}} of this specification
-  - Recommended: Yes
-
 
 ## COSE Key Types Registrations {#cose-key-types-reg}
 
@@ -439,18 +364,6 @@ $COSE_kty_ref /= -7       ; Value TBD
 ~~~
 
 
-## COSE Key Type Parameters Registrations {#cose-key-type-params-reg}
-
-This section registers the following values in the IANA "COSE Key Type Parameters" registry [IANA.COSE]:
-
-- Key Type: TBD (Ref-AKP)
-  - Name: ctx
-  - Label: -1
-  - CBOR Type: bstr
-  - Description: ctx argument to ML-DSA.Sign or HashML-DSA.Sign
-  - Reference: {{cose-key-refs}} of this specification
-
-
 --- back
 
 # Document History
@@ -460,6 +373,7 @@ This section registers the following values in the IANA "COSE Key Type Parameter
 
 * Renamed document from "COSE Algorithms for Two-Party Signing" to "Split signing algorithms for COSE"
   and updated introduction and terminology accordingly.
+* Dropped definitions for HashML-DSA, as split variants of ML-DSA are being actively discussed in other IETF groups.
 
 -01
 
