@@ -242,17 +242,17 @@ two additional arguments `kh` and `info` are needed in `ARKG-Derive-Private-Key`
 
 While such additional arguments are simple to provide to the API of the signing procedure in a single-party context,
 in a split signing context these additional arguments also need to be conveyed from the _digester_ to the _signer_.
-For this purpose, we define a new COSE structure COSE_Sign_Args for "COSE signing arguments".
+For this purpose, we define a new COSE structure `COSE_Sign_Args` for "COSE signing arguments".
 This enables defining a unified, algorithm-agnostic protocol between the _digester_ and the _signer_,
 rather than requiring a distinct protocol for each signature algorithm for the sake of conveying algorithm-specific parameters.
 
-COSE_Sign_Args is built on a CBOR map.
-The set of common parameters that can appear in a COSE_Sign_Args
+`COSE_Sign_Args` is built on a CBOR map.
+The set of common parameters that can appear in a `COSE_Sign_Args`
 can be found in the IANA "COSE Signing Arguments Common Parameters" registry (TODO).
 Additional parameters defined for specific signing algorithms
 can be found in the IANA "COSE Signing Arguments Algorithm Parameters" registry (TODO).
 
-The CDDL grammar describing COSE_Sign_Args, using the CDDL fragment defined in {{Section 1.5 of RFC9052}}, is:
+The CDDL grammar describing `COSE_Sign_Args`, using the CDDL fragment defined in {{Section 1.5 of RFC9052}}, is:
 
 ~~~cddl
 COSE_Sign_Args = {
@@ -279,7 +279,7 @@ This document defines a set of common parameters for a COSE Signing Arguments ob
 
   "alg" MAY be omitted when the algorithm to use is implicit from context.
 
-Definitions of COSE algorithms MAY define additional algorithm-specific parameters for COSE_Sign_Args.
+Definitions of COSE algorithms MAY define additional algorithm-specific parameters for `COSE_Sign_Args`.
 
 The following CDDL example conveys additional arguments for signing data
 using the ESP256-split algorithm (see {{ecdsa-split}})
