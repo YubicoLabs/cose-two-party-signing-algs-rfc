@@ -100,7 +100,7 @@ This can be useful when communication with the party holding the signing private
 occurs over a limited-bandwidth channel, such as NFC or Bluetooth Low Energy (BLE),
 in which it is infeasible to send the complete set of data to be signed.
 The resulting signatures are identical in structure to those computed by a single party,
-and can be verified using the same verification procedure
+and can be verified using the same verification algorithm
 without additional steps to preprocess the signed data.
 
 --- middle
@@ -117,12 +117,12 @@ since those details are typically irrelevant for the recipient.
 The algorithm identifiers defined by this specification facilitate
 splitting a signing operation between two cooperating parties,
 by specifying the division of responsibilities between the two parties.
-The resulting signature can be verified by the same verification procedure
+The resulting signature can be verified by the same verification algorithm
 as if it had been created by a single party,
 so this division of responsibilities is an implementation detail of the signer.
 Verifiers therefore do not use these split algorithm identifiers,
 and instead use the corresponding non-split algorithm identifier
-which identifies the same verification procedure as the split algorithm identifier would.
+which identifies the same verification algorithm as the split algorithm identifier would.
 
 A primary use case for this is splitting a signature operation between a software application
 and a discrete hardware security module (HSM) holding the private key.
@@ -148,7 +148,7 @@ Rather, these identifiers correspond to existing signature algorithms
 that would typically be executed by a single party,
 but split into two stages.
 The resulting signatures are identical to those computed by a single party,
-and can be verified using the same verification procedures
+and can be verified using the same verification algorithms
 without additional special steps to process the signed data.
 
 However some signature algorithms,
@@ -175,12 +175,12 @@ For signing algorithms that format the message to insert domain separation tags,
 as described in {{Section 2.2.5 of RFC9380}},
 this message formatting is also performed by the _signer_.
 
-The algorithm identifiers defined in this specification MUST NOT appear in COSE structures
-other than COSE_Key_Ref (see {{cose-key-refs}}).
-They are meant only for coordination between the _digester_ and the _signer_ in a split signing protocol.
-Representations of the keys used and the resulting signatures
-MUST use the corresponding conventional algorithm identifiers instead.
-These are listed in the "Base algorithm" column in the tables defining split signing algorithm identifiers.
+The algorithm identifiers defined in this specification
+MAY appear in COSE structures used internally between the _digester_ and the _signer_ in a split signing protocol,
+but SHOULD NOT appear in COSE structures consumed by signature verifiers.
+COSE structures consumed by signature verifiers
+SHOULD instead use the corresponding conventional algorithm identifiers for the verification algorithm.
+These are listed in the "Verification algorithm" column in the tables defining split signing algorithm identifiers.
 
 
 ## ECDSA {#ecdsa-split}
@@ -195,11 +195,11 @@ of the steps of the ECDSA signature generation algorithm [FIPS-186-5]:
 
 The following algorithm identifiers are defined:
 
-| Name         | COSE Value | Base algorithm | Description |
-| ------------ | ---------- | -------------- | ----------- |
-| ESP256-split | TBD        | ESP256         | ESP256 [I-D.jose-fully-spec-algs] split signing as defined here
-| ESP384-split | TBD        | ESP384         | ESP384 [I-D.jose-fully-spec-algs] split signing as defined here
-| ESP512-split | TBD        | ESP512         | ESP512 [I-D.jose-fully-spec-algs] split signing as defined here
+| Name         | COSE Value | Verification algorithm | Description |
+| ------------ | ---------- | ---------------------- | ----------- |
+| ESP256-split | TBD        | ESP256                 | ESP256 [I-D.jose-fully-spec-algs] split signing as defined here
+| ESP384-split | TBD        | ESP384                 | ESP384 [I-D.jose-fully-spec-algs] split signing as defined here
+| ESP512-split | TBD        | ESP512                 | ESP512 [I-D.jose-fully-spec-algs] split signing as defined here
 
 
 Note: This is distinct from the similarly named Split-ECDSA (SECDSA) [SECDSA],
@@ -226,62 +226,78 @@ since such a division would require that the _digester_ has access to the privat
 
 The following algorithm identifiers are defined:
 
-| Name            | COSE Value | Base algorithm | Description |
-| --------------- | ---------- | -------------- | ----------- |
-| Ed25519ph-split | TBD        | Ed25519ph      | Ed25519ph [I-D.jose-fully-spec-algs] split signing as defined here (NOTE: Ed25519ph not yet registered) |
-| Ed448ph-split   | TBD        | Ed448ph        | Ed448ph [I-D.jose-fully-spec-algs] split signing as defined here (NOTE: Ed448ph not yet registered) |
+| Name            | COSE Value | Verification algorithm | Description |
+| --------------- | ---------- | ---------------------- | ----------- |
+| Ed25519ph-split | TBD        | Ed25519ph              | Ed25519ph [I-D.jose-fully-spec-algs] split signing as defined here (NOTE: Ed25519ph not yet registered) |
+| Ed448ph-split   | TBD        | Ed448ph                | Ed448ph [I-D.jose-fully-spec-algs] split signing as defined here (NOTE: Ed448ph not yet registered) |
 
 
-# COSE Key Reference Types {#cose-key-refs}
+# COSE Signing Arguments {#cose-sign-args}
 
-While keys used by many algorithms can usually be referenced by a single atomic identifier,
-such as that used in the `kid` parameter in a COSE_Key object or in the unprotected header of a COSE_Recipient,
-some signature algorithms use additional parameters to the signature generation
-beyond the signing private key and message to be signed.
+While many signature algorithms take the private key and data to be signed as the only two parameters,
+some signature algorithms use additional parameters to the signature generation.
 For example,
-`ARKG-Derive-Private-Key` [I-D.bradleylundberg-ARKG] has the parameters `kh` and `info` in addition to the private key.
+to sign using a key derived by ARKG [I-D.bradleylundberg-ARKG],
+two additional arguments `kh` and `info` are needed in `ARKG-Derive-Private-Key` to derive the signing private key.
 
-While these additional parameters are simple to provide to the API of the signing procedure
-in a single-party context,
-in a split signing context these additional parameters also need to be conveyed from the _digester_ to the _signer_.
-For this purpose, we define new COSE key types, collectively called "COSE key reference types".
+While such additional arguments are simple to provide to the API of the signing procedure in a single-party context,
+in a split signing context these additional arguments also need to be conveyed from the _digester_ to the _signer_.
+For this purpose, we define a new COSE structure COSE_Sign_Args for "COSE signing arguments".
 This enables defining a unified, algorithm-agnostic protocol between the _digester_ and the _signer_,
 rather than requiring a distinct protocol for each signature algorithm for the sake of conveying algorithm-specific parameters.
 
-A COSE key reference is a COSE_Key object whose `kty` value is defined to represent a reference to a key.
-The `kid` parameter MUST be present when `kty` is a key reference type.
-These requirements are encoded in the CDDL [RFC8610] type `COSE_Key_Ref`:
+COSE_Sign_Args is built on a CBOR map.
+The set of common parameters that can appear in a COSE_Sign_Args
+can be found in the IANA "COSE Signing Arguments Common Parameters" registry (TODO).
+Additional parameters defined for specific signing algorithms
+can be found in the IANA "COSE Signing Arguments Algorithm Parameters" registry (TODO).
+
+The CDDL grammar describing COSE_Sign_Args, using the CDDL fragment defined in {{Section 1.5 of RFC9052}}, is:
 
 ~~~cddl
-COSE_Key_Ref = COSE_Key .within {
-  1 ^ => $COSE_kty_ref   ; kty: Any reference type
-  2 ^ => any,            ; kid is required
-  any => any,            ; Any other entries allowed by COSE_Key
+COSE_Sign_Args = {
+    3 ^ => tstr / int,  ; alg
+    * label => values,
 }
 ~~~
 
-The following CDDL example represents a reference to a key derived by `ARKG-P256ADD-ECDH` [I-D.bradleylundberg-ARKG]
-and restricted for use with the ESP256 [I-D.jose-fully-spec-algs] signature algorithm:
+
+## COSE Signing Arguments Common Parameters {#cose-sign-args-common}
+
+This document defines a set of common parameters for a COSE Signing Arguments object.
+{{tbl-cose-sign-args-common}} provides a summary of the parameters defined in this section.
+
+{: #tbl-cose-sign-args-common title="Common parameters of the COSE_Sign_Args structure."}
+| Name | Label | CBOR Type  | Value Registry  | Description |
+| ---- | ----- | ---------- | --------------- | ----------- |
+| alg  | 3     | tstr / int | COSE Algorithms | Signing algorithm to use |
+
+- alg: This parameter is used to identify the signing algorithm to use.
+  If this parameter is present,
+  the signer MUST verify that this algorithm matches any key usage restrictions set on the key to be used.
+  If the algorithms do not match, then the signature operation MUST be aborted with an error.
+
+  "alg" MAY be omitted when the algorithm to use is implicit from context.
+
+Definitions of COSE algorithms MAY define additional algorithm-specific parameters for COSE_Sign_Args.
+
+The following CDDL example conveys additional arguments for signing data
+using the ESP256-split algorithm (see {{ecdsa-split}})
+and a key derived using `ARKG-P256` [I-D.bradleylundberg-ARKG]:
 
 ~~~cddl
 {
-  1: -65538,   ; kty: Ref-ARKG-derived
-               ; kid: Opaque identifier of ARKG-pub
-  2: h'60b6dfddd31659598ae5de49acb220d8
-       704949e84d484b68344340e2565337d2',
-  3: -9,       ; alg: ESP256
+  3: -65539,   ; alg: ESP256-split with ARKG-P256 (placeholder value)
 
-               ; ARKG-P256ADD-ECDH key handle
+               ; ARKG-P256 key handle
                ; (HMAC-SHA-256-128 followed by
                   SEC1 uncompressed ECDH public key)
-  -1: h'ae079e9c52212860678a7cee25b6a6d4
-        048219d973768f8e1adb8eb84b220b0ee3
-          a2532828b9aa65254fe3717a29499e9b
-          aee70cea75b5c8a2ec2eb737834f7467
-          e37b3254776f65f4cfc81e2bc4747a84',
+  -1: h'27987995f184a44cfa548d104b0a461d
+        0487fc739dbcdabc293ac5469221da91b220e04c681074ec4692a76ffacb9043de
+          c2847ea9060fd42da267f66852e63589f0c00dc88f290d660c65a65a50c86361',
 
                ; info argument to ARKG-Derive-Private-Key
-  -2: 'Example application info',
+  -2: 'ARKG-P256.test vectors',
 }
 ~~~
 
@@ -333,35 +349,13 @@ This section registers the following values in the IANA "COSE Algorithms" regist
   - Recommended: Yes
 
 
-## COSE Key Types Registrations {#cose-key-types-reg}
+## COSE Signing Arguments Common Parameters Registry
 
-This section registers the following values in the IANA "COSE Key Types" registry [IANA.COSE]:
+TODO
 
-- Name: Ref-OKP
-  - Value: TBD (Requested assignment -1)
-  - Description: Reference to a key pair of key type "OKP"
-  - Capabilities: \[kty(-1), crv\]
-  - Reference: {{cose-key-refs}} of this specification
+## COSE Signing Arguments Algorithm Parameters Registry
 
-- Name: Ref-EC2
-  - Value: TBD (Requested assignment -2)
-  - Description: Reference to a key pair of key type "EC2"
-  - Capabilities: \[kty(-2), crv\]
-  - Reference: {{cose-key-refs}} of this specification
-
-- Name: Ref-AKP
-  - Value: TBD (Requested assignment -7)
-  - Description: Reference to a key pair of key type "AKP"
-  - Capabilities: \[kty(TBD), ctx\]
-  - Reference: {{cose-key-refs}} of this specification
-
-These registrations add the following choices to the CDDL [RFC8610] type socket `$COSE_kty_ref`:
-
-~~~cddl
-$COSE_kty_ref /= -1       ; Value TBD
-$COSE_kty_ref /= -2       ; Value TBD
-$COSE_kty_ref /= -7       ; Value TBD
-~~~
+TODO
 
 
 --- back
@@ -374,6 +368,9 @@ $COSE_kty_ref /= -7       ; Value TBD
 * Renamed document from "COSE Algorithms for Two-Party Signing" to "Split signing algorithms for COSE"
   and updated introduction and terminology accordingly.
 * Dropped definitions for HashML-DSA, as split variants of ML-DSA are being actively discussed in other IETF groups.
+* Changed "Base algorithm" heading in definition tables to "Verification algorithm".
+* Remodeled COSE_Key_Ref as COSE_Sign_Args.
+  * Dropped definitions of reference types for COSE Key Types registry.
 
 -01
 
