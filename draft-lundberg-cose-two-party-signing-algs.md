@@ -235,7 +235,7 @@ The following algorithm identifiers are defined:
 # COSE Signing Arguments {#cose-sign-args}
 
 While many signature algorithms take the private key and data to be signed as the only two parameters,
-some signature algorithms use additional parameters to the signature generation.
+some signature algorithms have additional parameters that must also be set.
 For example,
 to sign using a key derived by ARKG [I-D.bradleylundberg-ARKG],
 two additional arguments `kh` and `info` are needed in `ARKG-Derive-Private-Key` to derive the signing private key.
