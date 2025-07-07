@@ -1437,21 +1437,21 @@ since such a division would require that the <em>digester</em> has access to the
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-cose-signing-arguments" class="section-name selfRef">COSE Signing Arguments</a>
       </h2>
 <p id="section-3-1">While many signature algorithms take the private key and data to be signed as the only two parameters,
-some signature algorithms use additional parameters to the signature generation.
+some signature algorithms have additional parameters that must also be set.
 For example,
 to sign using a key derived by ARKG <span>[<a href="#I-D.bradleylundberg-ARKG" class="cite xref">I-D.bradleylundberg-ARKG</a>]</span>,
 two additional arguments <code>kh</code> and <code>info</code> are needed in <code>ARKG-Derive-Private-Key</code> to derive the signing private key.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">While such additional arguments are simple to provide to the API of the signing procedure in a single-party context,
 in a split signing context these additional arguments also need to be conveyed from the <em>digester</em> to the <em>signer</em>.
-For this purpose, we define a new COSE structure COSE_Sign_Args for "COSE signing arguments".
+For this purpose, we define a new COSE structure <code>COSE_Sign_Args</code> for "COSE signing arguments".
 This enables defining a unified, algorithm-agnostic protocol between the <em>digester</em> and the <em>signer</em>,
 rather than requiring a distinct protocol for each signature algorithm for the sake of conveying algorithm-specific parameters.<a href="#section-3-2" class="pilcrow">¶</a></p>
-<p id="section-3-3">COSE_Sign_Args is built on a CBOR map.
-The set of common parameters that can appear in a COSE_Sign_Args
+<p id="section-3-3"><code>COSE_Sign_Args</code> is built on a CBOR map.
+The set of common parameters that can appear in a <code>COSE_Sign_Args</code>
 can be found in the IANA "COSE Signing Arguments Common Parameters" registry (TODO).
 Additional parameters defined for specific signing algorithms
 can be found in the IANA "COSE Signing Arguments Algorithm Parameters" registry (TODO).<a href="#section-3-3" class="pilcrow">¶</a></p>
-<p id="section-3-4">The CDDL grammar describing COSE_Sign_Args, using the CDDL fragment defined in <span><a href="https://rfc-editor.org/rfc/rfc9052#section-1.5" class="relref">Section 1.5</a> of [<a href="#RFC9052" class="cite xref">RFC9052</a>]</span>, is:<a href="#section-3-4" class="pilcrow">¶</a></p>
+<p id="section-3-4">The CDDL grammar describing <code>COSE_Sign_Args</code>, using the CDDL fragment defined in <span><a href="https://rfc-editor.org/rfc/rfc9052#section-1.5" class="relref">Section 1.5</a> of [<a href="#RFC9052" class="cite xref">RFC9052</a>]</span>, is:<a href="#section-3-4" class="pilcrow">¶</a></p>
 <div class="lang-cddl sourcecode" id="section-3-5">
 <pre>
 COSE_Sign_Args = {
@@ -1495,15 +1495,12 @@ COSE_Sign_Args = {
 </div>
 <ul class="normal">
 <li class="normal" id="section-3.1-3.1">
-            <p id="section-3.1-3.1.1">alg: This parameter is used to identify the signing algorithm to use.
-If this parameter is present,
-the signer MUST verify that this algorithm matches any key usage restrictions set on the key to be used.
+            <p id="section-3.1-3.1.1">alg: This parameter identifies the signing algorithm the additional arguments apply to.
+The signer MUST verify that this algorithm matches any key usage restrictions set on the key to be used.
 If the algorithms do not match, then the signature operation MUST be aborted with an error.<a href="#section-3.1-3.1.1" class="pilcrow">¶</a></p>
-<p id="section-3.1-3.1.2">
-"alg" MAY be omitted when the algorithm to use is implicit from context.<a href="#section-3.1-3.1.2" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-3.1-4">Definitions of COSE algorithms MAY define additional algorithm-specific parameters for COSE_Sign_Args.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
+<p id="section-3.1-4">Definitions of COSE algorithms MAY define additional algorithm-specific parameters for <code>COSE_Sign_Args</code>.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
 <p id="section-3.1-5">The following CDDL example conveys additional arguments for signing data
 using the ESP256-split algorithm (see <a href="#ecdsa-split" class="auto internal xref">Section 2.1</a>)
 and a key derived using <code>ARKG-P256</code> <span>[<a href="#I-D.bradleylundberg-ARKG" class="cite xref">I-D.bradleylundberg-ARKG</a>]</span>:<a href="#section-3.1-5" class="pilcrow">¶</a></p>
