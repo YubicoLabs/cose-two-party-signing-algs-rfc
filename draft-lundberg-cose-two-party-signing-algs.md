@@ -272,12 +272,9 @@ This document defines a set of common parameters for a COSE Signing Arguments ob
 | ---- | ----- | ---------- | --------------- | ----------- |
 | alg  | 3     | tstr / int | COSE Algorithms | Signing algorithm to use |
 
-- alg: This parameter is used to identify the signing algorithm to use.
-  If this parameter is present,
-  the signer MUST verify that this algorithm matches any key usage restrictions set on the key to be used.
+- alg: This parameter identifies the signing algorithm the additional arguments apply to.
+  The signer MUST verify that this algorithm matches any key usage restrictions set on the key to be used.
   If the algorithms do not match, then the signature operation MUST be aborted with an error.
-
-  "alg" MAY be omitted when the algorithm to use is implicit from context.
 
 Definitions of COSE algorithms MAY define additional algorithm-specific parameters for `COSE_Sign_Args`.
 
