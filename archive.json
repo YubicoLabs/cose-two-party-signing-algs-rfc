@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-06T00:05:23.410324+00:00",
+  "timestamp": "2025-07-08T00:05:05.758925+00:00",
   "repo": "YubicoLabs/cose-two-party-signing-algs-rfc",
   "labels": [
     {
@@ -614,6 +614,174 @@
           "body": "",
           "createdAt": "2025-03-03T16:07:02Z",
           "updatedAt": "2025-03-03T16:07:02Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "id": "PR_kwDON32VH86dyhPZ",
+      "title": "Rename from two-party to split algorithms",
+      "url": "https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/pull/11",
+      "state": "MERGED",
+      "author": "emlun",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "The feedback from IETF 122 included that the title \"two-party signing\" is too similar to \"multi-party signatures\", which is confusing since that is a completely different concept.",
+      "createdAt": "2025-07-07T16:08:14Z",
+      "updatedAt": "2025-07-07T17:00:55Z",
+      "baseRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "baseRefName": "main",
+      "baseRefOid": "f62e1588cc51ac036fcb1d77309e46208f6cbbb4",
+      "headRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "headRefName": "rename-to-split-algs",
+      "headRefOid": "1a77114e415ae70241735151fec77d225c7474d4",
+      "closedAt": "2025-07-07T17:00:53Z",
+      "mergedAt": "2025-07-07T17:00:53Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "957740eacdee8c07d83fb23187d52d0f9515add6"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDON32VH86yf6zs",
+          "commit": {
+            "abbreviatedOid": "1a77114"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-07-07T17:00:36Z",
+          "updatedAt": "2025-07-07T17:00:36Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDON32VH86dzFsx",
+      "title": "Drop HashML-DSA",
+      "url": "https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/pull/12",
+      "state": "MERGED",
+      "author": "emlun",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Since split variants of ML-DSA are being actively discussed in other IETF groups.",
+      "createdAt": "2025-07-07T17:08:08Z",
+      "updatedAt": "2025-07-07T17:09:52Z",
+      "baseRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "baseRefName": "main",
+      "baseRefOid": "957740eacdee8c07d83fb23187d52d0f9515add6",
+      "headRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "headRefName": "drop-ml-dsa",
+      "headRefOid": "2a0dd20bbd4de2612b7070cbbe98b34a0623b0e3",
+      "closedAt": "2025-07-07T17:09:50Z",
+      "mergedAt": "2025-07-07T17:09:50Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "eea8f12300e12b6ed224a31dd5c3063564c5cf75"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDON32VH86ygAEq",
+          "commit": {
+            "abbreviatedOid": "2a0dd20"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-07-07T17:09:44Z",
+          "updatedAt": "2025-07-07T17:09:44Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "id": "PR_kwDON32VH86dzJl5",
+      "title": "Remodel COSE_Key_Ref as COSE_Sign_Args",
+      "url": "https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/pull/13",
+      "state": "MERGED",
+      "author": "emlun",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "The \"reference to a key\" model is not a good fit for all algorithms. For example, a \"Split BBS\" algorithm proposed by Cordian Daniluk and Anja Lehmann for digital identity use cases requires additional parameters that have nothing to do with the signing key, only with the application context for the signing operation.\r\n",
+      "createdAt": "2025-07-07T17:15:57Z",
+      "updatedAt": "2025-07-07T17:21:59Z",
+      "baseRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "baseRefName": "main",
+      "baseRefOid": "eea8f12300e12b6ed224a31dd5c3063564c5cf75",
+      "headRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "headRefName": "key-ref-to-sign-req",
+      "headRefOid": "0b8566462662c8006ae5def6bfc846649829da2d",
+      "closedAt": "2025-07-07T17:21:57Z",
+      "mergedAt": "2025-07-07T17:21:57Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "6badebaa76b2ff808a9a6c4cd5d994a0053f0547"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDON32VH86ygHCS",
+          "commit": {
+            "abbreviatedOid": "0b85664"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-07-07T17:21:52Z",
+          "updatedAt": "2025-07-07T17:21:52Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "id": "PR_kwDON32VH86dzOQJ",
+      "title": "Small follow-up tweaks to COSE_Sign_Args",
+      "url": "https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/pull/14",
+      "state": "MERGED",
+      "author": "emlun",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "- [Minor rewording](https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/commit/0f60aab7776cd670880650b3e6931ffe43766ef2)\r\n- Format COSE_Sign_Args as monospace\r\n- `alg` must not be omitted from COSE_Sign_Args",
+      "createdAt": "2025-07-07T17:25:28Z",
+      "updatedAt": "2025-07-07T17:58:32Z",
+      "baseRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "baseRefName": "main",
+      "baseRefOid": "6badebaa76b2ff808a9a6c4cd5d994a0053f0547",
+      "headRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "headRefName": "key-ref-to-sign-req",
+      "headRefOid": "7c33e330aba81557dbf5c9f78c8b897ea5951419",
+      "closedAt": "2025-07-07T17:58:30Z",
+      "mergedAt": "2025-07-07T17:58:30Z",
+      "mergedBy": "selfissued",
+      "mergeCommit": {
+        "oid": "6fc4d1b84d27a8c5394ad792b1054ac791a1f52e"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDON32VH86ygcLw",
+          "commit": {
+            "abbreviatedOid": "7c33e33"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-07-07T17:58:20Z",
+          "updatedAt": "2025-07-07T17:58:20Z",
           "comments": []
         }
       ]
