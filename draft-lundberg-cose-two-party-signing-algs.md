@@ -238,7 +238,7 @@ While many signature algorithms take the private key and data to be signed as th
 some signature algorithms have additional parameters that must also be set.
 For example,
 to sign using a key derived by ARKG [I-D.bradleylundberg-ARKG],
-two additional arguments `kh` and `info` are needed in `ARKG-Derive-Private-Key` to derive the signing private key.
+two additional arguments `kh` and `ctx` are needed in `ARKG-Derive-Private-Key` to derive the signing private key.
 
 While such additional arguments are simple to provide to the API of the signing procedure in a single-party context,
 in a split signing context these additional arguments also need to be conveyed from the _digester_ to the _signer_.
@@ -293,7 +293,7 @@ and a key derived using `ARKG-P256` [I-D.bradleylundberg-ARKG]:
         0487fc739dbcdabc293ac5469221da91b220e04c681074ec4692a76ffacb9043de
           c2847ea9060fd42da267f66852e63589f0c00dc88f290d660c65a65a50c86361',
 
-               ; info argument to ARKG-Derive-Private-Key
+               ; ctx argument to ARKG-Derive-Private-Key
   -2: 'ARKG-P256.test vectors',
 }
 ~~~
@@ -359,6 +359,10 @@ TODO
 
 # Document History
 {: numbered="false"}
+
+-03
+
+* Updated reference to ARKG parameter `info` renamed to `ctx`.
 
 -02
 
