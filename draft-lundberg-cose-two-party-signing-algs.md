@@ -67,6 +67,22 @@ normative:
     title: "SEC 1: Elliptic Curve Cryptography"
 
 informative:
+  FIPS-201:
+    target: https://doi.org/10.6028/NIST.SP.800-73pt2-5
+    title: 'Interfaces for Personal Identity Verification: Part 2 – PIV Card Application Card Command Interface'
+    author:
+    - fullname: Hildegard Ferraiolo
+      org: National Institute of Standards and Technology, Gaithersburg, MD
+    - fullname: Ketan Mehta
+      org: National Institute of Standards and Technology, Gaithersburg, MD
+    - fullname: Salvatore Francomacaro
+      org: National Institute of Standards and Technology, Gaithersburg, MD
+    - fullname: Ramaswamy Chandramouli
+      org: National Institute of Standards and Technology, Gaithersburg, MD
+    - fullname: Sarbari Gupta
+      org: National Institute of Standards and Technology, Gaithersburg, MD
+    date: 2024
+    refcontent: NIST Special Publication (SP) NIST SP 800-73pt2-5
   FIPS-204:
     target: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf
     title: Module-Lattice-Based Digital Signature Standard
@@ -80,6 +96,22 @@ informative:
     - org: National Institute of Standards and Technology
     date: February 2023
   I-D.COSE-Hash-Envelope: I-D.draft-ietf-cose-hash-envelope
+  PKCS11-Spec-v3.1:
+    target: https://docs.oasis-open.org/pkcs11/pkcs11-spec/v3.1/os/pkcs11-spec-v3.1-os.html
+    title: 'PKCS #11 Specification Version 3.1.'
+    author:
+    - fullname: Dieter Bong
+    - fullname: Tony Cox
+    date: 2023-07-23
+    refcontent: OASIS Standard
+    ann: 'Latest stage: <https://docs.oasis-open.org/pkcs11/pkcs11-spec/v3.1/pkcs11-spec-v3.1.html>.'
+  OPENPGPCARD:
+    target: https://gnupg.org/ftp/specs/OpenPGP-smart-card-application-3.4.1.pdf
+    title: Functional Specification of the OpenPGP application on ISO Smart Card Operating Systems
+    author:
+    - fullname: Achim Pietig
+    date: March 2020
+    refcontent: Version 3.4.1
   RFC9380:
   SECDSA:
     target: https://eprint.iacr.org/2021/910
@@ -91,14 +123,12 @@ informative:
 
 --- abstract
 
-This specification defines COSE algorithm identifiers used when one signing operation
-is split between two cooperating parties.
-When performing split signing,
-the first party typically hashes the data to be signed
-and the second party signs the hashed data computed by the first party.
-This can be useful when communication with the party holding the signing private key
-occurs over a limited-bandwidth channel, such as NFC or Bluetooth Low Energy (BLE),
-in which it is infeasible to send the complete set of data to be signed.
+This specification defines COSE algorithm identifiers
+for negotiating how to split a signature algorithm between two cooperating parties.
+Typically the first party hashes the data to be signed
+and the second party finishes the signature over the hashed data.
+This is a common technique, useful for example when the signing private key is held in a smart card
+or similar hardware component with limited processing power and communication bandwidth.
 The resulting signatures are identical in structure to those computed by a single party,
 and can be verified using the same verification algorithm
 without additional steps to preprocess the signed data.
@@ -110,55 +140,58 @@ without additional steps to preprocess the signed data.
 # Introduction
 
 CBOR Object Signing and Encryption (COSE) [RFC9052]
-algorithm identifiers are used to specify the cryptographic operations
-used to create cryptographic data structures,
-but do not record internal details of how the cryptography was performed,
+algorithm identifiers are used for algorithm negotiation
+and to annotate cryptographic objects with how to interpret them,
+for example which algorithm to use to verify a signature or decapsulate a shared key.
+Existing COSE algorithm identifiers omit some internal details of how the object was constructed,
 since those details are typically irrelevant for the recipient.
-The algorithm identifiers defined by this specification facilitate
-splitting a signing operation between two cooperating parties,
-by specifying the division of responsibilities between the two parties.
-The resulting signature can be verified by the same verification algorithm
-as if it had been created by a single party,
-so this division of responsibilities is an implementation detail of the signer.
-Verifiers therefore do not use these split algorithm identifiers,
-and instead use the corresponding non-split algorithm identifier
-which identifies the same verification algorithm as the split algorithm identifier would.
 
-A primary use case for this is splitting a signature operation between a software application
-and a discrete hardware security module (HSM) holding the private key.
-In particular, since the data link between them may have limited bandwidth,
+The algorithm identifiers defined in this specification are meant for a complementary use case:
+to divide responsibilities during _construction_ of a cryptographic object,
+instead of describing how to _consume_ the object.
+Specifically, they provide an interoperable way to negotiate
+how a signing operation is split between two cooperating parties,
+for example a smart card and a software application,
+while the verification algorithm for the resulting signature remains the same
+as if the signature was created by a single party.
+These split algorithm identifiers are therefore not meant for annotating signature objects,
+since the verification algorithm is better indicated using already existing algorithm identifiers.
+
+As mentioned above, a primary use case for this is for algorithm negotiation
+between a software application and a smart card or other hardware security module (HSM) holding the signing private key.
+Since the HSM may have limited processing power and communication bandwidth,
 it may not be practical to send the entire original message to the HSM.
 Instead, since most signature algorithms begin with digesting the message
 into a fixed-length intermediate input, this initial digest can be computed by the software application
-while the HSM computes the rest of the signature algorithm on the digest.
+while the HSM performs the rest of the signature algorithm on the digest.
+This is a common technique used in standards such as OpenPGP [OPENPGPCARD],
+PKCS #11 [PKCS11-Spec-v3.1] and PIV [FIPS-201].
 
 Since different signature algorithms digest the message in different ways
 and at different stages of the algorithm,
-there is no one generally-applicable way to define such a division point
-for every possible signature algorithm.
-Therefore, this specification defines algorithm identifiers encoding,
-for a specific set of signature algorithms,
-which steps of the signature algorithm are performed by the _digester_ (e.g., software application)
-and which are performed by the _signer_ (e.g., HSM).
-In general, the _signer_ holds exclusive control of the signing private key.
+it is not possible for a cryptographic API to specify that, for example, "the hash digest is computed by the caller"
+generically for all algorithms.
+Instead, the algorithm identifiers defined in this specification
+enable the parties of that cryptographic API to signal precisely, for each signature algorithm individually,
+which steps of the algorithm are performed by which party.
+We thus define two roles:
+the _digester_ (e.g., a software application) which initializes the signing procedure,
+and the _signer_ (e.g., an HSM) which holds exclusive control of the signing private key.
 
 Note that these algorithm identifiers do not define new "pre-hashed" variants of the base signature algorithm,
 nor an intermediate "hash envelope" data structure, such as that defined in [I-D.COSE-Hash-Envelope].
-Rather, these identifiers correspond to existing signature algorithms
+Rather, these identifiers denote existing signature algorithms
 that would typically be executed by a single party,
 but split into two stages.
-The resulting signatures are identical to those computed by a single party,
-and can be verified using the same verification algorithms
-without additional special steps to process the signed data.
 
-However some signature algorithms,
+Some signature algorithms,
 such as PureEdDSA [RFC8032],
-cannot be split in this way and therefore cannot be assigned split signing algorithm identifiers.
+by their design cannot be split in this way and therefore cannot be assigned split signing algorithm identifiers.
 However, if such a signature algorithm defines a "pre-hashed" variant,
 such as Ed25519ph [RFC8032],
-that "pre-hashed" algorithm can also be assigned a split signing algorithm identifier,
-enabling the hashing step to be performed by the _digester_
-and the signing step to be executed by the _signer_.
+that "pre-hashed" algorithm can be assigned a split signing algorithm identifier,
+enabling the pre-hashing step to be performed by the _digester_
+and the remaining steps by the _signer_.
 
 ## Requirements Notation and Conventions
 
@@ -363,6 +396,8 @@ TODO
 -03
 
 * Updated reference to ARKG parameter `info` renamed to `ctx`.
+* Refined abstract and introduction to emphasize that the central novelty is not split algorithms as a concept,
+  but providing COSE algorithm identifiers for use cases that benefit from such splitting.
 
 -02
 
