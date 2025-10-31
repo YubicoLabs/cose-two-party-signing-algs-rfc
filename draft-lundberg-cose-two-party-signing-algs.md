@@ -48,7 +48,6 @@ author:
 
 normative:
   I-D.bradleylundberg-ARKG: I-D.draft-bradleylundberg-cfrg-arkg
-  I-D.jose-fully-spec-algs: I-D.draft-ietf-jose-fully-specified-algorithms
   IANA.COSE:
     target: https://www.iana.org/assignments/cose/
     title: CBOR Object Signing and Encryption (COSE)
@@ -59,6 +58,7 @@ normative:
   RFC8174:
   RFC8610:
   RFC9052:
+  RFC9864:
   SEC1:
     target: https://www.secg.org/sec1-v2.pdf
     author:
@@ -197,9 +197,9 @@ The following algorithm identifiers are defined:
 
 | Name         | COSE Value | Verification algorithm | Description |
 | ------------ | ---------- | ---------------------- | ----------- |
-| ESP256-split | TBD        | ESP256                 | ESP256 [I-D.jose-fully-spec-algs] split signing as defined in {{ecdsa-split}} of this document
-| ESP384-split | TBD        | ESP384                 | ESP384 [I-D.jose-fully-spec-algs] split signing as defined in {{ecdsa-split}} of this document
-| ESP512-split | TBD        | ESP512                 | ESP512 [I-D.jose-fully-spec-algs] split signing as defined in {{ecdsa-split}} of this document
+| ESP256-split | TBD        | ESP256                 | ESP256 split signing as defined in {{ecdsa-split}} of this specification
+| ESP384-split | TBD        | ESP384                 | ESP384 split signing as defined in {{ecdsa-split}} of this specification
+| ESP512-split | TBD        | ESP512                 | ESP512 split signing as defined in {{ecdsa-split}} of this specification
 
 
 Note: This is distinct from the similarly named Split-ECDSA (SECDSA) [SECDSA],
@@ -228,8 +228,10 @@ The following algorithm identifiers are defined:
 
 | Name            | COSE Value | Verification algorithm | Description |
 | --------------- | ---------- | ---------------------- | ----------- |
-| Ed25519ph-split | TBD        | Ed25519ph              | Ed25519ph [I-D.jose-fully-spec-algs] split signing as defined in {{eddsa-split}} of this specification (NOTE: Ed25519ph not yet registered) |
-| Ed448ph-split   | TBD        | Ed448ph                | Ed448ph [I-D.jose-fully-spec-algs] split signing as defined in {{eddsa-split}} of this specification (NOTE: Ed448ph not yet registered) |
+| Ed25519ph       | TBD        | Ed25519ph              | EdDSA using the Ed25519ph parameter set in {{Section 5.1 of RFC8032}} |
+| Ed25519ph-split | TBD        | Ed25519ph              | EdDSA using the Ed25519ph parameter set in {{Section 5.1 of RFC8032}} and split as defined in {{eddsa-split}} of this specification |
+| Ed448ph         | TBD        | Ed448ph                | EdDSA using the Ed448ph parameter set in {{Section 5.2 of RFC8032}} |
+| Ed448ph-split   | TBD        | Ed448ph                | EdDSA using the Ed448ph parameter set in {{Section 5.2 of RFC8032}} and split as defined in {{eddsa-split}} of this specification |
 
 
 # COSE Signing Arguments {#cose-sign-args}
@@ -307,7 +309,7 @@ This section registers the following values in the IANA "COSE Algorithms" regist
 
 - Name: ESP256-split
   - Value: TBD (Requested Assignment -300)
-  - Description: ESP256 [I-D.jose-fully-spec-algs] split signing
+  - Description: ESP256 split signing
   - Capabilities: \[kty\]
   - Change Controller: IETF
   - Reference: {{ecdsa-split}} of this specification
@@ -315,7 +317,7 @@ This section registers the following values in the IANA "COSE Algorithms" regist
 
 - Name: ESP384-split
   - Value: TBD (Requested Assignment -301)
-  - Description: ESP384 [I-D.jose-fully-spec-algs] split signing
+  - Description: ESP384 split signing
   - Capabilities: \[kty\]
   - Change Controller: IETF
   - Reference: {{ecdsa-split}} of this specification
@@ -323,23 +325,39 @@ This section registers the following values in the IANA "COSE Algorithms" regist
 
 - Name: ESP512-split
   - Value: TBD (Requested Assignment -302)
-  - Description: ESP512 [I-D.jose-fully-spec-algs] split signing
+  - Description: ESP512 split signing
   - Capabilities: \[kty\]
   - Change Controller: IETF
   - Reference: {{ecdsa-split}} of this specification
   - Recommended: Yes
 
+- Name: Ed25519ph
+  - Value: TBD
+  - Description: EdDSA using the Ed25519ph parameter set in {{Section 5.1 of RFC8032}}
+  - Capabilities: \[kty\]
+  - Change Controller: IETF
+  - Reference: {{Section 5.1 of RFC8032}}
+  - Recommended: Yes
+
 - Name: Ed25519ph-split
   - Value: TBD (Requested Assignment -303)
-  - Description: Ed25519ph [I-D.jose-fully-spec-algs] split signing
+  - Description: Ed25519ph split as defined in {{eddsa-split}} of this specification
   - Capabilities: \[kty\]
   - Change Controller: IETF
   - Reference: {{eddsa-split}} of this specification
   - Recommended: Yes
 
+- Name: Ed448ph
+  - Value: TBD
+  - Description: EdDSA using the Ed448ph parameter set in {{Section 5.2 of RFC8032}}
+  - Capabilities: \[kty\]
+  - Change Controller: IETF
+  - Reference: {{Section 5.2 of RFC8032}}
+  - Recommended: Yes
+
 - Name: Ed448ph-split
   - Value: TBD (Requested Assignment -304)
-  - Description: Ed448ph [I-D.jose-fully-spec-algs] split signing
+  - Description: Ed448ph split as defined in {{eddsa-split}} of this specification
   - Capabilities: \[kty\]
   - Change Controller: IETF
   - Reference: {{eddsa-split}} of this specification
@@ -363,6 +381,9 @@ TODO
 -03
 
 * Updated reference to ARKG parameter `info` renamed to `ctx`.
+* Replaced reference to draft-ietf-jose-fully-specified-algorithms with rfc9864.
+* Added inline definitions of Ed25519ph and Ed448ph registrations,
+  replacing speculative references to registrations that do not exist elsewhere.
 
 -02
 
