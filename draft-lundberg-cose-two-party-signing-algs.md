@@ -197,9 +197,9 @@ The following algorithm identifiers are defined:
 
 | Name         | COSE Value | Verification algorithm | Description |
 | ------------ | ---------- | ---------------------- | ----------- |
-| ESP256-split | TBD        | ESP256                 | ESP256 [I-D.jose-fully-spec-algs] split signing as defined here
-| ESP384-split | TBD        | ESP384                 | ESP384 [I-D.jose-fully-spec-algs] split signing as defined here
-| ESP512-split | TBD        | ESP512                 | ESP512 [I-D.jose-fully-spec-algs] split signing as defined here
+| ESP256-split | TBD        | ESP256                 | ESP256 [I-D.jose-fully-spec-algs] split signing as defined in {{ecdsa-split}} of this document
+| ESP384-split | TBD        | ESP384                 | ESP384 [I-D.jose-fully-spec-algs] split signing as defined in {{ecdsa-split}} of this document
+| ESP512-split | TBD        | ESP512                 | ESP512 [I-D.jose-fully-spec-algs] split signing as defined in {{ecdsa-split}} of this document
 
 
 Note: This is distinct from the similarly named Split-ECDSA (SECDSA) [SECDSA],
@@ -228,8 +228,8 @@ The following algorithm identifiers are defined:
 
 | Name            | COSE Value | Verification algorithm | Description |
 | --------------- | ---------- | ---------------------- | ----------- |
-| Ed25519ph-split | TBD        | Ed25519ph              | Ed25519ph [I-D.jose-fully-spec-algs] split signing as defined here (NOTE: Ed25519ph not yet registered) |
-| Ed448ph-split   | TBD        | Ed448ph                | Ed448ph [I-D.jose-fully-spec-algs] split signing as defined here (NOTE: Ed448ph not yet registered) |
+| Ed25519ph-split | TBD        | Ed25519ph              | Ed25519ph [I-D.jose-fully-spec-algs] split signing as defined in {{eddsa-split}} of this specification (NOTE: Ed25519ph not yet registered) |
+| Ed448ph-split   | TBD        | Ed448ph                | Ed448ph [I-D.jose-fully-spec-algs] split signing as defined in {{eddsa-split}} of this specification (NOTE: Ed448ph not yet registered) |
 
 
 # COSE Signing Arguments {#cose-sign-args}
