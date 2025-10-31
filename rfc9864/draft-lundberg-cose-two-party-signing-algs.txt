@@ -556,6 +556,15 @@ Document History
 
    *  Updated reference to ARKG parameter info renamed to ctx.
 
+   *  Replaced reference to draft-ietf-jose-fully-specified-algorithms
+      with rfc9864.
+
+   *  Added inline definitions of Ed25519ph and Ed448ph registrations,
+      replacing speculative references to registrations that do not
+      exist elsewhere.
+
+   *  Added missing captions to tables 1 and 2.
+
    -02
 
    *  Renamed document from "COSE Algorithms for Two-Party Signing" to
