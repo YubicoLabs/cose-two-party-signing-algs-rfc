@@ -195,6 +195,7 @@ of the steps of the ECDSA signature generation algorithm [FIPS-186-5]:
 
 The following algorithm identifiers are defined:
 
+{: #tbl-ecdsa-split title="ECDSA split signing algorithm values."}
 | Name         | COSE Value | Verification algorithm | Description |
 | ------------ | ---------- | ---------------------- | ----------- |
 | ESP256-split | TBD        | ESP256                 | ESP256 split signing as defined in {{ecdsa-split}} of this specification
@@ -226,6 +227,7 @@ since such a division would require that the _digester_ has access to the privat
 
 The following algorithm identifiers are defined:
 
+{: #tbl-eddsa-split title="HashEdDSA algorithm values."}
 | Name            | COSE Value | Verification algorithm | Description |
 | --------------- | ---------- | ---------------------- | ----------- |
 | Ed25519ph       | TBD        | Ed25519ph              | EdDSA using the Ed25519ph parameter set in {{Section 5.1 of RFC8032}} |
@@ -384,6 +386,7 @@ TODO
 * Replaced reference to draft-ietf-jose-fully-specified-algorithms with rfc9864.
 * Added inline definitions of Ed25519ph and Ed448ph registrations,
   replacing speculative references to registrations that do not exist elsewhere.
+* Added missing captions to tables 1 and 2.
 
 -02
 
