@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-30T00:04:47.110702+00:00",
+  "timestamp": "2025-11-02T00:05:37.133728+00:00",
   "repo": "YubicoLabs/cose-two-party-signing-algs-rfc",
   "labels": [
     {
@@ -782,6 +782,466 @@
           "body": "",
           "createdAt": "2025-07-07T17:58:20Z",
           "updatedAt": "2025-07-07T17:58:20Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "id": "PR_kwDON32VH86w1HKS",
+      "title": "Refine introduction to emphasize the concept is not novel",
+      "url": "https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/pull/15",
+      "state": "OPEN",
+      "author": "emlun",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Reviewers in the COSE WG commented that the abstract and introduction make it seem like splitting algorithms like this is a novel concept, when the central novelty introduced by the draft is to provide COSE algorithm identifiers for use cases that benefit from such splitting.",
+      "createdAt": "2025-10-31T13:03:24Z",
+      "updatedAt": "2025-10-31T21:52:22Z",
+      "baseRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "baseRefName": "main",
+      "baseRefOid": "84dfd68151bf62be5661cd0da5c218bb1627c5a4",
+      "headRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "headRefName": "wg-review-introduction",
+      "headRefOid": "5adc3e524b2683bc21b1f011715a1ad8a180bb1c",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDON32VH87LB9zX",
+          "commit": {
+            "abbreviatedOid": "5adc3e5"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-31T21:47:30Z",
+          "updatedAt": "2025-10-31T21:47:30Z",
+          "comments": [
+            {
+              "originalPosition": 98,
+              "body": "```suggestion\r\nfor example, a smart card and a software application,\r\n```",
+              "createdAt": "2025-10-31T21:47:30Z",
+              "updatedAt": "2025-10-31T21:47:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON32VH87LB-dJ",
+          "commit": {
+            "abbreviatedOid": "5adc3e5"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-31T21:48:53Z",
+          "updatedAt": "2025-10-31T21:48:53Z",
+          "comments": [
+            {
+              "originalPosition": 113,
+              "body": "```suggestion\r\nPKCS #11 [PKCS11-Spec-v3.1], and PIV [FIPS-201].\r\n```",
+              "createdAt": "2025-10-31T21:48:53Z",
+              "updatedAt": "2025-10-31T21:48:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON32VH87LB-uW",
+          "commit": {
+            "abbreviatedOid": "5adc3e5"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-31T21:49:43Z",
+          "updatedAt": "2025-10-31T21:49:43Z",
+          "comments": [
+            {
+              "originalPosition": 130,
+              "body": "```suggestion\r\nthe _digester_ (e.g., a software application) that initializes the signing procedure,\r\n```",
+              "createdAt": "2025-10-31T21:49:43Z",
+              "updatedAt": "2025-10-31T21:49:43Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON32VH87LB-2R",
+          "commit": {
+            "abbreviatedOid": "5adc3e5"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-31T21:50:02Z",
+          "updatedAt": "2025-10-31T21:50:02Z",
+          "comments": [
+            {
+              "originalPosition": 131,
+              "body": "```suggestion\r\nand the _signer_ (e.g., an HSM) that holds exclusive control of the signing private key.\r\n```",
+              "createdAt": "2025-10-31T21:50:02Z",
+              "updatedAt": "2025-10-31T21:50:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON32VH87LB_RM",
+          "commit": {
+            "abbreviatedOid": "5adc3e5"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-31T21:50:55Z",
+          "updatedAt": "2025-10-31T21:50:56Z",
+          "comments": [
+            {
+              "originalPosition": 147,
+              "body": "```suggestion\r\nby their design, cannot be split in this way, and therefore cannot be assigned split signing algorithm identifiers.\r\n```",
+              "createdAt": "2025-10-31T21:50:56Z",
+              "updatedAt": "2025-10-31T21:50:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON32VH87LCAWb",
+          "commit": {
+            "abbreviatedOid": "5adc3e5"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Looks good!  Please apply my editorial suggestions.",
+          "createdAt": "2025-10-31T21:52:22Z",
+          "updatedAt": "2025-10-31T21:52:22Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "PR_kwDON32VH86w1bhj",
+      "title": "Replace reference I-D.jose-fully-spec-algs with RFC9864",
+      "url": "https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/pull/16",
+      "state": "OPEN",
+      "author": "emlun",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Congrats on the publication of [RFC 9864](https://mailarchive.ietf.org/arch/msg/rfc-dist/vCAqVbM5fZpldh2pX2jyecz0nj8/)!",
+      "createdAt": "2025-10-31T13:30:28Z",
+      "updatedAt": "2025-10-31T21:58:56Z",
+      "baseRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "baseRefName": "main",
+      "baseRefOid": "84dfd68151bf62be5661cd0da5c218bb1627c5a4",
+      "headRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "headRefName": "rfc9864",
+      "headRefOid": "653111b904c688d2563ff80db85b6bb44ae8d5fd",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDON32VH87LCBKv",
+          "commit": {
+            "abbreviatedOid": "653111b"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-31T21:54:15Z",
+          "updatedAt": "2025-10-31T21:54:15Z",
+          "comments": [
+            {
+              "originalPosition": 113,
+              "body": "```suggestion\r\n* Replaced reference to draft-ietf-jose-fully-specified-algorithms with RFC 9864.\r\n```",
+              "createdAt": "2025-10-31T21:54:15Z",
+              "updatedAt": "2025-10-31T21:54:15Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON32VH87LCBZ1",
+          "commit": {
+            "abbreviatedOid": "653111b"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-31T21:54:45Z",
+          "updatedAt": "2025-10-31T21:54:45Z",
+          "comments": [
+            {
+              "originalPosition": 116,
+              "body": "```suggestion\r\n* Added missing captions to Tables 1 and 2.\r\n```",
+              "createdAt": "2025-10-31T21:54:45Z",
+              "updatedAt": "2025-10-31T21:54:45Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON32VH87LCCGY",
+          "commit": {
+            "abbreviatedOid": "653111b"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-31T21:56:57Z",
+          "updatedAt": "2025-10-31T21:56:57Z",
+          "comments": [
+            {
+              "originalPosition": 28,
+              "body": "```suggestion\r\n| ESP256-split | TBD        | ESP256                 | ESP256 split signing as defined in {{ecdsa-split}}\r\n| ESP384-split | TBD        | ESP384                 | ESP384 split signing as defined in {{ecdsa-split}}\r\n| ESP512-split | TBD        | ESP512                 | ESP512 split signing as defined in {{ecdsa-split}}\r\n```\r\n\r\n\"of this specification\" is redundant.  The section references are sufficient.",
+              "createdAt": "2025-10-31T21:56:57Z",
+              "updatedAt": "2025-10-31T21:56:57Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON32VH87LCCYa",
+          "commit": {
+            "abbreviatedOid": "653111b"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-31T21:57:40Z",
+          "updatedAt": "2025-10-31T21:57:41Z",
+          "comments": [
+            {
+              "originalPosition": 44,
+              "body": "```suggestion\r\n| Ed25519ph-split | TBD        | Ed25519ph              | EdDSA using the Ed25519ph parameter set in {{Section 5.1 of RFC8032}} and split as defined in {{eddsa-split}} |\r\n| Ed448ph         | TBD        | Ed448ph                | EdDSA using the Ed448ph parameter set in {{Section 5.2 of RFC8032}} |\r\n| Ed448ph-split   | TBD        | Ed448ph                | EdDSA using the Ed448ph parameter set in {{Section 5.2 of RFC8032}} and split as defined in {{eddsa-split}} |\r\n```",
+              "createdAt": "2025-10-31T21:57:40Z",
+              "updatedAt": "2025-10-31T21:57:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON32VH87LCCiX",
+          "commit": {
+            "abbreviatedOid": "653111b"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-31T21:58:06Z",
+          "updatedAt": "2025-10-31T21:58:07Z",
+          "comments": [
+            {
+              "originalPosition": 88,
+              "body": "```suggestion\r\n  - Description: Ed25519ph split as defined in {{eddsa-split}}\r\n```",
+              "createdAt": "2025-10-31T21:58:06Z",
+              "updatedAt": "2025-10-31T21:58:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON32VH87LCCoS",
+          "commit": {
+            "abbreviatedOid": "653111b"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-31T21:58:23Z",
+          "updatedAt": "2025-10-31T21:58:23Z",
+          "comments": [
+            {
+              "originalPosition": 105,
+              "body": "```suggestion\r\n  - Description: Ed448ph split as defined in {{eddsa-split}}\r\n```",
+              "createdAt": "2025-10-31T21:58:23Z",
+              "updatedAt": "2025-10-31T21:58:23Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON32VH87LCC4e",
+          "commit": {
+            "abbreviatedOid": "653111b"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thanks for doing this.  Please apply my editorial suggestions.",
+          "createdAt": "2025-10-31T21:58:56Z",
+          "updatedAt": "2025-10-31T21:58:56Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "id": "PR_kwDON32VH86w4EYc",
+      "title": "Add initial Security Considerations",
+      "url": "https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/pull/17",
+      "state": "OPEN",
+      "author": "emlun",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Reviewers have implied that splitting the signing operation may enable some unspecified forms of attack, perhaps because we have not made adequately clear that the _digester_ is assumed trusted (at least on the protocol level).",
+      "createdAt": "2025-10-31T17:14:14Z",
+      "updatedAt": "2025-10-31T22:04:30Z",
+      "baseRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "baseRefName": "wg-review-introduction",
+      "baseRefOid": "5adc3e524b2683bc21b1f011715a1ad8a180bb1c",
+      "headRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "headRefName": "wg-review-trusted-roles",
+      "headRefOid": "2dcef88ad5adc5f734cdf2c8c7ba531d2fa33b58",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDON32VH87LCEI7",
+          "commit": {
+            "abbreviatedOid": "2dcef88"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-31T22:00:55Z",
+          "updatedAt": "2025-10-31T22:00:55Z",
+          "comments": [
+            {
+              "originalPosition": 22,
+              "body": "```suggestion\r\nthat single party takes on both the _digester_ and the _signer_ roles,\r\n```",
+              "createdAt": "2025-10-31T22:00:55Z",
+              "updatedAt": "2025-10-31T22:00:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON32VH87LCEZ3",
+          "commit": {
+            "abbreviatedOid": "2dcef88"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-31T22:01:45Z",
+          "updatedAt": "2025-10-31T22:01:45Z",
+          "comments": [
+            {
+              "originalPosition": 30,
+              "body": "```suggestion\r\nThus, on the application or protocol level,\r\n```",
+              "createdAt": "2025-10-31T22:01:45Z",
+              "updatedAt": "2025-10-31T22:01:45Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON32VH87LCEsG",
+          "commit": {
+            "abbreviatedOid": "2dcef88"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-31T22:02:43Z",
+          "updatedAt": "2025-10-31T22:02:43Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "```suggestion\r\nit interoperates with is necessarily honest.\r\n```",
+              "createdAt": "2025-10-31T22:02:43Z",
+              "updatedAt": "2025-10-31T22:02:43Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON32VH87LCEsd",
+          "commit": {
+            "abbreviatedOid": "2dcef88"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-31T22:02:44Z",
+          "updatedAt": "2025-10-31T22:02:44Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "```suggestion\r\nit interoperates with is necessarily honest.\r\n```",
+              "createdAt": "2025-10-31T22:02:44Z",
+              "updatedAt": "2025-10-31T22:02:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON32VH87LCFBP",
+          "commit": {
+            "abbreviatedOid": "2dcef88"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-31T22:03:16Z",
+          "updatedAt": "2025-10-31T22:03:16Z",
+          "comments": [
+            {
+              "originalPosition": 43,
+              "body": "```suggestion\r\nFor example, for ECDSA ({{ecdsa-split}}), a malicious _digester_ can choose _H_\r\n```",
+              "createdAt": "2025-10-31T22:03:16Z",
+              "updatedAt": "2025-10-31T22:03:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON32VH87LCFWF",
+          "commit": {
+            "abbreviatedOid": "2dcef88"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-31T22:03:46Z",
+          "updatedAt": "2025-10-31T22:03:46Z",
+          "comments": [
+            {
+              "originalPosition": 46,
+              "body": "```suggestion\r\nFortunately, in this case, this does not enable the _digester_ to extract the signature nonce or private key.\r\n```",
+              "createdAt": "2025-10-31T22:03:46Z",
+              "updatedAt": "2025-10-31T22:03:47Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON32VH87LCFsS",
+          "commit": {
+            "abbreviatedOid": "2dcef88"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thanks for doing this.  Please apply my editorial suggestions.",
+          "createdAt": "2025-10-31T22:04:30Z",
+          "updatedAt": "2025-10-31T22:04:30Z",
           "comments": []
         }
       ]
