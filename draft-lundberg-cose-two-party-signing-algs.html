@@ -8,14 +8,12 @@
 <meta content="Emil Lundberg" name="author">
 <meta content="Michael B. Jones" name="author">
 <meta content="
-       This specification defines COSE algorithm identifiers used when one signing operation
-is split between two cooperating parties.
-When performing split signing,
-the first party typically hashes the data to be signed
-and the second party signs the hashed data computed by the first party.
-This can be useful when communication with the party holding the signing private key
-occurs over a limited-bandwidth channel, such as NFC or Bluetooth Low Energy (BLE),
-in which it is infeasible to send the complete set of data to be signed.
+       This specification defines COSE algorithm identifiers
+for negotiating how to split a signature algorithm between two cooperating parties.
+Typically the first party hashes the data to be signed
+and the second party finishes the signature over the hashed data.
+This is a common technique, useful for example when the signing private key is held in a smart card
+or similar hardware component with limited processing power and communication bandwidth.
 The resulting signatures are identical in structure to those computed by a single party,
 and can be verified using the same verification algorithm
 without additional steps to preprocess the signed data. 
@@ -1058,11 +1056,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Split signing algorithms for COSE</td>
-<td class="right">October 2025</td>
+<td class="right">November 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Lundberg &amp; Jones</td>
-<td class="center">Expires 4 May 2026</td>
+<td class="center">Expires 7 May 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1075,12 +1073,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-lundberg-cose-two-party-signing-algs-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-10-31" class="published">31 October 2025</time>
+<time datetime="2025-11-03" class="published">3 November 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-05-04">4 May 2026</time></dd>
+<dd class="expires"><time datetime="2026-05-07">7 May 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1098,14 +1096,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Split signing algorithms for COSE</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This specification defines COSE algorithm identifiers used when one signing operation
-is split between two cooperating parties.
-When performing split signing,
-the first party typically hashes the data to be signed
-and the second party signs the hashed data computed by the first party.
-This can be useful when communication with the party holding the signing private key
-occurs over a limited-bandwidth channel, such as NFC or Bluetooth Low Energy (BLE),
-in which it is infeasible to send the complete set of data to be signed.
+<p id="section-abstract-1">This specification defines COSE algorithm identifiers
+for negotiating how to split a signature algorithm between two cooperating parties.
+Typically the first party hashes the data to be signed
+and the second party finishes the signature over the hashed data.
+This is a common technique, useful for example when the signing private key is held in a smart card
+or similar hardware component with limited processing power and communication bandwidth.
 The resulting signatures are identical in structure to those computed by a single party,
 and can be verified using the same verification algorithm
 without additional steps to preprocess the signed data.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
@@ -1144,7 +1140,7 @@ without additional steps to preprocess the signed data.<a href="#section-abstrac
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 4 May 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 7 May 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1241,51 +1237,53 @@ without additional steps to preprocess the signed data.<a href="#section-abstrac
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1">CBOR Object Signing and Encryption (COSE) <span>[<a href="#RFC9052" class="cite xref">RFC9052</a>]</span>
-algorithm identifiers are used to specify the cryptographic operations
-used to create cryptographic data structures,
-but do not record internal details of how the cryptography was performed,
-since those details are typically irrelevant for the recipient.
-The algorithm identifiers defined by this specification facilitate
-splitting a signing operation between two cooperating parties,
-by specifying the division of responsibilities between the two parties.
-The resulting signature can be verified by the same verification algorithm
-as if it had been created by a single party,
-so this division of responsibilities is an implementation detail of the signer.
-Verifiers therefore do not use these split algorithm identifiers,
-and instead use the corresponding non-split algorithm identifier
-which identifies the same verification algorithm as the split algorithm identifier would.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">A primary use case for this is splitting a signature operation between a software application
-and a discrete hardware security module (HSM) holding the private key.
-In particular, since the data link between them may have limited bandwidth,
+algorithm identifiers are used for algorithm negotiation
+and to annotate cryptographic objects with how to interpret them,
+for example which algorithm to use to verify a signature or decapsulate a shared key.
+Existing COSE algorithm identifiers omit some internal details of how the object was constructed,
+since those details are typically irrelevant for the recipient.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">The algorithm identifiers defined in this specification are meant for a complementary use case:
+to divide responsibilities during <em>construction</em> of a cryptographic object,
+instead of describing how to <em>consume</em> the object.
+Specifically, they provide an interoperable way to negotiate
+how a signing operation is split between two cooperating parties,
+for example, a smart card and a software application,
+while the verification algorithm for the resulting signature remains the same
+as if the signature was created by a single party.
+These split algorithm identifiers are therefore not meant for annotating signature objects,
+since the verification algorithm is better indicated using already existing algorithm identifiers.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">As mentioned above, a primary use case for this is for algorithm negotiation
+between a software application and a smart card or other hardware security module (HSM) holding the signing private key.
+Since the HSM may have limited processing power and communication bandwidth,
 it may not be practical to send the entire original message to the HSM.
 Instead, since most signature algorithms begin with digesting the message
 into a fixed-length intermediate input, this initial digest can be computed by the software application
-while the HSM computes the rest of the signature algorithm on the digest.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">Since different signature algorithms digest the message in different ways
+while the HSM performs the rest of the signature algorithm on the digest.
+This is a common technique used in standards such as OpenPGP <span>[<a href="#OPENPGPCARD" class="cite xref">OPENPGPCARD</a>]</span>,
+PKCS #11 <span>[<a href="#PKCS11-Spec-v3.1" class="cite xref">PKCS11-Spec-v3.1</a>]</span>, and PIV <span>[<a href="#FIPS-201" class="cite xref">FIPS-201</a>]</span>.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">Since different signature algorithms digest the message in different ways
 and at different stages of the algorithm,
-there is no one generally-applicable way to define such a division point
-for every possible signature algorithm.
-Therefore, this specification defines algorithm identifiers encoding,
-for a specific set of signature algorithms,
-which steps of the signature algorithm are performed by the <em>digester</em> (e.g., software application)
-and which are performed by the <em>signer</em> (e.g., HSM).
-In general, the <em>signer</em> holds exclusive control of the signing private key.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">Note that these algorithm identifiers do not define new "pre-hashed" variants of the base signature algorithm,
+it is not possible for a cryptographic API to specify that, for example, "the hash digest is computed by the caller"
+generically for all algorithms.
+Instead, the algorithm identifiers defined in this specification
+enable the parties of that cryptographic API to signal precisely, for each signature algorithm individually,
+which steps of the algorithm are performed by which party.
+We thus define two roles:
+the <em>digester</em> (e.g., a software application) that initializes the signing procedure,
+and the <em>signer</em> (e.g., an HSM) that holds exclusive control of the signing private key.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-5">Note that these algorithm identifiers do not define new "pre-hashed" variants of the base signature algorithm,
 nor an intermediate "hash envelope" data structure, such as that defined in <span>[<a href="#I-D.COSE-Hash-Envelope" class="cite xref">I-D.COSE-Hash-Envelope</a>]</span>.
-Rather, these identifiers correspond to existing signature algorithms
+Rather, these identifiers denote existing signature algorithms
 that would typically be executed by a single party,
-but split into two stages.
-The resulting signatures are identical to those computed by a single party,
-and can be verified using the same verification algorithms
-without additional special steps to process the signed data.<a href="#section-1-4" class="pilcrow">¶</a></p>
-<p id="section-1-5">However some signature algorithms,
+but split into two stages.<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-6">Some signature algorithms,
 such as PureEdDSA <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span>,
-cannot be split in this way and therefore cannot be assigned split signing algorithm identifiers.
+by their design, cannot be split in this way, and therefore cannot be assigned split signing algorithm identifiers.
 However, if such a signature algorithm defines a "pre-hashed" variant,
 such as Ed25519ph <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span>,
-that "pre-hashed" algorithm can also be assigned a split signing algorithm identifier,
-enabling the hashing step to be performed by the <em>digester</em>
-and the signing step to be executed by the <em>signer</em>.<a href="#section-1-5" class="pilcrow">¶</a></p>
+that "pre-hashed" algorithm can be assigned a split signing algorithm identifier,
+enabling the pre-hashing step to be performed by the <em>digester</em>
+and the remaining steps by the <em>signer</em>.<a href="#section-1-6" class="pilcrow">¶</a></p>
 <div id="requirements-notation-and-conventions">
 <section id="section-1.1">
         <h3 id="name-requirements-notation-and-c">
@@ -1732,6 +1730,10 @@ and a key derived using <code>ARKG-P256</code> <span>[<a href="#I-D.bradleylundb
         <dd>
 <span class="refAuthor">National Institute of Standards and Technology</span>, <span class="refTitle">"Digital Signature Standard (DSS)"</span>, <time datetime="2023-02" class="refDate">February 2023</time>, <span>&lt;<a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf">https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="FIPS-201">[FIPS-201]</dt>
+        <dd>
+<span class="refAuthor">Ferraiolo, H.</span>, <span class="refAuthor">Mehta, K.</span>, <span class="refAuthor">Francomacaro, S.</span>, <span class="refAuthor">Chandramouli, R.</span>, and <span class="refAuthor">S. Gupta</span>, <span class="refTitle">"Interfaces for Personal Identity Verification: Part 2 – PIV Card Application Card Command Interface"</span>, <span class="refContent">NIST Special Publication (SP) NIST SP 800-73pt2-5</span>, <time datetime="2024" class="refDate">2024</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-73pt2-5">https://doi.org/10.6028/NIST.SP.800-73pt2-5</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="FIPS-204">[FIPS-204]</dt>
         <dd>
 <span class="refAuthor">National Institute of Standards and Technology</span>, <span class="refTitle">"Module-Lattice-Based Digital Signature Standard"</span>, <time datetime="2024-08" class="refDate">August 2024</time>, <span>&lt;<a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf">https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf</a>&gt;</span>. </dd>
@@ -1739,6 +1741,15 @@ and a key derived using <code>ARKG-P256</code> <span>[<a href="#I-D.bradleylundb
 <dt id="I-D.COSE-Hash-Envelope">[I-D.COSE-Hash-Envelope]</dt>
         <dd>
 <span class="refAuthor">Steele, O.</span>, <span class="refAuthor">Lasker, S.</span>, and <span class="refAuthor">H. Birkholz</span>, <span class="refTitle">"COSE Hash Envelope"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-hash-envelope-09</span>, <time datetime="2025-10-22" class="refDate">22 October 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-hash-envelope-09">https://datatracker.ietf.org/doc/html/draft-ietf-cose-hash-envelope-09</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="OPENPGPCARD">[OPENPGPCARD]</dt>
+        <dd>
+<span class="refAuthor">Pietig, A.</span>, <span class="refTitle">"Functional Specification of the OpenPGP application on ISO Smart Card Operating Systems"</span>, <span class="refContent">Version 3.4.1</span>, <time datetime="2020-03" class="refDate">March 2020</time>, <span>&lt;<a href="https://gnupg.org/ftp/specs/OpenPGP-smart-card-application-3.4.1.pdf">https://gnupg.org/ftp/specs/OpenPGP-smart-card-application-3.4.1.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="PKCS11-Spec-v3.1">[PKCS11-Spec-v3.1]</dt>
+        <dd>
+<span class="refAuthor">Bong, D.</span> and <span class="refAuthor">T. Cox</span>, <span class="refTitle">"PKCS #11 Specification Version 3.1."</span>, <span class="refContent">OASIS Standard</span>, <time datetime="2023-07-23" class="refDate">23 July 2023</time>, <span>&lt;<a href="https://docs.oasis-open.org/pkcs11/pkcs11-spec/v3.1/os/pkcs11-spec-v3.1-os.html">https://docs.oasis-open.org/pkcs11/pkcs11-spec/v3.1/os/pkcs11-spec-v3.1-os.html</a>&gt;</span>. <span class="annotation">Latest stage: <a href="https://docs.oasis-open.org/pkcs11/pkcs11-spec/v3.1/pkcs11-spec-v3.1.html">https://docs.oasis-open.org/pkcs11/pkcs11-spec/v3.1/pkcs11-spec-v3.1.html</a>.</span>
+          </dd>
 <dd class="break"></dd>
 <dt id="RFC9380">[RFC9380]</dt>
         <dd>
@@ -1762,6 +1773,10 @@ and a key derived using <code>ARKG-P256</code> <span>[<a href="#I-D.bradleylundb
 <ul class="normal">
 <li class="normal" id="appendix-A-2.1">
           <p id="appendix-A-2.1.1">Updated reference to ARKG parameter <code>info</code> renamed to <code>ctx</code>.<a href="#appendix-A-2.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-A-2.2">
+          <p id="appendix-A-2.2.1">Refined abstract and introduction to emphasize that the central novelty is not split algorithms as a concept,
+but providing COSE algorithm identifiers for use cases that benefit from such splitting.<a href="#appendix-A-2.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="appendix-A-3">-02<a href="#appendix-A-3" class="pilcrow">¶</a></p>
