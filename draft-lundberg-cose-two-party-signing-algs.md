@@ -48,7 +48,6 @@ author:
 
 normative:
   I-D.bradleylundberg-ARKG: I-D.draft-bradleylundberg-cfrg-arkg
-  I-D.jose-fully-spec-algs: I-D.draft-ietf-jose-fully-specified-algorithms
   IANA.COSE:
     target: https://www.iana.org/assignments/cose/
     title: CBOR Object Signing and Encryption (COSE)
@@ -59,6 +58,7 @@ normative:
   RFC8174:
   RFC8610:
   RFC9052:
+  RFC9864:
   SEC1:
     target: https://www.secg.org/sec1-v2.pdf
     author:
@@ -151,7 +151,7 @@ to divide responsibilities during _construction_ of a cryptographic object,
 instead of describing how to _consume_ the object.
 Specifically, they provide an interoperable way to negotiate
 how a signing operation is split between two cooperating parties,
-for example a smart card and a software application,
+for example, a smart card and a software application,
 while the verification algorithm for the resulting signature remains the same
 as if the signature was created by a single party.
 These split algorithm identifiers are therefore not meant for annotating signature objects,
@@ -165,7 +165,7 @@ Instead, since most signature algorithms begin with digesting the message
 into a fixed-length intermediate input, this initial digest can be computed by the software application
 while the HSM performs the rest of the signature algorithm on the digest.
 This is a common technique used in standards such as OpenPGP [OPENPGPCARD],
-PKCS #11 [PKCS11-Spec-v3.1] and PIV [FIPS-201].
+PKCS #11 [PKCS11-Spec-v3.1], and PIV [FIPS-201].
 
 Since different signature algorithms digest the message in different ways
 and at different stages of the algorithm,
@@ -175,8 +175,8 @@ Instead, the algorithm identifiers defined in this specification
 enable the parties of that cryptographic API to signal precisely, for each signature algorithm individually,
 which steps of the algorithm are performed by which party.
 We thus define two roles:
-the _digester_ (e.g., a software application) which initializes the signing procedure,
-and the _signer_ (e.g., an HSM) which holds exclusive control of the signing private key.
+the _digester_ (e.g., a software application) that initializes the signing procedure,
+and the _signer_ (e.g., an HSM) that holds exclusive control of the signing private key.
 
 Note that these algorithm identifiers do not define new "pre-hashed" variants of the base signature algorithm,
 nor an intermediate "hash envelope" data structure, such as that defined in [I-D.COSE-Hash-Envelope].
@@ -186,7 +186,7 @@ but split into two stages.
 
 Some signature algorithms,
 such as PureEdDSA [RFC8032],
-by their design cannot be split in this way and therefore cannot be assigned split signing algorithm identifiers.
+by their design, cannot be split in this way, and therefore cannot be assigned split signing algorithm identifiers.
 However, if such a signature algorithm defines a "pre-hashed" variant,
 such as Ed25519ph [RFC8032],
 that "pre-hashed" algorithm can be assigned a split signing algorithm identifier,
@@ -228,11 +228,12 @@ of the steps of the ECDSA signature generation algorithm [FIPS-186-5]:
 
 The following algorithm identifiers are defined:
 
+{: #tbl-ecdsa-split title="ECDSA split signing algorithm values."}
 | Name         | COSE Value | Verification algorithm | Description |
 | ------------ | ---------- | ---------------------- | ----------- |
-| ESP256-split | TBD        | ESP256                 | ESP256 [I-D.jose-fully-spec-algs] split signing as defined here
-| ESP384-split | TBD        | ESP384                 | ESP384 [I-D.jose-fully-spec-algs] split signing as defined here
-| ESP512-split | TBD        | ESP512                 | ESP512 [I-D.jose-fully-spec-algs] split signing as defined here
+| ESP256-split | TBD        | ESP256                 | ESP256 split signing as defined in {{ecdsa-split}}
+| ESP384-split | TBD        | ESP384                 | ESP384 split signing as defined in {{ecdsa-split}}
+| ESP512-split | TBD        | ESP512                 | ESP512 split signing as defined in {{ecdsa-split}}
 
 
 Note: This is distinct from the similarly named Split-ECDSA (SECDSA) [SECDSA],
@@ -259,10 +260,13 @@ since such a division would require that the _digester_ has access to the privat
 
 The following algorithm identifiers are defined:
 
+{: #tbl-eddsa-split title="HashEdDSA algorithm values."}
 | Name            | COSE Value | Verification algorithm | Description |
 | --------------- | ---------- | ---------------------- | ----------- |
-| Ed25519ph-split | TBD        | Ed25519ph              | Ed25519ph [I-D.jose-fully-spec-algs] split signing as defined here (NOTE: Ed25519ph not yet registered) |
-| Ed448ph-split   | TBD        | Ed448ph                | Ed448ph [I-D.jose-fully-spec-algs] split signing as defined here (NOTE: Ed448ph not yet registered) |
+| Ed25519ph       | TBD        | Ed25519ph              | EdDSA using the Ed25519ph parameter set in {{Section 5.1 of RFC8032}} |
+| Ed25519ph-split | TBD        | Ed25519ph              | EdDSA using the Ed25519ph parameter set in {{Section 5.1 of RFC8032}} and split as defined in {{eddsa-split}} |
+| Ed448ph         | TBD        | Ed448ph                | EdDSA using the Ed448ph parameter set in {{Section 5.2 of RFC8032}} |
+| Ed448ph-split   | TBD        | Ed448ph                | EdDSA using the Ed448ph parameter set in {{Section 5.2 of RFC8032}} and split as defined in {{eddsa-split}} |
 
 
 # COSE Signing Arguments {#cose-sign-args}
@@ -380,7 +384,7 @@ This section registers the following values in the IANA "COSE Algorithms" regist
 
 - Name: ESP256-split
   - Value: TBD (Requested Assignment -300)
-  - Description: ESP256 [I-D.jose-fully-spec-algs] split signing
+  - Description: ESP256 split signing
   - Capabilities: \[kty\]
   - Change Controller: IETF
   - Reference: {{ecdsa-split}} of this specification
@@ -388,7 +392,7 @@ This section registers the following values in the IANA "COSE Algorithms" regist
 
 - Name: ESP384-split
   - Value: TBD (Requested Assignment -301)
-  - Description: ESP384 [I-D.jose-fully-spec-algs] split signing
+  - Description: ESP384 split signing
   - Capabilities: \[kty\]
   - Change Controller: IETF
   - Reference: {{ecdsa-split}} of this specification
@@ -396,23 +400,39 @@ This section registers the following values in the IANA "COSE Algorithms" regist
 
 - Name: ESP512-split
   - Value: TBD (Requested Assignment -302)
-  - Description: ESP512 [I-D.jose-fully-spec-algs] split signing
+  - Description: ESP512 split signing
   - Capabilities: \[kty\]
   - Change Controller: IETF
   - Reference: {{ecdsa-split}} of this specification
   - Recommended: Yes
 
+- Name: Ed25519ph
+  - Value: TBD
+  - Description: EdDSA using the Ed25519ph parameter set in {{Section 5.1 of RFC8032}}
+  - Capabilities: \[kty\]
+  - Change Controller: IETF
+  - Reference: {{Section 5.1 of RFC8032}}
+  - Recommended: Yes
+
 - Name: Ed25519ph-split
   - Value: TBD (Requested Assignment -303)
-  - Description: Ed25519ph [I-D.jose-fully-spec-algs] split signing
+  - Description: Ed25519ph split as defined in {{eddsa-split}}
   - Capabilities: \[kty\]
   - Change Controller: IETF
   - Reference: {{eddsa-split}} of this specification
   - Recommended: Yes
 
+- Name: Ed448ph
+  - Value: TBD
+  - Description: EdDSA using the Ed448ph parameter set in {{Section 5.2 of RFC8032}}
+  - Capabilities: \[kty\]
+  - Change Controller: IETF
+  - Reference: {{Section 5.2 of RFC8032}}
+  - Recommended: Yes
+
 - Name: Ed448ph-split
   - Value: TBD (Requested Assignment -304)
-  - Description: Ed448ph [I-D.jose-fully-spec-algs] split signing
+  - Description: Ed448ph split as defined in {{eddsa-split}}
   - Capabilities: \[kty\]
   - Change Controller: IETF
   - Reference: {{eddsa-split}} of this specification
@@ -438,6 +458,10 @@ TODO
 * Updated reference to ARKG parameter `info` renamed to `ctx`.
 * Refined abstract and introduction to emphasize that the central novelty is not split algorithms as a concept,
   but providing COSE algorithm identifiers for use cases that benefit from such splitting.
+* Replaced reference to draft-ietf-jose-fully-specified-algorithms with RFC 9864.
+* Added inline definitions of Ed25519ph and Ed448ph registrations,
+  replacing speculative references to registrations that do not exist elsewhere.
+* Added missing captions to Tables 1 and 2.
 * Added Security Considerations section.
 
 -02
