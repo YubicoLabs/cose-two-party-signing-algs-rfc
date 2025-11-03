@@ -5,8 +5,8 @@
 COSE                                                    E. Lundberg, Ed.
 Internet-Draft                                                    Yubico
 Intended status: Standards Track                             M. B. Jones
-Expires: 4 May 2026                               Self-Issued Consulting
-                                                         31 October 2025
+Expires: 7 May 2026                               Self-Issued Consulting
+                                                         3 November 2025
 
 
                    Split signing algorithms for COSE
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 May 2026.
+   This Internet-Draft will expire on 7 May 2026.
 
 Copyright Notice
 
@@ -106,7 +106,7 @@ Table of Contents
    _construction_ of a cryptographic object, instead of describing how
    to _consume_ the object.  Specifically, they provide an interoperable
    way to negotiate how a signing operation is split between two
-   cooperating parties, for example a smart card and a software
+   cooperating parties, for example, a smart card and a software
    application, while the verification algorithm for the resulting
    signature remains the same as if the signature was created by a
    single party.  These split algorithm identifiers are therefore not
@@ -124,7 +124,7 @@ Table of Contents
    this initial digest can be computed by the software application while
    the HSM performs the rest of the signature algorithm on the digest.
    This is a common technique used in standards such as OpenPGP
-   [OPENPGPCARD], PKCS #11 [PKCS11-Spec-v3.1] and PIV [FIPS-201].
+   [OPENPGPCARD], PKCS #11 [PKCS11-Spec-v3.1], and PIV [FIPS-201].
 
    Since different signature algorithms digest the message in different
    ways and at different stages of the algorithm, it is not possible for
@@ -134,8 +134,8 @@ Table of Contents
    parties of that cryptographic API to signal precisely, for each
    signature algorithm individually, which steps of the algorithm are
    performed by which party.  We thus define two roles: the _digester_
-   (e.g., a software application) which initializes the signing
-   procedure, and the _signer_ (e.g., an HSM) which holds exclusive
+   (e.g., a software application) that initializes the signing
+   procedure, and the _signer_ (e.g., an HSM) that holds exclusive
    control of the signing private key.
 
    Note that these algorithm identifiers do not define new "pre-hashed"
@@ -146,7 +146,7 @@ Table of Contents
    party, but split into two stages.
 
    Some signature algorithms, such as PureEdDSA [RFC8032], by their
-   design cannot be split in this way and therefore cannot be assigned
+   design, cannot be split in this way, and therefore cannot be assigned
    split signing algorithm identifiers.  However, if such a signature
    algorithm defines a "pre-hashed" variant, such as Ed25519ph
    [RFC8032], that "pre-hashed" algorithm can be assigned a split
