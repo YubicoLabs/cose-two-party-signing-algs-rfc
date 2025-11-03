@@ -151,7 +151,7 @@ to divide responsibilities during _construction_ of a cryptographic object,
 instead of describing how to _consume_ the object.
 Specifically, they provide an interoperable way to negotiate
 how a signing operation is split between two cooperating parties,
-for example a smart card and a software application,
+for example, a smart card and a software application,
 while the verification algorithm for the resulting signature remains the same
 as if the signature was created by a single party.
 These split algorithm identifiers are therefore not meant for annotating signature objects,
@@ -165,7 +165,7 @@ Instead, since most signature algorithms begin with digesting the message
 into a fixed-length intermediate input, this initial digest can be computed by the software application
 while the HSM performs the rest of the signature algorithm on the digest.
 This is a common technique used in standards such as OpenPGP [OPENPGPCARD],
-PKCS #11 [PKCS11-Spec-v3.1] and PIV [FIPS-201].
+PKCS #11 [PKCS11-Spec-v3.1], and PIV [FIPS-201].
 
 Since different signature algorithms digest the message in different ways
 and at different stages of the algorithm,
@@ -175,8 +175,8 @@ Instead, the algorithm identifiers defined in this specification
 enable the parties of that cryptographic API to signal precisely, for each signature algorithm individually,
 which steps of the algorithm are performed by which party.
 We thus define two roles:
-the _digester_ (e.g., a software application) which initializes the signing procedure,
-and the _signer_ (e.g., an HSM) which holds exclusive control of the signing private key.
+the _digester_ (e.g., a software application) that initializes the signing procedure,
+and the _signer_ (e.g., an HSM) that holds exclusive control of the signing private key.
 
 Note that these algorithm identifiers do not define new "pre-hashed" variants of the base signature algorithm,
 nor an intermediate "hash envelope" data structure, such as that defined in [I-D.COSE-Hash-Envelope].
@@ -186,7 +186,7 @@ but split into two stages.
 
 Some signature algorithms,
 such as PureEdDSA [RFC8032],
-by their design cannot be split in this way and therefore cannot be assigned split signing algorithm identifiers.
+by their design, cannot be split in this way, and therefore cannot be assigned split signing algorithm identifiers.
 However, if such a signature algorithm defines a "pre-hashed" variant,
 such as Ed25519ph [RFC8032],
 that "pre-hashed" algorithm can be assigned a split signing algorithm identifier,
