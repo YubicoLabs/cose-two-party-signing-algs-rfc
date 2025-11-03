@@ -206,15 +206,12 @@ Table of Contents
      +==============+=======+==============+=========================+
      | ESP256-split | TBD   | ESP256       | ESP256 split signing as |
      |              |       |              | defined in Section 2.1  |
-     |              |       |              | of this specification   |
      +--------------+-------+--------------+-------------------------+
      | ESP384-split | TBD   | ESP384       | ESP384 split signing as |
      |              |       |              | defined in Section 2.1  |
-     |              |       |              | of this specification   |
      +--------------+-------+--------------+-------------------------+
      | ESP512-split | TBD   | ESP512       | ESP512 split signing as |
      |              |       |              | defined in Section 2.1  |
-     |              |       |              | of this specification   |
      +--------------+-------+--------------+-------------------------+
 
                Table 1: ECDSA split signing algorithm values.
@@ -266,7 +263,6 @@ Table of Contents
     |                 |       |              | set in Section 5.1 of  |
     |                 |       |              | [RFC8032] and split as |
     |                 |       |              | defined in Section 2.2 |
-    |                 |       |              | of this specification  |
     +-----------------+-------+--------------+------------------------+
     | Ed448ph         | TBD   | Ed448ph      | EdDSA using the        |
     |                 |       |              | Ed448ph parameter set  |
@@ -278,7 +274,6 @@ Table of Contents
     |                 |       |              | in Section 5.2 of      |
     |                 |       |              | [RFC8032] and split as |
     |                 |       |              | defined in Section 2.2 |
-    |                 |       |              | of this specification  |
     +-----------------+-------+--------------+------------------------+
 
                     Table 2: HashEdDSA algorithm values.
@@ -427,8 +422,7 @@ Table of Contents
 
       -  Value: TBD (Requested Assignment -303)
 
-      -  Description: Ed25519ph split as defined in Section 2.2 of this
-         specification
+      -  Description: Ed25519ph split as defined in Section 2.2
 
       -  Capabilities: [kty]
 
@@ -457,8 +451,7 @@ Table of Contents
 
       -  Value: TBD (Requested Assignment -304)
 
-      -  Description: Ed448ph split as defined in Section 2.2 of this
-         specification
+      -  Description: Ed448ph split as defined in Section 2.2
 
       -  Capabilities: [kty]
 
@@ -589,13 +582,13 @@ Document History
       splitting.
 
    *  Replaced reference to draft-ietf-jose-fully-specified-algorithms
-      with rfc9864.
+      with RFC 9864.
 
    *  Added inline definitions of Ed25519ph and Ed448ph registrations,
       replacing speculative references to registrations that do not
       exist elsewhere.
 
-   *  Added missing captions to tables 1 and 2.
+   *  Added missing captions to Tables 1 and 2.
 
    -02
 
