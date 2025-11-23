@@ -5,8 +5,8 @@
 COSE                                                    E. Lundberg, Ed.
 Internet-Draft                                                    Yubico
 Intended status: Standards Track                             M. B. Jones
-Expires: 24 May 2026                              Self-Issued Consulting
-                                                        20 November 2025
+Expires: 27 May 2026                              Self-Issued Consulting
+                                                        23 November 2025
 
 
                    Split signing algorithms for COSE
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 May 2026.
+   This Internet-Draft will expire on 27 May 2026.
 
 Copyright Notice
 
@@ -515,7 +515,8 @@ Table of Contents
 
 6.  Implementation Status
 
-   This section will be removed in the final version of the draft.
+   This section is to be removed from the specification by the RFC
+   Editor before publication as an RFC.
 
    There are currently two known implementations using features defined
    by this specification:
