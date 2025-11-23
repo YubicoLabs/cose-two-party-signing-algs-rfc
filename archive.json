@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-11-20T00:04:39.313919+00:00",
+  "timestamp": "2025-11-23T00:05:55.905892+00:00",
   "repo": "YubicoLabs/cose-two-party-signing-algs-rfc",
   "labels": [
     {
@@ -49,7 +49,26 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 19,
+      "id": "I_kwDON32VH87Zpn8A",
+      "title": "Expand on prior art",
+      "url": "https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/issues/19",
+      "state": "OPEN",
+      "author": "emlun",
+      "authorAssociation": "MEMBER",
+      "assignees": [
+        "emlun"
+      ],
+      "labels": [],
+      "body": "The [-03 introduction](https://www.ietf.org/archive/id/draft-lundberg-cose-two-party-signing-algs-03.html#name-introduction) now references OpenPGP, PKCS #11 and PIV as precedent for the \"sign off card\" technique, but the references are blunt (whole spec, not section or page) and we do not expand on how exactly they relate to this draft.\n\nSuggestion: Add a \"Prior Art\" subsection under \"Introduction\", where these references are made more precise and which expands on how each referenced standard uses the technique.",
+      "createdAt": "2025-11-21T12:50:41Z",
+      "updatedAt": "2025-11-21T12:50:41Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
   "pulls": [
     {
       "number": 1,
@@ -1248,6 +1267,66 @@
           "body": "Thanks for doing this.  Please apply my editorial suggestions.",
           "createdAt": "2025-10-31T22:04:30Z",
           "updatedAt": "2025-10-31T22:04:30Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "id": "PR_kwDON32VH860oBoM",
+      "title": "Add implementation status section",
+      "url": "https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/pull/18",
+      "state": "OPEN",
+      "author": "emlun",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-11-20T15:44:00Z",
+      "updatedAt": "2025-11-22T01:26:34Z",
+      "baseRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "baseRefName": "main",
+      "baseRefOid": "0a3f796be01c29c44488562e5a04709c6adddfba",
+      "headRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "headRefName": "impl-status",
+      "headRefOid": "87c55eca262872dfd674877c837ab7619ffe4540",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDON32VH87QUcDx",
+          "commit": {
+            "abbreviatedOid": "87c55ec"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-22T01:12:02Z",
+          "updatedAt": "2025-11-22T01:12:02Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\nThis section is to be removed from the specification by the RFC Editor before publication as an RFC.\n```",
+              "createdAt": "2025-11-22T01:12:02Z",
+              "updatedAt": "2025-11-22T01:12:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON32VH87QUkkF",
+          "commit": {
+            "abbreviatedOid": "87c55ec"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "This will be great to have.  Thanks for adding it!\n\nLet's get this merged and published before asking for reviews from people, as it will give them more context.",
+          "createdAt": "2025-11-22T01:26:34Z",
+          "updatedAt": "2025-11-22T01:26:34Z",
           "comments": []
         }
       ]
