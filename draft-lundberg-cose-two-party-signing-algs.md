@@ -450,7 +450,7 @@ TODO
 
 # Implementation Status {#impl-status}
 
-This section will be removed in the final version of the draft.
+This section is to be removed from the specification by the RFC Editor before publication as an RFC.
 
 There are currently two known implementations using features defined by this specification:
 
