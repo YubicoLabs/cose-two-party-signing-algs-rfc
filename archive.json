@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-11-23T00:05:55.905892+00:00",
+  "timestamp": "2025-11-25T00:04:03.626060+00:00",
   "repo": "YubicoLabs/cose-two-party-signing-algs-rfc",
   "labels": [
     {
@@ -1276,24 +1276,26 @@
       "id": "PR_kwDON32VH860oBoM",
       "title": "Add implementation status section",
       "url": "https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/pull/18",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "emlun",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-11-20T15:44:00Z",
-      "updatedAt": "2025-11-22T01:26:34Z",
+      "updatedAt": "2025-11-24T12:12:54Z",
       "baseRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
       "baseRefName": "main",
       "baseRefOid": "0a3f796be01c29c44488562e5a04709c6adddfba",
       "headRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
       "headRefName": "impl-status",
-      "headRefOid": "87c55eca262872dfd674877c837ab7619ffe4540",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "726c32bfa54b256ae3f678b408a0296297c17a28",
+      "closedAt": "2025-11-24T12:12:51Z",
+      "mergedAt": "2025-11-24T12:12:51Z",
+      "mergedBy": "emlun",
+      "mergeCommit": {
+        "oid": "1c5143b64d3e81929d254b10357efcfbfe70a4b6"
+      },
       "comments": [],
       "reviews": [
         {
