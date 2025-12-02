@@ -170,7 +170,7 @@ PKCS #11 [PKCS11-Spec-v3.1], and PIV [FIPS-201].
 Since different signature algorithms digest the message in different ways
 and at different stages of the algorithm,
 it is not possible for a cryptographic API to specify that, for example, "the hash digest is computed by the caller"
-generically for all algorithms.
+generically for all algorithms. Moreover, different algorithms can have different security considerations when split in this way.
 Instead, the algorithm identifiers defined in this specification
 enable the parties of that cryptographic API to signal precisely, for each signature algorithm individually,
 which steps of the algorithm are performed by which party.
@@ -191,7 +191,7 @@ However, if such a signature algorithm defines a "pre-hashed" variant,
 such as Ed25519ph [RFC8032],
 that "pre-hashed" algorithm can be assigned a split signing algorithm identifier,
 enabling the pre-hashing step to be performed by the _digester_
-and the remaining steps by the _signer_.
+and the remaining steps by the _signer_. Note however that Ed25519ph is not compatible with PureEd25519 for the verifier, so requires a different algorithm identifier.
 
 ## Requirements Notation and Conventions
 
@@ -298,6 +298,7 @@ COSE_Sign_Args = {
 }
 ~~~
 
+COMMENT(sschmieg): For ML-DSA, we have external-µ, which is again a different API in the sense that the digester needs to be aware of the public key. We also have a context argument, but the signer does not need to learn it. 
 
 ## COSE Signing Arguments Common Parameters {#cose-sign-args-common}
 
@@ -375,6 +376,14 @@ since the _digester_ still needs to find a preimage of _e_ for the relevant hash
 Definitions of other algorithms need to ensure that similar chosen-input attacks
 do not enable extracting secrets or forging protocol-level messages.
 
+COMMENT(sschmieg): Forgeries are *probably* okay: There is a relatively trivial forgery attack against prehashed RSA and we all seem to be fine with it.
+                   In particular, if the digester wants to forge a signature for m, they compute h(m) (including padding), find to integers a, b such that a * b = h(m) mod n, and have the signer sign both a and b, i.e.
+                   compute a^d and b^d. Since exponentiation is multiplicative, the digester can now compute h(m)^d, a valid signature of m, without ever having asked the signer to sign h(m).
+                   The reason we are usually okay with that issue is that the digester already can ask the signer for any signature they want.
+                   Key compromise attacks on the other hand have to be avoided. A naively prehashed version of Falcon would allow such a key compromise: A Falcon signature is a value s such that both s and s * h - hash(r || m) are short.
+                   (h is the public key and r a randomizer). If the digester gets to query the signer for signatures of arbitrary stand-ins for hash(r || m), they can extract the private key by for example asking for repeated signatures of 0.
+                   The basic construction of Falcon and RSA is the same (they are both hash-then-sign algorithms), but where leaving the hash to an external party only gives forgery attacks in RSA, it can give key compromise attacks.
+                   Essentially, a split algorithm needs to be reviewed and potentially have its security proofs adjusted.
 
 # IANA Considerations {#IANA}
 
