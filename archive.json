@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-11-25T00:04:03.626060+00:00",
+  "timestamp": "2025-12-04T00:04:55.786956+00:00",
   "repo": "YubicoLabs/cose-two-party-signing-algs-rfc",
   "labels": [
     {
@@ -1330,6 +1330,78 @@
           "createdAt": "2025-11-22T01:26:34Z",
           "updatedAt": "2025-11-22T01:26:34Z",
           "comments": []
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "id": "PR_kwDON32VH862teKQ",
+      "title": "Update draft-lundberg-cose-two-party-signing-algs.md",
+      "url": "https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/pull/20",
+      "state": "OPEN",
+      "author": "sophieschmieg",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Added suggestions and comments",
+      "createdAt": "2025-12-02T23:28:45Z",
+      "updatedAt": "2025-12-03T15:25:21Z",
+      "baseRepository": "YubicoLabs/cose-two-party-signing-algs-rfc",
+      "baseRefName": "main",
+      "baseRefOid": "1c5143b64d3e81929d254b10357efcfbfe70a4b6",
+      "headRepository": "sophieschmieg/cose-two-party-signing-algs-rfc",
+      "headRefName": "patch-1",
+      "headRefOid": "ec1a5f4220fbd04eb5bb5527c6fd471649a21555",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDON32VH87Sk0qz",
+          "commit": {
+            "abbreviatedOid": "ec1a5f4"
+          },
+          "author": "selfissued",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "This provides valuable contextual information.  Thanks @sophieschmieg.",
+          "createdAt": "2025-12-03T02:13:20Z",
+          "updatedAt": "2025-12-03T02:13:20Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDON32VH87SvI7P",
+          "commit": {
+            "abbreviatedOid": "ec1a5f4"
+          },
+          "author": "emlun",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "Thanks! I'll work on integrating these additions into the text.",
+          "createdAt": "2025-12-03T15:18:41Z",
+          "updatedAt": "2025-12-03T15:25:21Z",
+          "comments": [
+            {
+              "originalPosition": 22,
+              "body": "Hm, I don't think external-mu would need a `COSE_Sign_Args`. Indeed the digester needs to know the public key, but `COSE_Sign_Args` is meant for sending arguments _from_ the digester to the signer. I'd say a split signing API for external-mu ML-DSA would just expose `ML-DSA.Sign_internal(sk_id, mu)`, and have the signer sample `rnd` internally. So that's still just one message argument.\n\n`ctx` would need a `COSE_Sign_Args`, but indeed it's irrelevant with external-mu. We did have `ctx`-ful HashML-DSA in [draft -01](https://www.ietf.org/archive/id/draft-lundberg-cose-two-party-signing-algs-01.html#name-hashml-dsa), though, as an example of an algorithm that would need `COSE_Sign_Args` (then `COSE_Key_Ref`).",
+              "createdAt": "2025-12-03T15:18:41Z",
+              "updatedAt": "2025-12-03T15:25:21Z"
+            },
+            {
+              "originalPosition": 33,
+              "body": "Agreed. Something like this is what I was trying to say in the \"Protocol-Level Trusted Roles\" section. I'm surprised I didn't spell it out as explicitly as you're doing here, we should do that too. Thanks!",
+              "createdAt": "2025-12-03T15:21:15Z",
+              "updatedAt": "2025-12-03T15:25:21Z"
+            },
+            {
+              "originalPosition": 36,
+              "body": "Thanks, this is a good additional example. If you don't mind I'll work this into the text.",
+              "createdAt": "2025-12-03T15:23:37Z",
+              "updatedAt": "2025-12-03T15:25:21Z"
+            }
+          ]
         }
       ]
     }
