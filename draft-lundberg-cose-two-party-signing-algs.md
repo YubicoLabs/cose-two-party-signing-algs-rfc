@@ -485,12 +485,12 @@ There are currently two known implementations using features defined by this spe
 | Feature | Defined by | Digester | Signer |
 | ------- | ---------- | -------- | ------ |
 | ESP256-split | This specification | - | - |
-| ESP381-split | This specification | - | - |
+| ESP384-split | This specification | - | - |
 | ESP512-split | This specification | - | - |
 | Ed25519ph-split | This specification | - | - |
 | Ed448ph-split | This specification | - | - |
 | ESP256-split-ARKG | [I-D.bradleylundberg-ARKG] | wwWallet | Yubico |
-| ESP381-split-ARKG | [I-D.bradleylundberg-ARKG] | - | - |
+| ESP384-split-ARKG | [I-D.bradleylundberg-ARKG] | - | - |
 | ESP512-split-ARKG | [I-D.bradleylundberg-ARKG] | - | - |
 | `COSE_Sign_Args` | This specification | wwWallet | Yubico |
 
@@ -510,6 +510,10 @@ the Internet-Draft of ARKG [I-D.bradleylundberg-ARKG] extends this specification
 
 # Document History
 {: numbered="false"}
+
+-05
+
+* Fixed ESP384-split misspelled as ESP381-split.
 
 -04
 
