@@ -115,6 +115,7 @@ informative:
   RFC1958:
   RFC9380:
   RFC9413:
+  RFC9881:
   SECDSA:
     target: https://eprint.iacr.org/2021/910
     title: 'SECDSA: Mobile signing and authentication under classical "sole control"'
@@ -221,6 +222,9 @@ COSE structures consumed by signature verifiers
 SHOULD instead use the corresponding conventional algorithm identifiers for the verification algorithm.
 These are listed in the "Verification algorithm" column in the tables defining split signing algorithm identifiers.
 
+The following subsections define an initial set of split signing algorithm identifiers.
+The last subsection provides guidance for defining additional identifiers beyond this initial set.
+
 
 ## ECDSA {#ecdsa-split}
 
@@ -273,6 +277,33 @@ The following algorithm identifiers are defined:
 | Ed25519ph-split | TBD        | Ed25519ph              | EdDSA using the Ed25519ph parameter set in {{Section 5.1 of RFC8032}} and split as defined in {{eddsa-split}} |
 | Ed448ph         | TBD        | Ed448ph                | EdDSA using the Ed448ph parameter set in {{Section 5.2 of RFC8032}} |
 | Ed448ph-split   | TBD        | Ed448ph                | EdDSA using the Ed448ph parameter set in {{Section 5.2 of RFC8032}} and split as defined in {{eddsa-split}} |
+
+
+## Defining Split Signing Algorithms {#defining-split-algs}
+
+Future definitions of additional split signing algorithm identifiers
+SHOULD follow the conventions established in {{split-algs}} as far as possible.
+For example, if a signature algorithm prescribes insertion of domain separation tags
+in a way that requires processing the entirety of the data to be signed,
+it might be necessary to delegate the domain separation responsibility to the _digester_.
+Per the considerations in {{sec-cons-trusted-roles-comp}},
+split signing algorithm identifiers SHOULD be defined in ways that minimize
+how much responsibility is delegated to the _digester_.
+
+As a concrete example, consider ML-DSA and HashML-DSA [FIPS-204].
+ML-DSA and HashML-DSA prefix the input data with a 0 octet and a 1 octet respectively,
+which enforces domain separation between ML-DSA and HashML-DSA signatures.
+{{Appendix D of RFC9881}} describes a mode of ML-DSA
+that could be assigned a split signing algorithm identifier
+where the _digester_ performs `Computeμ` and the _signer_ performs `Signμ`.
+Note that this puts the _digester_ in control of the domain separation tags;
+this is necessary if the hash step is not performed by the _signer_.
+Therefore with this construction, it is the _digester_ that decides
+whether the signing protocol will produce an ML-DSA signature or a HashML-DSA signature.
+In contrast, HashML-DSA first hashes the input data alone and then another time with domain separation tags;
+therefore HashML-DSA can be assigned a split signing algorithm identifier
+that keeps the _signer_ in control of the domain separation tags
+and ensures that the signing protocol can only produce HashML-DSA signatures.
 
 
 # COSE Signing Arguments {#cose-sign-args}
@@ -560,6 +591,7 @@ the Internet-Draft of ARKG [I-D.bradleylundberg-ARKG] extends this specification
 * Clarified that transport of digest is out of scope, but expected to be passed as data to be signed.
 * Added Security Considerations section "Incorrect Use of Split Signing Algorithm Identifiers".
 * Added Implementation Considerations section "Using Non-Split Signing Algorithm Identifiers in a Split Signing Protocol".
+* Added section "Defining Split Signing Algorithms" with guidance for handling domain separation tags in new definitions.
 
 -04
 
