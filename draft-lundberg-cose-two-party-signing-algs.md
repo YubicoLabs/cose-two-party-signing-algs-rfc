@@ -112,7 +112,9 @@ informative:
     - fullname: Achim Pietig
     date: March 2020
     refcontent: Version 3.4.1
+  RFC1958:
   RFC9380:
+  RFC9413:
   SECDSA:
     target: https://eprint.iacr.org/2021/910
     title: 'SECDSA: Mobile signing and authentication under classical "sole control"'
@@ -380,6 +382,30 @@ Definitions of other algorithms need to ensure that similar chosen-input attacks
 do not enable extracting secrets or forging protocol-level messages.
 
 
+## Incorrect Use of Split Signing Algorithm Identifiers {#sec-cons-invalid-alg-use}
+
+{{split-algs}} recommends against exposing split signing algorithm identifiers -
+including those defined in this specification with "-split" in their names -
+to signature verifiers.
+For example, they should not appear as the "alg" parameter of a COSE_Key public key sent to a signature verifier.
+If a split signing algorithm identifier is encountered in an invalid context like this,
+the recipient SHOULD reject the message with a fatal error.
+
+This is because the purpose of these split signing algorithm identifiers
+is to enable more flexible production of signatures that can be verified by existing implementations of existing verification algorithms.
+A prevalence of these identifiers appearing outside the split signing context would defeat this purpose;
+we therefore recommend such use SHOULD NOT be tolerated.
+
+This recommendation is the opposite of the oft-cited "robustness principle" stated in paragraph 3.9 of [RFC1958].
+Implementations MAY choose to instead follow the robustness principle and tolerate incorrect use of split signing algorithm identifiers,
+instead interpreting the identifier as referencing the defined corresponding verification algorithm.
+Note however that this is no longer considered a best practice and is likely to harm interoperability [RFC9413].
+
+A verifier's choice to tolerate or not tolerate incorrect use of split signing algorithm identifiers
+is expected to not affect security,
+assuming a split algorithm identifier is interpreted as an alias representing the same verification algorithm as a non-split algorithm identifier.
+
+
 # IANA Considerations {#IANA}
 
 ## COSE Algorithms Registrations {#cose-alg-reg}
@@ -520,6 +546,7 @@ the Internet-Draft of ARKG [I-D.bradleylundberg-ARKG] extends this specification
 * Fixed ESP384-split misspelled as ESP381-split.
 * Clarified that non-"-split" alg IDs defined here may be exposed to verifiers.
 * Clarified that transport of digest is out of scope, but expected to be passed as data to be signed.
+* Added Security Considerations section "Incorrect Use of Split Signing Algorithm Identifiers".
 
 -04
 
