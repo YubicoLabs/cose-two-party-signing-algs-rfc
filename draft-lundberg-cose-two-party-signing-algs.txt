@@ -5,8 +5,8 @@
 COSE                                                    E. Lundberg, Ed.
 Internet-Draft                                                    Yubico
 Intended status: Standards Track                             M. B. Jones
-Expires: 28 May 2026                              Self-Issued Consulting
-                                                        24 November 2025
+Expires: 21 August 2026                           Self-Issued Consulting
+                                                        17 February 2026
 
 
                    Split signing algorithms for COSE
@@ -56,11 +56,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 May 2026.
+   This Internet-Draft will expire on 21 August 2026.
 
 Copyright Notice
 
-   Copyright (c) 2025 IETF Trust and the persons identified as the
+   Copyright (c) 2026 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -79,20 +79,26 @@ Table of Contents
    2.  Split Signing Algorithms
      2.1.  ECDSA
      2.2.  HashEdDSA
+     2.3.  Defining Split Signing Algorithms
    3.  COSE Signing Arguments
      3.1.  COSE Signing Arguments Common Parameters
    4.  Security Considerations
      4.1.  Protocol-Level Trusted Roles
      4.2.  Component-Level Trusted Roles
-   5.  IANA Considerations
-     5.1.  COSE Algorithms Registrations
-     5.2.  COSE Signing Arguments Common Parameters Registry
-     5.3.  COSE Signing Arguments Algorithm Parameters Registry
-   6.  Implementation Status
-     6.1.  Dependent Specifications
-   7.  References
-     7.1.  Normative References
-     7.2.  Informative References
+     4.3.  Incorrect Use of Split Signing Algorithm Identifiers
+   5.  Implementation Considerations
+     5.1.  Using Non-Split Signing Algorithm Identifiers in a Split
+           Signing Protocol
+   6.  IANA Considerations
+     6.1.  COSE Algorithms Registrations
+     6.2.  COSE Signing Arguments Common Parameters Registry
+     6.3.  COSE Signing Arguments Algorithm Parameters Registry
+   7.  Implementation Status
+     7.1.  Dependent Specifications
+   8.  References
+     8.1.  Normative References
+     8.2.  Informative References
+   Acknowledgements
    Document History
    Authors' Addresses
 
@@ -178,14 +184,24 @@ Table of Contents
    insert domain separation tags, as described in Section 2.2.5 of
    [RFC9380], this message formatting is also performed by the _signer_.
 
-   The algorithm identifiers defined in this specification MAY appear in
-   COSE structures used internally between the _digester_ and the
-   _signer_ in a split signing protocol, but SHOULD NOT appear in COSE
-   structures consumed by signature verifiers.  COSE structures consumed
-   by signature verifiers SHOULD instead use the corresponding
-   conventional algorithm identifiers for the verification algorithm.
-   These are listed in the "Verification algorithm" column in the tables
-   defining split signing algorithm identifiers.
+   How the digest, and any related COSE_Sign_Args structure (see
+   Section 3), are transported from _digester_ to _signer_ is out of
+   scope for this specification, but it is expected that the digest will
+   usually be transmitted as the "data to be signed" argument.
+
+   The algorithm identifiers defined in this specification with "-split"
+   in their names MAY appear in COSE structures used internally between
+   the _digester_ and the _signer_ in a split signing protocol, but
+   SHOULD NOT appear in COSE structures consumed by signature verifiers.
+   COSE structures consumed by signature verifiers SHOULD instead use
+   the corresponding conventional algorithm identifiers for the
+   verification algorithm.  These are listed in the "Verification
+   algorithm" column in the tables defining split signing algorithm
+   identifiers.
+
+   The following subsections define an initial set of split signing
+   algorithm identifiers.  The last subsection provides guidance for
+   defining additional identifiers beyond this initial set.
 
 2.1.  ECDSA
 
@@ -282,6 +298,35 @@ Table of Contents
     +-----------------+-------+--------------+------------------------+
 
                     Table 2: HashEdDSA algorithm values.
+
+2.3.  Defining Split Signing Algorithms
+
+   Future definitions of additional split signing algorithm identifiers
+   SHOULD follow the conventions established in Section 2 as far as
+   possible.  For example, if a signature algorithm prescribes insertion
+   of domain separation tags in a way that requires processing the
+   entirety of the data to be signed, it might be necessary to delegate
+   the domain separation responsibility to the _digester_. Per the
+   considerations in Section 4.2, split signing algorithm identifiers
+   SHOULD be defined in ways that minimize how much responsibility is
+   delegated to the _digester_.
+
+   As a concrete example, consider ML-DSA and HashML-DSA [FIPS-204].
+   ML-DSA and HashML-DSA prefix the input data with a 0 octet and a 1
+   octet respectively, which enforces domain separation between ML-DSA
+   and HashML-DSA signatures.  Appendix D of [RFC9881] describes a mode
+   of ML-DSA that could be assigned a split signing algorithm identifier
+   where the _digester_ performs Computeμ and the _signer_ performs
+   Signμ. Note that this puts the _digester_ in control of the domain
+   separation tags; this is necessary if the hash step is not performed
+   by the _signer_. Therefore with this construction, it is the
+   _digester_ that decides whether the signing protocol will produce an
+   ML-DSA signature or a HashML-DSA signature.  In contrast, HashML-DSA
+   first hashes the input data alone and then another time with domain
+   separation tags; therefore HashML-DSA can be assigned a split signing
+   algorithm identifier that keeps the _signer_ in control of the domain
+   separation tags and ensures that the signing protocol can only
+   produce HashML-DSA signatures.
 
 3.  COSE Signing Arguments
 
@@ -398,9 +443,56 @@ Table of Contents
    of other algorithms need to ensure that similar chosen-input attacks
    do not enable extracting secrets or forging protocol-level messages.
 
-5.  IANA Considerations
+4.3.  Incorrect Use of Split Signing Algorithm Identifiers
 
-5.1.  COSE Algorithms Registrations
+   Section 2 recommends against exposing split signing algorithm
+   identifiers - including those defined in this specification with
+   "-split" in their names - to signature verifiers.  For example, they
+   should not appear as the "alg" parameter of a COSE_Key public key
+   sent to a signature verifier.  If a split signing algorithm
+   identifier is encountered in an invalid context like this, the
+   recipient SHOULD reject the message with a fatal error.
+
+   This is because the purpose of these split signing algorithm
+   identifiers is to enable more flexible production of signatures that
+   can be verified by existing implementations of existing verification
+   algorithms.  A prevalence of these identifiers appearing outside the
+   split signing context would defeat this purpose; we therefore
+   recommend such use SHOULD NOT be tolerated.
+
+   This recommendation is the opposite of the oft-cited "robustness
+   principle" stated in paragraph 3.9 of [RFC1958].  Implementations MAY
+   choose to instead follow the robustness principle and tolerate
+   incorrect use of split signing algorithm identifiers, instead
+   interpreting the identifier as referencing the defined corresponding
+   verification algorithm.  Note however that this is no longer
+   considered a best practice and is likely to harm interoperability
+   [RFC9413].
+
+   A verifier's choice to tolerate or not tolerate incorrect use of
+   split signing algorithm identifiers is expected to not affect
+   security, assuming a split algorithm identifier is interpreted as an
+   alias representing the same verification algorithm as a non-split
+   algorithm identifier.
+
+5.  Implementation Considerations
+
+5.1.  Using Non-Split Signing Algorithm Identifiers in a Split Signing
+      Protocol
+
+   A protocol designed to use split signing algorithm identifiers such
+   as those defined in this specification MAY also allow use of
+   algorithm identifiers that do not represent split signing algorithms.
+   In this case, the _signer_ performs all steps of the signing
+   procedure as usual.  For example, if the _signer_ receives a
+   signature request with an the algorithm identifier "ESP256", then the
+   _digester_ passes the input data through unmodified and it is the
+   _signer_ that computes the SHA-256 digest of the input data as
+   defined in the ESP256 definition [RFC9864].
+
+6.  IANA Considerations
+
+6.1.  COSE Algorithms Registrations
 
    This section registers the following values in the IANA "COSE
    Algorithms" registry [IANA.COSE]:
@@ -505,15 +597,15 @@ Table of Contents
 
       -  Recommended: Yes
 
-5.2.  COSE Signing Arguments Common Parameters Registry
+6.2.  COSE Signing Arguments Common Parameters Registry
 
    TODO
 
-5.3.  COSE Signing Arguments Algorithm Parameters Registry
+6.3.  COSE Signing Arguments Algorithm Parameters Registry
 
    TODO
 
-6.  Implementation Status
+7.  Implementation Status
 
    This section is to be removed from the specification by the RFC
    Editor before publication as an RFC.
@@ -560,7 +652,7 @@ Table of Contents
    +===================+============================+==========+======+
    | ESP256-split      | This specification         | -        |-     |
    +-------------------+----------------------------+----------+------+
-   | ESP381-split      | This specification         | -        |-     |
+   | ESP384-split      | This specification         | -        |-     |
    +-------------------+----------------------------+----------+------+
    | ESP512-split      | This specification         | -        |-     |
    +-------------------+----------------------------+----------+------+
@@ -570,7 +662,7 @@ Table of Contents
    +-------------------+----------------------------+----------+------+
    | ESP256-split-ARKG | [I-D.bradleylundberg-ARKG] | wwWallet |Yubico|
    +-------------------+----------------------------+----------+------+
-   | ESP381-split-ARKG | [I-D.bradleylundberg-ARKG] | -        |-     |
+   | ESP384-split-ARKG | [I-D.bradleylundberg-ARKG] | -        |-     |
    +-------------------+----------------------------+----------+------+
    | ESP512-split-ARKG | [I-D.bradleylundberg-ARKG] | -        |-     |
    +-------------------+----------------------------+----------+------+
@@ -579,7 +671,7 @@ Table of Contents
 
           Table 4: Implementation status of individual features.
 
-6.1.  Dependent Specifications
+7.1.  Dependent Specifications
 
    As indicated in the previous section, the Internet-Draft of ARKG
    [I-D.bradleylundberg-ARKG] extends this specification with
@@ -594,9 +686,9 @@ Table of Contents
       ARKG arguments using the COSE_Sign_Args data structure defined in
       this specification (Section 3).
 
-7.  References
+8.  References
 
-7.1.  Normative References
+8.1.  Normative References
 
    [I-D.bradleylundberg-ARKG]
               Lundberg, E. and J. Bradley, "The Asynchronous Remote Key
@@ -643,7 +735,7 @@ Table of Contents
    [SEC1]     Certicom Research, "SEC 1: Elliptic Curve Cryptography",
               May 2009, <https://www.secg.org/sec1-v2.pdf>.
 
-7.2.  Informative References
+8.2.  Informative References
 
    [FIPS-186-5]
               National Institute of Standards and Technology, "Digital
@@ -686,16 +778,56 @@ Table of Contents
               (https://docs.oasis-open.org/pkcs11/pkcs11- spec/v3.1/
               pkcs11-spec-v3.1.html).
 
+   [RFC1958]  Carpenter, B., Ed., "Architectural Principles of the
+              Internet", RFC 1958, DOI 10.17487/RFC1958, June 1996,
+              <https://www.rfc-editor.org/rfc/rfc1958>.
+
    [RFC9380]  Faz-Hernandez, A., Scott, S., Sullivan, N., Wahby, R. S.,
               and C. A. Wood, "Hashing to Elliptic Curves", RFC 9380,
               DOI 10.17487/RFC9380, August 2023,
               <https://www.rfc-editor.org/rfc/rfc9380>.
 
+   [RFC9413]  Thomson, M. and D. Schinazi, "Maintaining Robust
+              Protocols", RFC 9413, DOI 10.17487/RFC9413, June 2023,
+              <https://www.rfc-editor.org/rfc/rfc9413>.
+
+   [RFC9881]  Massimo, J., Kampanakis, P., Turner, S., and B. E.
+              Westerbaan, "Internet X.509 Public Key Infrastructure --
+              Algorithm Identifiers for the Module-Lattice-Based Digital
+              Signature Algorithm (ML-DSA)", RFC 9881,
+              DOI 10.17487/RFC9881, October 2025,
+              <https://www.rfc-editor.org/rfc/rfc9881>.
+
    [SECDSA]   Verheul, E., "SECDSA: Mobile signing and authentication
               under classical "sole control"", July 2021,
               <https://eprint.iacr.org/2021/910>.
 
+Acknowledgements
+
+   We would like to thank Ilari Liusvaara, Lucas Prabel and Falko
+   Strenzke for their reviews of and contributions to this
+   specification.
+
 Document History
+
+   -05
+
+   *  Fixed ESP384-split misspelled as ESP381-split.
+
+   *  Clarified that non-"-split" alg IDs defined here may be exposed to
+      verifiers.
+
+   *  Clarified that transport of digest is out of scope, but expected
+      to be passed as data to be signed.
+
+   *  Added Security Considerations section "Incorrect Use of Split
+      Signing Algorithm Identifiers".
+
+   *  Added Implementation Considerations section "Using Non-Split
+      Signing Algorithm Identifiers in a Split Signing Protocol".
+
+   *  Added section "Defining Split Signing Algorithms" with guidance
+      for handling domain separation tags in new definitions.
 
    -04
 
