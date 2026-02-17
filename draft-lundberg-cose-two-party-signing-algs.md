@@ -208,6 +208,10 @@ For signing algorithms that format the message to insert domain separation tags,
 as described in {{Section 2.2.5 of RFC9380}},
 this message formatting is also performed by the _signer_.
 
+How the digest, and any related `COSE_Sign_Args` structure (see {{cose-sign-args}}),
+are transported from _digester_ to _signer_ is out of scope for this specification,
+but it is expected that the digest will usually be transmitted as the "data to be signed" argument.
+
 The algorithm identifiers defined in this specification with "-split" in their names
 MAY appear in COSE structures used internally between the _digester_ and the _signer_ in a split signing protocol,
 but SHOULD NOT appear in COSE structures consumed by signature verifiers.
@@ -515,6 +519,7 @@ the Internet-Draft of ARKG [I-D.bradleylundberg-ARKG] extends this specification
 
 * Fixed ESP384-split misspelled as ESP381-split.
 * Clarified that non-"-split" alg IDs defined here may be exposed to verifiers.
+* Clarified that transport of digest is out of scope, but expected to be passed as data to be signed.
 
 -04
 
