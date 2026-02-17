@@ -112,7 +112,10 @@ informative:
     - fullname: Achim Pietig
     date: March 2020
     refcontent: Version 3.4.1
+  RFC1958:
   RFC9380:
+  RFC9413:
+  RFC9881:
   SECDSA:
     target: https://eprint.iacr.org/2021/910
     title: 'SECDSA: Mobile signing and authentication under classical "sole control"'
@@ -208,12 +211,19 @@ For signing algorithms that format the message to insert domain separation tags,
 as described in {{Section 2.2.5 of RFC9380}},
 this message formatting is also performed by the _signer_.
 
-The algorithm identifiers defined in this specification
+How the digest, and any related `COSE_Sign_Args` structure (see {{cose-sign-args}}),
+are transported from _digester_ to _signer_ is out of scope for this specification,
+but it is expected that the digest will usually be transmitted as the "data to be signed" argument.
+
+The algorithm identifiers defined in this specification with "-split" in their names
 MAY appear in COSE structures used internally between the _digester_ and the _signer_ in a split signing protocol,
 but SHOULD NOT appear in COSE structures consumed by signature verifiers.
 COSE structures consumed by signature verifiers
 SHOULD instead use the corresponding conventional algorithm identifiers for the verification algorithm.
 These are listed in the "Verification algorithm" column in the tables defining split signing algorithm identifiers.
+
+The following subsections define an initial set of split signing algorithm identifiers.
+The last subsection provides guidance for defining additional identifiers beyond this initial set.
 
 
 ## ECDSA {#ecdsa-split}
@@ -267,6 +277,33 @@ The following algorithm identifiers are defined:
 | Ed25519ph-split | TBD        | Ed25519ph              | EdDSA using the Ed25519ph parameter set in {{Section 5.1 of RFC8032}} and split as defined in {{eddsa-split}} |
 | Ed448ph         | TBD        | Ed448ph                | EdDSA using the Ed448ph parameter set in {{Section 5.2 of RFC8032}} |
 | Ed448ph-split   | TBD        | Ed448ph                | EdDSA using the Ed448ph parameter set in {{Section 5.2 of RFC8032}} and split as defined in {{eddsa-split}} |
+
+
+## Defining Split Signing Algorithms {#defining-split-algs}
+
+Future definitions of additional split signing algorithm identifiers
+SHOULD follow the conventions established in {{split-algs}} as far as possible.
+For example, if a signature algorithm prescribes insertion of domain separation tags
+in a way that requires processing the entirety of the data to be signed,
+it might be necessary to delegate the domain separation responsibility to the _digester_.
+Per the considerations in {{sec-cons-trusted-roles-comp}},
+split signing algorithm identifiers SHOULD be defined in ways that minimize
+how much responsibility is delegated to the _digester_.
+
+As a concrete example, consider ML-DSA and HashML-DSA [FIPS-204].
+ML-DSA and HashML-DSA prefix the input data with a 0 octet and a 1 octet respectively,
+which enforces domain separation between ML-DSA and HashML-DSA signatures.
+{{Appendix D of RFC9881}} describes a mode of ML-DSA
+that could be assigned a split signing algorithm identifier
+where the _digester_ performs `Computeμ` and the _signer_ performs `Signμ`.
+Note that this puts the _digester_ in control of the domain separation tags;
+this is necessary if the hash step is not performed by the _signer_.
+Therefore with this construction, it is the _digester_ that decides
+whether the signing protocol will produce an ML-DSA signature or a HashML-DSA signature.
+In contrast, HashML-DSA first hashes the input data alone and then another time with domain separation tags;
+therefore HashML-DSA can be assigned a split signing algorithm identifier
+that keeps the _signer_ in control of the domain separation tags
+and ensures that the signing protocol can only produce HashML-DSA signatures.
 
 
 # COSE Signing Arguments {#cose-sign-args}
@@ -374,6 +411,42 @@ It also does not enable forgeries,
 since the _digester_ still needs to find a preimage of _e_ for the relevant hash function.
 Definitions of other algorithms need to ensure that similar chosen-input attacks
 do not enable extracting secrets or forging protocol-level messages.
+
+
+## Incorrect Use of Split Signing Algorithm Identifiers {#sec-cons-invalid-alg-use}
+
+{{split-algs}} recommends against exposing split signing algorithm identifiers -
+including those defined in this specification with "-split" in their names -
+to signature verifiers.
+For example, they should not appear as the "alg" parameter of a COSE_Key public key sent to a signature verifier.
+If a split signing algorithm identifier is encountered in an invalid context like this,
+the recipient SHOULD reject the message with a fatal error.
+
+This is because the purpose of these split signing algorithm identifiers
+is to enable more flexible production of signatures that can be verified by existing implementations of existing verification algorithms.
+A prevalence of these identifiers appearing outside the split signing context would defeat this purpose;
+we therefore recommend such use SHOULD NOT be tolerated.
+
+This recommendation is the opposite of the oft-cited "robustness principle" stated in paragraph 3.9 of [RFC1958].
+Implementations MAY choose to instead follow the robustness principle and tolerate incorrect use of split signing algorithm identifiers,
+instead interpreting the identifier as referencing the defined corresponding verification algorithm.
+Note however that this is no longer considered a best practice and is likely to harm interoperability [RFC9413].
+
+A verifier's choice to tolerate or not tolerate incorrect use of split signing algorithm identifiers
+is expected to not affect security,
+assuming a split algorithm identifier is interpreted as an alias representing the same verification algorithm as a non-split algorithm identifier.
+
+
+# Implementation Considerations {#impl-cons}
+
+## Using Non-Split Signing Algorithm Identifiers in a Split Signing Protocol {#impl-cons-non-split-algs}
+
+A protocol designed to use split signing algorithm identifiers such as those defined in this specification
+MAY also allow use of algorithm identifiers that do not represent split signing algorithms.
+In this case, the _signer_ performs all steps of the signing procedure as usual.
+For example, if the _signer_ receives a signature request with an the algorithm identifier "ESP256",
+then the _digester_ passes the input data through unmodified
+and it is the _signer_ that computes the SHA-256 digest of the input data as defined in the ESP256 definition [RFC9864].
 
 
 # IANA Considerations {#IANA}
@@ -485,12 +558,12 @@ There are currently two known implementations using features defined by this spe
 | Feature | Defined by | Digester | Signer |
 | ------- | ---------- | -------- | ------ |
 | ESP256-split | This specification | - | - |
-| ESP381-split | This specification | - | - |
+| ESP384-split | This specification | - | - |
 | ESP512-split | This specification | - | - |
 | Ed25519ph-split | This specification | - | - |
 | Ed448ph-split | This specification | - | - |
 | ESP256-split-ARKG | [I-D.bradleylundberg-ARKG] | wwWallet | Yubico |
-| ESP381-split-ARKG | [I-D.bradleylundberg-ARKG] | - | - |
+| ESP384-split-ARKG | [I-D.bradleylundberg-ARKG] | - | - |
 | ESP512-split-ARKG | [I-D.bradleylundberg-ARKG] | - | - |
 | `COSE_Sign_Args` | This specification | wwWallet | Yubico |
 
@@ -508,8 +581,28 @@ the Internet-Draft of ARKG [I-D.bradleylundberg-ARKG] extends this specification
 
 --- back
 
+# Acknowledgements
+{: numbered="false"}
+
+We would like to thank
+Ilari Liusvaara,
+Lucas Prabel
+and
+Falko Strenzke
+for their reviews of and contributions to this specification.
+
+
 # Document History
 {: numbered="false"}
+
+-05
+
+* Fixed ESP384-split misspelled as ESP381-split.
+* Clarified that non-"-split" alg IDs defined here may be exposed to verifiers.
+* Clarified that transport of digest is out of scope, but expected to be passed as data to be signed.
+* Added Security Considerations section "Incorrect Use of Split Signing Algorithm Identifiers".
+* Added Implementation Considerations section "Using Non-Split Signing Algorithm Identifiers in a Split Signing Protocol".
+* Added section "Defining Split Signing Algorithms" with guidance for handling domain separation tags in new definitions.
 
 -04
 
