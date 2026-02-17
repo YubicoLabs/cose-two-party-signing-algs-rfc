@@ -581,6 +581,17 @@ the Internet-Draft of ARKG [I-D.bradleylundberg-ARKG] extends this specification
 
 --- back
 
+# Acknowledgements
+{: numbered="false"}
+
+We would like to thank
+Ilari Liusvaara,
+Lucas Prabel
+and
+Falko Strenzke
+for their reviews of and contributions to this specification.
+
+
 # Document History
 {: numbered="false"}
 
