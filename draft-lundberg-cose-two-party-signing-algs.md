@@ -406,6 +406,18 @@ is expected to not affect security,
 assuming a split algorithm identifier is interpreted as an alias representing the same verification algorithm as a non-split algorithm identifier.
 
 
+# Implementation Considerations {#impl-cons}
+
+## Using Non-Split Signing Algorithm Identifiers in a Split Signing Protocol {#impl-cons-non-split-algs}
+
+A protocol designed to use split signing algorithm identifiers such as those defined in this specification
+MAY also allow use of algorithm identifiers that do not represent split signing algorithms.
+In this case, the _signer_ performs all steps of the signing procedure as usual.
+For example, if the _signer_ receives a signature request with an the algorithm identifier "ESP256",
+then the _digester_ passes the input data through unmodified
+and it is the _signer_ that computes the SHA-256 digest of the input data as defined in the ESP256 definition [RFC9864].
+
+
 # IANA Considerations {#IANA}
 
 ## COSE Algorithms Registrations {#cose-alg-reg}
@@ -547,6 +559,7 @@ the Internet-Draft of ARKG [I-D.bradleylundberg-ARKG] extends this specification
 * Clarified that non-"-split" alg IDs defined here may be exposed to verifiers.
 * Clarified that transport of digest is out of scope, but expected to be passed as data to be signed.
 * Added Security Considerations section "Incorrect Use of Split Signing Algorithm Identifiers".
+* Added Implementation Considerations section "Using Non-Split Signing Algorithm Identifiers in a Split Signing Protocol".
 
 -04
 
