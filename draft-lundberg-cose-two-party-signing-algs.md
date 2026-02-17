@@ -208,7 +208,7 @@ For signing algorithms that format the message to insert domain separation tags,
 as described in {{Section 2.2.5 of RFC9380}},
 this message formatting is also performed by the _signer_.
 
-The algorithm identifiers defined in this specification
+The algorithm identifiers defined in this specification with "-split" in their names
 MAY appear in COSE structures used internally between the _digester_ and the _signer_ in a split signing protocol,
 but SHOULD NOT appear in COSE structures consumed by signature verifiers.
 COSE structures consumed by signature verifiers
@@ -514,6 +514,7 @@ the Internet-Draft of ARKG [I-D.bradleylundberg-ARKG] extends this specification
 -05
 
 * Fixed ESP384-split misspelled as ESP381-split.
+* Clarified that non-"-split" alg IDs defined here may be exposed to verifiers.
 
 -04
 
