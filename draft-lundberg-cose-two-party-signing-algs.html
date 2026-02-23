@@ -1062,7 +1062,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Lundberg &amp; Jones</td>
-<td class="center">Expires 21 August 2026</td>
+<td class="center">Expires 27 August 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1075,12 +1075,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-lundberg-cose-two-party-signing-algs-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-02-17" class="published">17 February 2026</time>
+<time datetime="2026-02-23" class="published">23 February 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-08-21">21 August 2026</time></dd>
+<dd class="expires"><time datetime="2026-08-27">27 August 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1142,7 +1142,7 @@ without additional steps to preprocess the signed data.<a href="#section-abstrac
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 21 August 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 27 August 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1303,6 +1303,7 @@ PKCS #11 <span>[<a href="#PKCS11-Spec-v3.1" class="cite xref">PKCS11-Spec-v3.1</
 and at different stages of the algorithm,
 it is not possible for a cryptographic API to specify that, for example, "the hash digest is computed by the caller"
 generically for all algorithms.
+Security considerations for this split may also differ between algorithms.
 Instead, the algorithm identifiers defined in this specification
 enable the parties of that cryptographic API to signal precisely, for each signature algorithm individually,
 which steps of the algorithm are performed by which party.
@@ -1318,10 +1319,12 @@ but split into two stages.<a href="#section-1-5" class="pilcrow">¶</a></p>
 such as PureEdDSA <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span>,
 by their design, cannot be split in this way, and therefore cannot be assigned split signing algorithm identifiers.
 However, if such a signature algorithm defines a "pre-hashed" variant,
-such as Ed25519ph <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span>,
 that "pre-hashed" algorithm can be assigned a split signing algorithm identifier,
 enabling the pre-hashing step to be performed by the <em>digester</em>
-and the remaining steps by the <em>signer</em>.<a href="#section-1-6" class="pilcrow">¶</a></p>
+and the remaining steps by the <em>signer</em>.
+For example, this specification defines Ed25519ph-split (<a href="#eddsa-split" class="auto internal xref">Section 2.2</a>) as a split variant of Ed25519ph <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span>.
+Note that Ed25519 and Ed25519ph have distinct verification algorithms,
+but Ed25519ph and Ed25519ph-split use the same verification algorithm.<a href="#section-1-6" class="pilcrow">¶</a></p>
 <div id="requirements-notation-and-conventions">
 <section id="section-1.1">
         <h3 id="name-requirements-notation-and-c">
@@ -1635,19 +1638,29 @@ and a key derived using <code>ARKG-P256</code> <span>[<a href="#I-D.bradleylundb
         </h3>
 <p id="section-4.1-1">This specification assumes that both the <em>digester</em> and <em>signer</em> roles
 described in <a href="#split-algs" class="auto internal xref">Section 2</a> are trusted and cooperate honestly.
-This is because these split signing procedures concern details
-that are considered implementation details from a verifier's perspective.
+This is because a similar division between "application" and "secure element"
+typically exists already:
+even if all steps of the signing algorithm are executed in a trusted secure element,
+the inputs to the secure element are provided by some outside component such as a software application.
+If the application can provide any input to be signed,
+then for all practical purposes it is trusted with possession of any private keys
+for as long as it is authorized to exercise the secure element.
+The application can in practice obtain a signature over any chosen message
+without needing to perform a forgery attack.
+The same relationship exists between <em>digester</em> and <em>signer</em>.
+Applications that cannot trust an external <em>digester</em> -
+for example a hardware security device with an integrated secure display of what data is about to be signed -
+by definition have no use for split signing algorithm identifiers.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1-2">Similarly from a verifier's perspective,
+these split signing procedures are implementation details.
 When a signature is generated by a single party,
 that single party takes on both the <em>digester</em> and the <em>signer</em> roles,
 and obviously trusts itself to perform the <em>digester</em> role honestly.
-This assumption is carried forward for the split signing use case:
-the <em>digester</em> is assumed trusted,
-since it is part of the overall procedure of generating a signature over some input data.
 From the verifier's perspective,
 a malicious <em>digester</em> in the split signing model would have the same powers
 as a malicious signature generator in a single-party signing model.
 Thus, on the application or protocol level,
-assuming an honest <em>digester</em> is no more restrictive than assuming an honest signature generator.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+assuming an honest <em>digester</em> is no more restrictive than assuming an honest signature generator.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-cons-trusted-roles-comp">
@@ -1659,16 +1672,23 @@ assuming an honest <em>digester</em> is no more restrictive than assuming an hon
 A <em>signer</em> implementation MUST NOT assume that the <em>digester</em> implementation
 it interoperates with is necessarily honest.
 Split signing algorithms MUST NOT be defined in a way
-that enables a malicious <em>digester</em> with access to an honest <em>signer</em>
-to produce forgeries or extract secrets from the <em>signer</em>.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+that enables a malicious <em>digester</em> with access to an honest <em>signer</em> to produce forgeries -
+any that could not be produced by simply requesting a signature over the desired message -
+or extract secrets from the <em>signer</em>.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 <p id="section-4.2-2">For example, for ECDSA (<a href="#ecdsa-split" class="auto internal xref">Section 2.1</a>), a malicious <em>digester</em> can choose <em>H</em>
 in such a way that the <em>signer</em> will derive any <em>digester</em>-chosen value of <em>e</em>,
 including zero or other potentially problematic values.
 Fortunately, in this case, this does not enable the <em>digester</em> to extract the signature nonce or private key.
-It also does not enable forgeries,
+It also does not make forgeries easier,
 since the <em>digester</em> still needs to find a preimage of <em>e</em> for the relevant hash function.
 Definitions of other algorithms need to ensure that similar chosen-input attacks
 do not enable extracting secrets or forging protocol-level messages.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
+<p id="section-4.2-3">For example, a naively prehashed version of FALCON <span>[<a href="#FALCON" class="cite xref">FALCON</a>]</span> would allow such a key compromise:
+A FALCON signature is a value <code>s</code> such that both <code>s</code> and <code>s * h - hash(r || m)</code> are short,
+where <code>h</code> is the public key and <code>r</code> a randomizer.
+If the digester gets to query the signer for signatures of arbitrary stand-ins for <code>hash(r || m)</code>,
+they can extract the private key by for example asking for repeated signatures of 0.
+Therefore, definitions of split signing algorithms need to be reviewed and potentially have security proofs adjusted.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-cons-invalid-alg-use">
@@ -2105,6 +2125,10 @@ using the <code>COSE_Sign_Args</code> data structure defined in this specificati
 <a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
+<dt id="FALCON">[FALCON]</dt>
+        <dd>
+<span class="refAuthor">Fouque, P.</span>, <span class="refAuthor">Hoffstein, J.</span>, <span class="refAuthor">Kirchner, P.</span>, <span class="refAuthor">Lyubashevsky, V.</span>, <span class="refAuthor">Pornin, T.</span>, <span class="refAuthor">Prest, T.</span>, <span class="refAuthor">Ricosset, T.</span>, <span class="refAuthor">Seiler, G.</span>, <span class="refAuthor">Whyte, W.</span>, and <span class="refAuthor">Z. Zhang</span>, <span class="refTitle">"FALCON: Fast-Fourier Lattice-based Compact Signatures over NTRU"</span>, <time datetime="2017" class="refDate">2017</time>, <span>&lt;<a href="https://falcon-sign.info/">https://falcon-sign.info/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="FIPS-186-5">[FIPS-186-5]</dt>
         <dd>
 <span class="refAuthor">National Institute of Standards and Technology</span>, <span class="refTitle">"Digital Signature Standard (DSS)"</span>, <time datetime="2023-02" class="refDate">February 2023</time>, <span>&lt;<a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf">https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf</a>&gt;</span>. </dd>
@@ -2162,7 +2186,8 @@ using the <code>COSE_Sign_Args</code> data structure defined in this specificati
       </h2>
 <p id="appendix-A-1">We would like to thank
 Ilari Liusvaara,
-Lucas Prabel
+Lucas Prabel,
+Sophie Schmieg
 and
 Falko Strenzke
 for their reviews of and contributions to this specification.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
@@ -2192,6 +2217,16 @@ for their reviews of and contributions to this specification.<a href="#appendix-
 </li>
         <li class="normal" id="appendix-B-2.6">
           <p id="appendix-B-2.6.1">Added section "Defining Split Signing Algorithms" with guidance for handling domain separation tags in new definitions.<a href="#appendix-B-2.6.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-2.7">
+          <p id="appendix-B-2.7.1">Clarified in introduction that Ed25519 and Ed25519ph(-split) have distinct verification algorithms.<a href="#appendix-B-2.7.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-2.8">
+          <p id="appendix-B-2.8.1">Clarified in section "Protocol-Level Trusted Roles" why digester is necessarily trusted.<a href="#appendix-B-2.8.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-2.9">
+          <p id="appendix-B-2.9.1">Clarified in section "Component-Level Trusted Roles" that redundant forgeries are acceptable,
+and added example of key compromise concern for naively hashed FALCON.<a href="#appendix-B-2.9.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="appendix-B-3">-04<a href="#appendix-B-3" class="pilcrow">¶</a></p>
