@@ -83,6 +83,25 @@ informative:
     - fullname: Zhenfei Zhang
     date: 2017
   FIPS-201:
+    target: https://csrc.nist.gov/pubs/fips/201-3/final
+    title: 'Personal Identity Verification (PIV) of Federal Employees and Contractors'
+    author:
+    - org: National Institute of Standards and Technology
+    date: 2022
+  FIPS-204:
+    target: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf
+    title: Module-Lattice-Based Digital Signature Standard
+    author:
+    - org: National Institute of Standards and Technology
+    date: August 2024
+  FIPS-186-5:
+    target: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf
+    title: Digital Signature Standard (DSS)
+    author:
+    - org: National Institute of Standards and Technology
+    date: February 2023
+  I-D.COSE-Hash-Envelope: I-D.draft-ietf-cose-hash-envelope
+  NIST-SP-800-73-5:
     target: https://doi.org/10.6028/NIST.SP.800-73pt2-5
     title: 'Interfaces for Personal Identity Verification: Part 2 – PIV Card Application Card Command Interface'
     author:
@@ -98,19 +117,6 @@ informative:
       org: National Institute of Standards and Technology, Gaithersburg, MD
     date: 2024
     refcontent: NIST Special Publication (SP) NIST SP 800-73pt2-5
-  FIPS-204:
-    target: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf
-    title: Module-Lattice-Based Digital Signature Standard
-    author:
-    - org: National Institute of Standards and Technology
-    date: August 2024
-  FIPS-186-5:
-    target: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf
-    title: Digital Signature Standard (DSS)
-    author:
-    - org: National Institute of Standards and Technology
-    date: February 2023
-  I-D.COSE-Hash-Envelope: I-D.draft-ietf-cose-hash-envelope
   PKCS11-Spec-v3.1:
     target: https://docs.oasis-open.org/pkcs11/pkcs11-spec/v3.1/os/pkcs11-spec-v3.1-os.html
     title: 'PKCS #11 Specification Version 3.1.'
@@ -183,7 +189,7 @@ Instead, since most signature algorithms begin with digesting the message
 into a fixed-length intermediate input, this initial digest can be computed by the software application
 while the HSM performs the rest of the signature algorithm on the digest.
 This is a common technique used in standards such as OpenPGP [OPENPGPCARD],
-PKCS #11 [PKCS11-Spec-v3.1], and PIV [FIPS-201].
+PKCS #11 [PKCS11-Spec-v3.1], and PIV [NIST-SP-800-73-5].
 
 Since different signature algorithms digest the message in different ways
 and at different stages of the algorithm,
@@ -218,6 +224,96 @@ but Ed25519ph and Ed25519ph-split use the same verification algorithm.
 ## Requirements Notation and Conventions
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all capitals, as shown here.
+
+
+## Prior Art
+
+Split signing is a common technique used in existing smart card standards.
+The following subsections expand on how the technique is applied in OpenPGP [OPENPGPCARD],
+PKCS #11 [PKCS11-Spec-v3.1], and PIV [NIST-SP-800-73-5].
+
+
+### OpenPGP
+
+The OpenPGP smart card protocol [OPENPGPCARD]
+defines the format of signing commands in section "7.2.10 PSO: COMPUTE DIGITAL SIGNATURE":
+
+>**7.2.10 PSO: COMPUTE DIGITAL SIGNATURE**
+>
+>The command for digital signature computation is shown in the table below.
+>The hash value (ECDSA) or the DigestInfo is delivered in the data field of the command. \[...\]
+
+The "Data field" parameter is subsequently defined as "Data to be integrated in the DSI: hash value (ELC) or DigestInfo (RSA)".
+Thus both ECDSA and RSA signatures are computed jointly by the host computing the digest of the signed data
+and the smart card finalizing the signature on the digest;
+the host acts as _digester_ and the smart card acts as _signer_.
+
+TODO: Spec 3.4.1 only covers ECDSA and RSA, but some implementations also support Ed25519.
+Identify and include good references for how OpenPGP smart cards handle Ed25519.
+
+
+### PKCS #11
+
+PKCS #11 [PKCS11-Spec-v3.1]
+defines signing commands in sections "5.13 Signing and MACing functions" and "5.14 Message-based signing and MACing functions".
+These sections define `C_SignInit` and `C_MessageSignInit` functions that both take a `pMechanism` parameter indicating the signature mechanism.
+Mechanisms are defined in section "6 Mechanisms", which notably includes the subsections
+"6.3.12 ECDSA without hashing" and "6.3.13 ECDSA with hashing":
+
+>**6.3.12 ECDSA without hashing**
+>
+>\[...\]
+>
+>The ECDSA without hashing mechanism, denoted **CKM_ECDSA**, is a mechanism for single-part signatures and verification for ECDSA.
+>(This mechanism corresponds only to the part of ECDSA that processes the hash value, which should not be longer than 1024 bits;
+>it does not compute the hash value.)
+>
+>\[...\]
+
+>**6.3.13 ECDSA with hashing**
+>
+>\[...\]
+>
+>The ECDSA with SHA-1, SHA-224, SHA-256, SHA-384, SHA-512, SHA3-224, SHA3-256, SHA3-384, SHA3-512 mechanism,
+>denoted **CKM_ECDSA_\[SHA1|SHA224|SHA256|SHA384|SHA512|SHA3_224|SHA3_256|SHA3_384|SHA3_512\]** respectively,
+>is a mechanism for single- and multiple-part signatures and verification for ECDSA.
+>This mechanism computes the entire ECDSA specification, including the hashing with
+>SHA-1, SHA-224, SHA-256, SHA-384, SHA-512, SHA3-224, SHA3-256, SHA3-384, SHA3-512 respectively.
+>
+>\[...\]
+
+Thus PKCS #11 supports both split signing using the **CKM_ECDSA** mechanism
+and "non-split" signing using the **CKM_ECDSA_SHA\*** mechanisms;
+when using **CKM_ECDSA**,
+the PKCS #11 caller acts as _host_ and the Cryptoki implementation acts as _signer_.
+
+
+### PIV: FIPS-201, NIST SP 800
+
+NIST Special Publication 800 [NIST-SP-800-73-5]
+contains technical specifications for the Personal Identity Verification (PIV) standard [FIPS-201],
+and defines the format of signing commands in section "3.2.4. GENERAL AUTHENTICATE Card Command":
+
+>**3.2.4. GENERAL AUTHENTICATE Card Command**
+>\[...\]
+>
+>The GENERAL AUTHENTICATE command SHALL be used with the digital signature key ('9C') to
+>realize the signing functionality on the PIV client application programming interface. Data to be
+>signed is expected to be hashed off-card. Appendix A.4 illustrates the use of the GENERAL
+>AUTHENTICATE command for signature generation.
+>
+>\[...\]
+
+Appendix A.4 gives examples of RSA and ECDSA signature generation commands.
+For RSA the command needs to be sent in two parts,
+giving the "Data Field" argument first as "'7C' – L1 { '82' '00' '81' L2 {first part of the PKCS #1 v1.5 or PSS padded message hash value }}"
+and then "{second and last part of the PKCS #1 v1.5 or PSS padded message hash value}";
+for ECDSA the "Data Field" argument is given as "'7C' – L1 { '82' '00' '81' L2 {hash value of message}}".
+
+Thus both ECDSA and RSA signatures are computed jointly by the host computing the digest of the signed data
+and the smart card finalizing the signature on the digest;
+the host acts as _digester_ and the smart card acts as _signer_.
+
 
 # Split Signing Algorithms {#split-algs}
 
@@ -646,6 +742,7 @@ for their reviews of and contributions to this specification.
 * Clarified in section "Protocol-Level Trusted Roles" why digester is necessarily trusted.
 * Clarified in section "Component-Level Trusted Roles" that redundant forgeries are acceptable,
   and added example of key compromise concern for naively hashed FALCON.
+* Added "Prior Art" section to Introduction.
 
 -04
 
