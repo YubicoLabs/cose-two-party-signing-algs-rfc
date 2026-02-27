@@ -730,6 +730,10 @@ for their reviews of and contributions to this specification.
 # Document History
 {: numbered="false"}
 
+-06
+
+* Added "Prior Art" section to Introduction.
+
 -05
 
 * Fixed ESP384-split misspelled as ESP381-split.
@@ -742,7 +746,6 @@ for their reviews of and contributions to this specification.
 * Clarified in section "Protocol-Level Trusted Roles" why digester is necessarily trusted.
 * Clarified in section "Component-Level Trusted Roles" that redundant forgeries are acceptable,
   and added example of key compromise concern for naively hashed FALCON.
-* Added "Prior Art" section to Introduction.
 
 -04
 
