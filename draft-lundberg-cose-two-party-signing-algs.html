@@ -2315,103 +2315,106 @@ for their reviews of and contributions to this specification.<a href="#appendix-
       <h2 id="name-document-history">
 <a href="#name-document-history" class="section-name selfRef">Document History</a>
       </h2>
-<p id="appendix-B-1">-05<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<p id="appendix-B-1">-06<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-B-2.1">
-          <p id="appendix-B-2.1.1">Fixed ESP384-split misspelled as ESP381-split.<a href="#appendix-B-2.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-B-2.2">
-          <p id="appendix-B-2.2.1">Clarified that non-"-split" alg IDs defined here may be exposed to verifiers.<a href="#appendix-B-2.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-B-2.3">
-          <p id="appendix-B-2.3.1">Clarified that transport of digest is out of scope, but expected to be passed as data to be signed.<a href="#appendix-B-2.3.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-B-2.4">
-          <p id="appendix-B-2.4.1">Added Security Considerations section "Incorrect Use of Split Signing Algorithm Identifiers".<a href="#appendix-B-2.4.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-B-2.5">
-          <p id="appendix-B-2.5.1">Added Implementation Considerations section "Using Non-Split Signing Algorithm Identifiers in a Split Signing Protocol".<a href="#appendix-B-2.5.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-B-2.6">
-          <p id="appendix-B-2.6.1">Added section "Defining Split Signing Algorithms" with guidance for handling domain separation tags in new definitions.<a href="#appendix-B-2.6.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-B-2.7">
-          <p id="appendix-B-2.7.1">Clarified in introduction that Ed25519 and Ed25519ph(-split) have distinct verification algorithms.<a href="#appendix-B-2.7.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-B-2.8">
-          <p id="appendix-B-2.8.1">Clarified in section "Protocol-Level Trusted Roles" why digester is necessarily trusted.<a href="#appendix-B-2.8.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-B-2.9">
-          <p id="appendix-B-2.9.1">Clarified in section "Component-Level Trusted Roles" that redundant forgeries are acceptable,
-and added example of key compromise concern for naively hashed FALCON.<a href="#appendix-B-2.9.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-B-2.10">
-          <p id="appendix-B-2.10.1">Added "Prior Art" section to Introduction.<a href="#appendix-B-2.10.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-2.1.1">Added "Prior Art" section to Introduction.<a href="#appendix-B-2.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-B-3">-04<a href="#appendix-B-3" class="pilcrow">¶</a></p>
+<p id="appendix-B-3">-05<a href="#appendix-B-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-B-4.1">
-          <p id="appendix-B-4.1.1">Added Implementation Status section.<a href="#appendix-B-4.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-4.1.1">Fixed ESP384-split misspelled as ESP381-split.<a href="#appendix-B-4.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-4.2">
+          <p id="appendix-B-4.2.1">Clarified that non-"-split" alg IDs defined here may be exposed to verifiers.<a href="#appendix-B-4.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-4.3">
+          <p id="appendix-B-4.3.1">Clarified that transport of digest is out of scope, but expected to be passed as data to be signed.<a href="#appendix-B-4.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-4.4">
+          <p id="appendix-B-4.4.1">Added Security Considerations section "Incorrect Use of Split Signing Algorithm Identifiers".<a href="#appendix-B-4.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-4.5">
+          <p id="appendix-B-4.5.1">Added Implementation Considerations section "Using Non-Split Signing Algorithm Identifiers in a Split Signing Protocol".<a href="#appendix-B-4.5.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-4.6">
+          <p id="appendix-B-4.6.1">Added section "Defining Split Signing Algorithms" with guidance for handling domain separation tags in new definitions.<a href="#appendix-B-4.6.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-4.7">
+          <p id="appendix-B-4.7.1">Clarified in introduction that Ed25519 and Ed25519ph(-split) have distinct verification algorithms.<a href="#appendix-B-4.7.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-4.8">
+          <p id="appendix-B-4.8.1">Clarified in section "Protocol-Level Trusted Roles" why digester is necessarily trusted.<a href="#appendix-B-4.8.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-4.9">
+          <p id="appendix-B-4.9.1">Clarified in section "Component-Level Trusted Roles" that redundant forgeries are acceptable,
+and added example of key compromise concern for naively hashed FALCON.<a href="#appendix-B-4.9.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-B-5">-03<a href="#appendix-B-5" class="pilcrow">¶</a></p>
+<p id="appendix-B-5">-04<a href="#appendix-B-5" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-B-6.1">
-          <p id="appendix-B-6.1.1">Updated reference to ARKG parameter <code>info</code> renamed to <code>ctx</code>.<a href="#appendix-B-6.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-B-6.2">
-          <p id="appendix-B-6.2.1">Refined abstract and introduction to emphasize that the central novelty is not split algorithms as a concept,
-but providing COSE algorithm identifiers for use cases that benefit from such splitting.<a href="#appendix-B-6.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-B-6.3">
-          <p id="appendix-B-6.3.1">Replaced reference to draft-ietf-jose-fully-specified-algorithms with RFC 9864.<a href="#appendix-B-6.3.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-B-6.4">
-          <p id="appendix-B-6.4.1">Added inline definitions of Ed25519ph and Ed448ph registrations,
-replacing speculative references to registrations that do not exist elsewhere.<a href="#appendix-B-6.4.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-B-6.5">
-          <p id="appendix-B-6.5.1">Added missing captions to Tables 1 and 2.<a href="#appendix-B-6.5.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-B-6.6">
-          <p id="appendix-B-6.6.1">Added Security Considerations section.<a href="#appendix-B-6.6.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-6.1.1">Added Implementation Status section.<a href="#appendix-B-6.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-B-7">-02<a href="#appendix-B-7" class="pilcrow">¶</a></p>
+<p id="appendix-B-7">-03<a href="#appendix-B-7" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-B-8.1">
-          <p id="appendix-B-8.1.1">Renamed document from "COSE Algorithms for Two-Party Signing" to "Split signing algorithms for COSE"
-and updated introduction and terminology accordingly.<a href="#appendix-B-8.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-8.1.1">Updated reference to ARKG parameter <code>info</code> renamed to <code>ctx</code>.<a href="#appendix-B-8.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-B-8.2">
-          <p id="appendix-B-8.2.1">Dropped definitions for HashML-DSA, as split variants of ML-DSA are being actively discussed in other IETF groups.<a href="#appendix-B-8.2.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-8.2.1">Refined abstract and introduction to emphasize that the central novelty is not split algorithms as a concept,
+but providing COSE algorithm identifiers for use cases that benefit from such splitting.<a href="#appendix-B-8.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-B-8.3">
-          <p id="appendix-B-8.3.1">Changed "Base algorithm" heading in definition tables to "Verification algorithm".<a href="#appendix-B-8.3.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-8.3.1">Replaced reference to draft-ietf-jose-fully-specified-algorithms with RFC 9864.<a href="#appendix-B-8.3.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-B-8.4">
-          <p id="appendix-B-8.4.1">Remodeled COSE_Key_Ref as COSE_Sign_Args.<a href="#appendix-B-8.4.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-8.4.1">Added inline definitions of Ed25519ph and Ed448ph registrations,
+replacing speculative references to registrations that do not exist elsewhere.<a href="#appendix-B-8.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-8.5">
+          <p id="appendix-B-8.5.1">Added missing captions to Tables 1 and 2.<a href="#appendix-B-8.5.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-8.6">
+          <p id="appendix-B-8.6.1">Added Security Considerations section.<a href="#appendix-B-8.6.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="appendix-B-9">-02<a href="#appendix-B-9" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-B-8.4.2.1">
-              <p id="appendix-B-8.4.2.1.1">Dropped definitions of reference types for COSE Key Types registry.<a href="#appendix-B-8.4.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-B-10.1">
+          <p id="appendix-B-10.1.1">Renamed document from "COSE Algorithms for Two-Party Signing" to "Split signing algorithms for COSE"
+and updated introduction and terminology accordingly.<a href="#appendix-B-10.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-10.2">
+          <p id="appendix-B-10.2.1">Dropped definitions for HashML-DSA, as split variants of ML-DSA are being actively discussed in other IETF groups.<a href="#appendix-B-10.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-10.3">
+          <p id="appendix-B-10.3.1">Changed "Base algorithm" heading in definition tables to "Verification algorithm".<a href="#appendix-B-10.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-10.4">
+          <p id="appendix-B-10.4.1">Remodeled COSE_Key_Ref as COSE_Sign_Args.<a href="#appendix-B-10.4.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-B-10.4.2.1">
+              <p id="appendix-B-10.4.2.1.1">Dropped definitions of reference types for COSE Key Types registry.<a href="#appendix-B-10.4.2.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </li>
       </ul>
-<p id="appendix-B-9">-01<a href="#appendix-B-9" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="appendix-B-10.1">
-          <p id="appendix-B-10.1.1">Added IANA registration requests for algorithms defined.<a href="#appendix-B-10.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-B-10.2">
-          <p id="appendix-B-10.2.1">Updated references and other editorial tweaks.<a href="#appendix-B-10.2.1" class="pilcrow">¶</a></p>
-</li>
-      </ul>
-<p id="appendix-B-11">-00<a href="#appendix-B-11" class="pilcrow">¶</a></p>
+<p id="appendix-B-11">-01<a href="#appendix-B-11" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-B-12.1">
-          <p id="appendix-B-12.1.1">Initial individual draft<a href="#appendix-B-12.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-12.1.1">Added IANA registration requests for algorithms defined.<a href="#appendix-B-12.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-12.2">
+          <p id="appendix-B-12.2.1">Updated references and other editorial tweaks.<a href="#appendix-B-12.2.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="appendix-B-13">-00<a href="#appendix-B-13" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-B-14.1">
+          <p id="appendix-B-14.1.1">Initial individual draft<a href="#appendix-B-14.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
