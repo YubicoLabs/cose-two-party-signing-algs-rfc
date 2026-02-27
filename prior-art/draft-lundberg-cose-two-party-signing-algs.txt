@@ -5,8 +5,8 @@
 COSE                                                    E. Lundberg, Ed.
 Internet-Draft                                                    Yubico
 Intended status: Standards Track                             M. B. Jones
-Expires: 29 August 2026                           Self-Issued Consulting
-                                                        25 February 2026
+Expires: 31 August 2026                           Self-Issued Consulting
+                                                        27 February 2026
 
 
                    Split signing algorithms for COSE
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 August 2026.
+   This Internet-Draft will expire on 31 August 2026.
 
 Copyright Notice
 
@@ -207,9 +207,9 @@ Table of Contents
    the signature on the digest; the host acts as _digester_ and the
    smart card acts as _signer_.
 
-   Some OpenPGP smart card implementations also support Ed25519
-   signatures; however no public specification of this protocol is
-   known.
+   TODO: Spec 3.4.1 only covers ECDSA and RSA, but some implementations
+   also support Ed25519.  Identify and include good references for how
+   OpenPGP smart cards handle Ed25519.
 
 1.2.2.  PKCS #11
 
