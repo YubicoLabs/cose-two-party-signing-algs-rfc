@@ -5,11 +5,11 @@
 COSE                                                    E. Lundberg, Ed.
 Internet-Draft                                                    Yubico
 Intended status: Standards Track                             M. B. Jones
-Expires: 31 August 2026                           Self-Issued Consulting
-                                                        27 February 2026
+Expires: 20 September 2026                        Self-Issued Consulting
+                                                           19 March 2026
 
 
-                   Split signing algorithms for COSE
+                   Split Signing Algorithms for COSE
            draft-lundberg-cose-two-party-signing-algs-latest
 
 Abstract
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 August 2026.
+   This Internet-Draft will expire on 20 September 2026.
 
 Copyright Notice
 
@@ -83,7 +83,8 @@ Table of Contents
    2.  Split Signing Algorithms
      2.1.  ECDSA
      2.2.  HashEdDSA
-     2.3.  Defining Split Signing Algorithms
+     2.3.  ECDSA with ARKG
+     2.4.  Defining Split Signing Algorithms
    3.  COSE Signing Arguments
      3.1.  COSE Signing Arguments Common Parameters
    4.  Security Considerations
@@ -96,7 +97,9 @@ Table of Contents
    6.  IANA Considerations
      6.1.  COSE Algorithms Registrations
      6.2.  COSE Signing Arguments Common Parameters Registry
+       6.2.1.  Initial Contents
      6.3.  COSE Signing Arguments Algorithm Parameters Registry
+       6.3.1.  Initial Contents
    7.  Implementation Status
      7.1.  Dependent Specifications
    8.  References
@@ -238,13 +241,13 @@ Table of Contents
       [...]
 
       The ECDSA with SHA-1, SHA-224, SHA-256, SHA-384, SHA-512,
-      SHA3-224, SHA3-256, SHA3-384, SHA3-512 mechanism, denoted *CKM_ECD
-      SA_[SHA1|SHA224|SHA256|SHA384|SHA512|SHA3_224|SHA3_256|SHA3_384|SH
-      A3_512]* respectively, is a mechanism for single- and multiple-
-      part signatures and verification for ECDSA.  This mechanism
-      computes the entire ECDSA specification, including the hashing
-      with SHA-1, SHA-224, SHA-256, SHA-384, SHA-512, SHA3-224,
-      SHA3-256, SHA3-384, SHA3-512 respectively.
+      SHA3-224, SHA3-256, SHA3-384, SHA3-512 mechanism, denoted
+      *CKM_ECDSA_[SHA1|SHA224|SHA256|SHA384|SHA512|SHA3_224|SHA3_256|SHA3_384|SHA3_512]*
+      respectively, is a mechanism for single- and multiple-part
+      signatures and verification for ECDSA.  This mechanism computes
+      the entire ECDSA specification, including the hashing with SHA-1,
+      SHA-224, SHA-256, SHA-384, SHA-512, SHA3-224, SHA3-256, SHA3-384,
+      SHA3-512 respectively.
 
       [...]
 
@@ -410,7 +413,11 @@ Table of Contents
 
                     Table 2: HashEdDSA algorithm values.
 
-2.3.  Defining Split Signing Algorithms
+2.3.  ECDSA with ARKG
+
+   TODO: Move Section 5 of [I-D.bradleylundberg-ARKG] to this document
+
+2.4.  Defining Split Signing Algorithms
 
    Future definitions of additional split signing algorithm identifiers
    SHOULD follow the conventions established in Section 2 as far as
@@ -460,10 +467,10 @@ Table of Contents
 
    COSE_Sign_Args is built on a CBOR map.  The set of common parameters
    that can appear in a COSE_Sign_Args can be found in the IANA "COSE
-   Signing Arguments Common Parameters" registry (TODO).  Additional
-   parameters defined for specific signing algorithms can be found in
-   the IANA "COSE Signing Arguments Algorithm Parameters" registry
-   (TODO).
+   Signing Arguments Common Parameters" registry established in
+   Section 6.2.  Additional parameters defined for specific signing
+   algorithms can be found in the IANA "COSE Signing Arguments Algorithm
+   Parameters" registry established in Section 6.3.
 
    The CDDL grammar describing COSE_Sign_Args, using the CDDL fragment
    defined in Section 1.5 of [RFC9052], is:
@@ -732,13 +739,219 @@ Table of Contents
 
       -  Recommended: Yes
 
+   *  Name: ESP256-ARKG
+
+      -  Value: TBD
+
+      -  Description: ESP256 using private key derived by ARKG-P256
+
+      -  Capabilities: [kty]
+
+      -  Change Controller: IETF
+
+      -  Reference: [RFC9864], [I-D.bradleylundberg-ARKG]
+
+      -  Recommended: TBD
+
+   *  Name: ESP256-split-ARKG
+
+      -  Value: TBD (placeholder -65539)
+
+      -  Description: ESP256-split using private key derived by
+         ARKG-P256
+
+      -  Capabilities: [kty]
+
+      -  Change Controller: IETF
+
+      -  Reference: This document, [I-D.bradleylundberg-ARKG]
+
+      -  Recommended: TBD
+
+   *  Name: ESP384-ARKG
+
+      -  Value: TBD
+
+      -  Description: ESP384 using private key derived by ARKG-P384
+
+      -  Capabilities: [kty]
+
+      -  Change Controller: IETF
+
+      -  Reference: [RFC9864], [I-D.bradleylundberg-ARKG]
+
+      -  Recommended: TBD
+
+   *  Name: ESP384-split-ARKG
+
+      -  Value: TBD
+
+      -  Description: ESP384-split using private key derived by
+         ARKG-P384
+
+      -  Capabilities: [kty]
+
+      -  Change Controller: IETF
+
+      -  Reference: This document, [I-D.bradleylundberg-ARKG]
+
+      -  Recommended: TBD
+
+   *  Name: ESP512-ARKG
+
+      -  Value: TBD
+
+      -  Description: ESP512 using private key derived by ARKG-P521
+
+      -  Capabilities: [kty]
+
+      -  Change Controller: IETF
+
+      -  Reference: [RFC9864], [I-D.bradleylundberg-ARKG]
+
+      -  Recommended: TBD
+
+   *  Name: ESP512-split-ARKG
+
+      -  Value: TBD
+
+      -  Description: ESP512-split using private key derived by
+         ARKG-P521
+
+      -  Capabilities: [kty]
+
+      -  Change Controller: IETF
+
+      -  Reference: This document, [I-D.bradleylundberg-ARKG]
+
+      -  Recommended: TBD
+
+   *  Name: ESP256K-ARKG
+
+      -  Value: TBD
+
+      -  Description: ESP256K using private key derived by ARKG-P256k
+
+      -  Capabilities: [kty]
+
+      -  Change Controller: IETF
+
+      -  Reference: [RFC8812], [I-D.bradleylundberg-ARKG]
+
+      -  Recommended: TBD
+
 6.2.  COSE Signing Arguments Common Parameters Registry
 
-   TODO
+   This specification establishes the "COSE Signing Arguments Common
+   Parameters" registry.  The registry uses the "Expert Review Required"
+   registration procedure.  Guidelines for the experts are the same as
+   those in Section 11.6 of [RFC9052].  It should be noted that, in
+   addition to the expert review, some portions of the registry require
+   a specification, potentially a Standards Track RFC, be supplied as
+   well.
+
+   The columns of the registry are:
+
+   Name:  A descriptive name that enables easier reference to the item.
+      It is not used in the encoding.
+
+   Label:  The value used as the CBOR map label for this parameter.
+      Labels MUST be unique.  The label can be a positive integer, a
+      negative integer, or a string.  Integer values between 0 and 255
+      and strings of length 1 are designated as "Standards Action".
+      Integer values from 256 to 65535 and strings of length 2 are
+      designated as "Specification Required".  Integer values of greater
+      than 65535 and strings of length greater than 2 are designated as
+      "Expert Review".  Integer values in the range -65536 to -1 are
+      "used for signing arguments specific to a single algorithm
+      delegated to the COSE Signing Arguments Algorithm Parameters
+      registry".  Integer values less than -65536 are marked as private
+      use.
+
+   CBOR Type:  The CBOR type of the parameter's value.
+
+   Value Registry:  The registry that values come from, if one exists.
+
+   Description:  A brief description for the parameter.
+
+   Reference:  A pointer to the public specification for the parameter,
+      if one exists.
+
+6.2.1.  Initial Contents
+
+   The initial contents of this registry are the values in Table 3.  All
+   of the entries in the "References" column of this registry point to
+   this document.
 
 6.3.  COSE Signing Arguments Algorithm Parameters Registry
 
-   TODO
+   This specification establishes the "COSE Signing Arguments Algorithm
+   Parameters" registry.  The registry uses the "Expert Review Required"
+   registration procedure.  Guidelines for the experts are the same as
+   those in Section 11.6 of [RFC9052].
+
+   The columns of the table are:
+
+   Name:  A descriptive name that enables easier reference to the item.
+      It is not used in the encoding.
+
+   Algorithms:  The algorithm(s) that this registry entry is used for.
+      Values are taken from the "COSE Algorithms" registry.  Multiple
+      algorithms can be specified in this entry.  For the table, the
+      algorithm/label pair MUST be unique.
+
+   Label:  The value used as the CBOR map label for this parameter.  The
+      label is a negative integer value in the range -65536 to -1.
+      Labels are expected to be reused for multiple algorithms.
+
+   CBOR Type:  The CBOR type of the parameter's value.
+
+   Required:  "Required" if the parameter is required for this
+      algorithm, otherwise "Optional".
+
+   Description:  A brief description for the parameter.
+
+   Reference:  A pointer to the public specification for the parameter,
+      if one exists.
+
+6.3.1.  Initial Contents
+
+   The initial contents of this registry are as follows.  These values
+   come from Section 5.3 of [I-D.bradleylundberg-ARKG].
+
+6.3.1.1.  kh
+
+   Name:  kh
+
+   Algorithms:  ESP256-ARKG, ESP256-split-ARKG, ESP384-ARKG, ESP384-
+      split-ARKG, ESP512-ARKG, ESP512-split-ARKG, ESP256K-ARKG
+
+   Label:  -1
+
+   Cbor Type:  bstr
+
+   Required:  Required
+
+   Description:  kh argument to ARKG-Derive-Private-Key.
+
+   Reference:  Section 5.3 of [I-D.bradleylundberg-ARKG]
+
+6.3.1.2.  ctx
+
+   Name:  ctx
+
+   Algorithms:  ESP256-ARKG, ESP256-split-ARKG, ESP384-ARKG, ESP384-
+      split-ARKG, ESP512-ARKG, ESP512-split-ARKG, ESP256K-ARKG
+
+   Label:  -2
+
+   Cbor Type:  bstr
+
+   Required:  Required
+
+   Description:  ctx argument to ARKG-Derive-Private-Key.
+
+   Reference:  Section 5.3 of [I-D.bradleylundberg-ARKG]
 
 7.  Implementation Status
 
@@ -808,18 +1021,20 @@ Table of Contents
 
 7.1.  Dependent Specifications
 
-   As indicated in the previous section, the Internet-Draft of ARKG
-   [I-D.bradleylundberg-ARKG] extends this specification with
-   definitions for ARKG:
+   This specification is mutually dependent on
+   [I-D.bradleylundberg-ARKG]:
 
-   *  Section "5.2 COSE algorithms" defines COSE algorithm identifiers
-      ESP256-split-ARKG, ESP384-split-ARKG and ESP512-split-ARKG based
-      on the ECDSA identifiers defined in this specification
-      (Section 2.1).
+   *  Section 5.2 of [I-D.bradleylundberg-ARKG] duplicates the
+      definitions of the COSE algorithm identifiers ESP256-ARKG, ESP256-
+      split-ARKG, ESP384-ARKG, ESP384-split-ARKG, ESP512-ARKG and
+      ESP512-split-ARKG registered in Section 6.1 of this specification.
 
-   *  Section "5.3 COSE signing arguments" defines a representation for
-      ARKG arguments using the COSE_Sign_Args data structure defined in
-      this specification (Section 3).
+   *  The initial contents of the COSE Signing Arguments Algorithm
+      Parameters Registry registered in Section 6.3.1 are defined in
+      Section 5.3 of [I-D.bradleylundberg-ARKG].
+
+   These sections of [I-D.bradleylundberg-ARKG] will likely be moved to
+   Section 2.3 in a future revision of this specification.
 
 8.  References
 
@@ -951,11 +1166,22 @@ Table of Contents
 
 Acknowledgements
 
-   We would like to thank Ilari Liusvaara, Lucas Prabel, Sophie Schmieg
-   and Falko Strenzke for their reviews of and contributions to this
-   specification.
+   We would like to thank David Dong, Ilari Liusvaara, Lucas Prabel,
+   Sophie Schmieg, and Falko Strenzke for their reviews of and
+   contributions to this specification.
 
 Document History
+
+   -07
+
+   *  Populated IANA Considerations sections.
+
+   *  Imported COSE Algorithms registrations from draft-bradleylundberg-
+      cfrg-arkg: ESP256-split-ARKG, ESP384-ARKG, ESP384-split-ARKG,
+      ESP512-ARKG, ESP512-split-ARKG, ESP256K-ARKG.
+
+   *  Added placeholder section "ECDSA with ARKG" for additional
+      definitions to be imported from draft-bradleylundberg-cfrg-arkg.
 
    -06
 
