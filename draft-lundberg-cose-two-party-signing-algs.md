@@ -663,14 +663,14 @@ Name:
   It is not used in the encoding.
 
 Label:
-: The value to be used to identify this algorithm.
-  Key map labels MUST be unique.
+: The value used as the CBOR map label for this parameter.
+  Labels MUST be unique.
   The label can be a positive integer, a negative integer, or a string.
   Integer values between 0 and 255 and strings of length 1 are designated as "Standards Action".
   Integer values from 256 to 65535 and strings of length 2 are designated as "Specification Required".
   Integer values of greater than 65535 and strings of length greater than 2 are designated as "Expert Review".
   Integer values in the range -65536 to -1 are
-  "used for key parameters specific to a single algorithm delegated
+  "used for signing arguments specific to a single algorithm delegated
   to the COSE Signing Arguments Algorithm Parameters registry".
   Integer values less than -65536 are marked as private use.
 
@@ -686,10 +686,12 @@ Description:
 Reference:
 : This contains a pointer to the public specification for the field if one exists.
 
+
 ### Initial Contents
 
 The initial contents of this registry are the values in {{tbl-cose-sign-args-common}}.
 All of the entries in the "References" column of this registry point to this document.
+
 
 ## COSE Signing Arguments Algorithm Parameters Registry {#alg-params-reg}
 
@@ -703,9 +705,15 @@ Name:
 : This is a descriptive name that enables easier reference to the item.
   It is not used in the encoding.
 
+Algorithms:
+: The algorithm(s) that this registry entry is used for.
+  Values are taken from the "COSE Algorithms" registry.
+  Multiple algorithms can be specified in this entry.
+  For the table, the algorithm/label pair MUST be unique.
+
 Label:
-: The label is to be unique for every value of key type.
-  The range of values is from -65536 to -1.
+: The value used as the CBOR map label for this parameter.
+  The label is a negative integer value in the range -65536 to -1.
   Labels are expected to be reused for multiple algorithms.
 
 CBOR Type:
@@ -714,24 +722,26 @@ CBOR Type:
 Required:
 : "Required" if parameter is required for this algorithm, otherwise "Optional"
 
-Algorithms:
-: Algorithms that this parameter is used with
-
 Description:
 : This field contains a brief description for the field.
 
 Reference:
 : This contains a pointer to the public specification for the field if one exists.
 
+
 ### Initial Contents
 
 The initial contents of this registry are as follows.
 These values come from {{Section 5.3 of I-D.bradleylundberg-ARKG}}.
 
+
 #### kh
 
 Name:
 : kh
+
+Algorithms:
+: ESP256-ARKG, ESP256-split-ARKG, ESP384-ARKG, ESP384-split-ARKG, ESP512-ARKG, ESP512-split-ARKG, ES256K-ARKG
 
 Label:
 : -1
@@ -742,16 +752,20 @@ Cbor Type:
 Required:
 : Required
 
-Algorithms:
-: ESP256-ARKG, ESP256-split-ARKG, ESP384-ARKG, ESP384-split-ARKG, ESP512-ARKG, ESP512-split-ARKG, ES256K-ARKG
-
 Description:
 : kh argument to ARKG-Derive-Private-Key.
+
+Reference:
+: {{Section 5.3 of I-D.bradleylundberg-ARKG}}
+
 
 #### ctx
 
 Name:
 : ctx
+
+Algorithms:
+: ESP256-ARKG, ESP256-split-ARKG, ESP384-ARKG, ESP384-split-ARKG, ESP512-ARKG, ESP512-split-ARKG, ES256K-ARKG
 
 Label:
 : -2
@@ -762,11 +776,11 @@ Cbor Type:
 Required:
 : Required
 
-Algorithms:
-: ESP256-ARKG, ESP256-split-ARKG, ESP384-ARKG, ESP384-split-ARKG, ESP512-ARKG, ESP512-split-ARKG, ES256K-ARKG
-
 Description:
 : ctx argument to ARKG-Derive-Private-Key.
+
+Reference:
+: {{Section 5.3 of I-D.bradleylundberg-ARKG}}
 
 
 # Implementation Status {#impl-status}
