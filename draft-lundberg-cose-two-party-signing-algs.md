@@ -659,7 +659,7 @@ potentially a Standards Track RFC, be supplied as well.
 The columns of the registry are:
 
 Name:
-: This is a descriptive name that enables easier reference to the item.
+: A descriptive name that enables easier reference to the item.
   It is not used in the encoding.
 
 Label:
@@ -675,16 +675,16 @@ Label:
   Integer values less than -65536 are marked as private use.
 
 CBOR Type:
-: This field contains the CBOR type for the field.
+: The CBOR type of the parameter's value.
 
 Value Registry:
-: This field denotes the registry that values come from, if one exists.
+: The registry that values come from, if one exists.
 
 Description:
-: This field contains a brief description for the field.
+: A brief description for the parameter.
 
 Reference:
-: This contains a pointer to the public specification for the field if one exists.
+: A pointer to the public specification for the parameter, if one exists.
 
 
 ### Initial Contents
@@ -702,7 +702,7 @@ Guidelines for the experts are the same as those in {{Section 11.6 of RFC9052}}.
 The columns of the table are:
 
 Name:
-: This is a descriptive name that enables easier reference to the item.
+: A descriptive name that enables easier reference to the item.
   It is not used in the encoding.
 
 Algorithms:
@@ -717,16 +717,16 @@ Label:
   Labels are expected to be reused for multiple algorithms.
 
 CBOR Type:
-: This field contains the CBOR type for the field.
+: The CBOR type of the parameter's value.
 
 Required:
-: "Required" if parameter is required for this algorithm, otherwise "Optional"
+: "Required" if the parameter is required for this algorithm, otherwise "Optional".
 
 Description:
-: This field contains a brief description for the field.
+: A brief description for the parameter.
 
 Reference:
-: This contains a pointer to the public specification for the field if one exists.
+: A pointer to the public specification for the parameter, if one exists.
 
 
 ### Initial Contents
