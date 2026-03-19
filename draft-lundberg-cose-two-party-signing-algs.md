@@ -2,8 +2,8 @@
 stand_alone: true
 ipr: trust200902
 
-title: "Split signing algorithms for COSE"
-abbrev: "Split signing algorithms for COSE"
+title: "Split Signing Algorithms for COSE"
+abbrev: "Split Signing Algorithms for COSE"
 lang: en
 category: std
 
@@ -19,8 +19,9 @@ keyword:
  - COSE
  - Signing
  - Algorithms
- - Split algorithms
- - Split signing
+ - Split Algorithms
+ - Split Signing
+ - ARKG
 
 venue:
   group: "COSE"
@@ -394,6 +395,11 @@ The following algorithm identifiers are defined:
 | Ed448ph-split   | TBD        | Ed448ph                | EdDSA using the Ed448ph parameter set in {{Section 5.2 of RFC8032}} and split as defined in {{eddsa-split}} |
 
 
+## ECDSA with ARKG {#ecdsa-arkg}
+
+TODO: Move {{Section 5 of I-D.bradleylundberg-ARKG}} to this document
+
+
 ## Defining Split Signing Algorithms {#defining-split-algs}
 
 Future definitions of additional split signing algorithm identifiers
@@ -437,9 +443,9 @@ rather than requiring a distinct protocol for each signature algorithm for the s
 
 `COSE_Sign_Args` is built on a CBOR map.
 The set of common parameters that can appear in a `COSE_Sign_Args`
-can be found in the IANA "COSE Signing Arguments Common Parameters" registry (TODO).
+can be found in the IANA "COSE Signing Arguments Common Parameters" registry established in {{common-params-reg}}.
 Additional parameters defined for specific signing algorithms
-can be found in the IANA "COSE Signing Arguments Algorithm Parameters" registry (TODO).
+can be found in the IANA "COSE Signing Arguments Algorithm Parameters" registry established in {{alg-params-reg}}.
 
 The CDDL grammar describing `COSE_Sign_Args`, using the CDDL fragment defined in {{Section 1.5 of RFC9052}}, is:
 
@@ -645,14 +651,197 @@ This section registers the following values in the IANA "COSE Algorithms" regist
   - Reference: {{eddsa-split}} of this specification
   - Recommended: Yes
 
+- Name: ESP256-ARKG
+  - Value: TBD
+  - Description: ESP256 using private key derived by ARKG-P256
+  - Capabilities: \[kty\]
+  - Change Controller: IETF
+  - Reference: [RFC9864], [I-D.bradleylundberg-ARKG]
+  - Recommended: TBD
 
-## COSE Signing Arguments Common Parameters Registry
+- Name: ESP256-split-ARKG
+  - Value: TBD (placeholder -65539)
+  - Description: ESP256-split using private key derived by ARKG-P256
+  - Capabilities: \[kty\]
+  - Change Controller: IETF
+  - Reference: This document, [I-D.bradleylundberg-ARKG]
+  - Recommended: TBD
 
-TODO
+- Name: ESP384-ARKG
+  - Value: TBD
+  - Description: ESP384 using private key derived by ARKG-P384
+  - Capabilities: \[kty\]
+  - Change Controller: IETF
+  - Reference: [RFC9864], [I-D.bradleylundberg-ARKG]
+  - Recommended: TBD
 
-## COSE Signing Arguments Algorithm Parameters Registry
+- Name: ESP384-split-ARKG
+  - Value: TBD
+  - Description: ESP384-split using private key derived by ARKG-P384
+  - Capabilities: \[kty\]
+  - Change Controller: IETF
+  - Reference: This document, [I-D.bradleylundberg-ARKG]
+  - Recommended: TBD
 
-TODO
+- Name: ESP512-ARKG
+  - Value: TBD
+  - Description: ESP512 using private key derived by ARKG-P521
+  - Capabilities: \[kty\]
+  - Change Controller: IETF
+  - Reference: [RFC9864], [I-D.bradleylundberg-ARKG]
+  - Recommended: TBD
+
+- Name: ESP512-split-ARKG
+  - Value: TBD
+  - Description: ESP512-split using private key derived by ARKG-P521
+  - Capabilities: \[kty\]
+  - Change Controller: IETF
+  - Reference: This document, [I-D.bradleylundberg-ARKG]
+  - Recommended: TBD
+
+- Name: ESP256K-ARKG
+  - Value: TBD
+  - Description: ESP256K using private key derived by ARKG-P256k
+  - Capabilities: \[kty\]
+  - Change Controller: IETF
+  - Reference: [RFC8812], [I-D.bradleylundberg-ARKG]
+  - Recommended: TBD
+
+
+## COSE Signing Arguments Common Parameters Registry {#common-params-reg}
+
+This specification establishes the "COSE Signing Arguments Common Parameters" registry.
+The registry uses the "Expert Review Required" registration procedure.
+Guidelines for the experts are the same as those in {{Section 11.6 of RFC9052}}.
+It should be noted that, in addition to the expert review,
+some portions of the registry require a specification,
+potentially a Standards Track RFC, be supplied as well.
+
+The columns of the registry are:
+
+Name:
+: A descriptive name that enables easier reference to the item.
+  It is not used in the encoding.
+
+Label:
+: The value used as the CBOR map label for this parameter.
+  Labels MUST be unique.
+  The label can be a positive integer, a negative integer, or a string.
+  Integer values between 0 and 255 and strings of length 1 are designated as "Standards Action".
+  Integer values from 256 to 65535 and strings of length 2 are designated as "Specification Required".
+  Integer values of greater than 65535 and strings of length greater than 2 are designated as "Expert Review".
+  Integer values in the range -65536 to -1 are
+  "used for signing arguments specific to a single algorithm delegated
+  to the COSE Signing Arguments Algorithm Parameters registry".
+  Integer values less than -65536 are marked as private use.
+
+CBOR Type:
+: The CBOR type of the parameter's value.
+
+Value Registry:
+: The registry that values come from, if one exists.
+
+Description:
+: A brief description for the parameter.
+
+Reference:
+: A pointer to the public specification for the parameter, if one exists.
+
+
+### Initial Contents
+
+The initial contents of this registry are the values in {{tbl-cose-sign-args-common}}.
+All of the entries in the "References" column of this registry point to this document.
+
+
+## COSE Signing Arguments Algorithm Parameters Registry {#alg-params-reg}
+
+This specification establishes the "COSE Signing Arguments Algorithm Parameters" registry.
+The registry uses the "Expert Review Required" registration procedure.
+Guidelines for the experts are the same as those in {{Section 11.6 of RFC9052}}.
+
+The columns of the table are:
+
+Name:
+: A descriptive name that enables easier reference to the item.
+  It is not used in the encoding.
+
+Algorithms:
+: The algorithm(s) that this registry entry is used for.
+  Values are taken from the "COSE Algorithms" registry.
+  Multiple algorithms can be specified in this entry.
+  For the table, the algorithm/label pair MUST be unique.
+
+Label:
+: The value used as the CBOR map label for this parameter.
+  The label is a negative integer value in the range -65536 to -1.
+  Labels are expected to be reused for multiple algorithms.
+
+CBOR Type:
+: The CBOR type of the parameter's value.
+
+Required:
+: "Required" if the parameter is required for this algorithm, otherwise "Optional".
+
+Description:
+: A brief description for the parameter.
+
+Reference:
+: A pointer to the public specification for the parameter, if one exists.
+
+
+### Initial Contents {#alg-params-reg-initial}
+
+The initial contents of this registry are as follows.
+These values come from {{Section 5.3 of I-D.bradleylundberg-ARKG}}.
+
+
+#### kh
+
+Name:
+: kh
+
+Algorithms:
+: ESP256-ARKG, ESP256-split-ARKG, ESP384-ARKG, ESP384-split-ARKG, ESP512-ARKG, ESP512-split-ARKG, ESP256K-ARKG
+
+Label:
+: -1
+
+Cbor Type:
+: bstr
+
+Required:
+: Required
+
+Description:
+: kh argument to ARKG-Derive-Private-Key.
+
+Reference:
+: {{Section 5.3 of I-D.bradleylundberg-ARKG}}
+
+
+#### ctx
+
+Name:
+: ctx
+
+Algorithms:
+: ESP256-ARKG, ESP256-split-ARKG, ESP384-ARKG, ESP384-split-ARKG, ESP512-ARKG, ESP512-split-ARKG, ESP256K-ARKG
+
+Label:
+: -2
+
+Cbor Type:
+: bstr
+
+Required:
+: Required
+
+Description:
+: ctx argument to ARKG-Derive-Private-Key.
+
+Reference:
+: {{Section 5.3 of I-D.bradleylundberg-ARKG}}
 
 
 # Implementation Status {#impl-status}
@@ -704,13 +893,18 @@ There are currently two known implementations using features defined by this spe
 
 ## Dependent Specifications {#impl-status-dependents}
 
-As indicated in the previous section,
-the Internet-Draft of ARKG [I-D.bradleylundberg-ARKG] extends this specification with definitions for ARKG:
+This specification is mutually dependent on [I-D.bradleylundberg-ARKG]:
 
-- Section "5.2 COSE algorithms" defines COSE algorithm identifiers ESP256-split-ARKG, ESP384-split-ARKG
-  and ESP512-split-ARKG based on the ECDSA identifiers defined in this specification ({{ecdsa-split}}).
-- Section "5.3 COSE signing arguments" defines a representation for ARKG arguments
-  using the `COSE_Sign_Args` data structure defined in this specification ({{cose-sign-args}}).
+- {{Section 5.2 of I-D.bradleylundberg-ARKG}}
+  duplicates the definitions of the COSE algorithm identifiers
+  ESP256-ARKG, ESP256-split-ARKG, ESP384-ARKG, ESP384-split-ARKG, ESP512-ARKG and ESP512-split-ARKG
+  registered in {{cose-alg-reg}} of this specification.
+
+- The initial contents of the COSE Signing Arguments Algorithm Parameters Registry registered in {{alg-params-reg-initial}}
+  are defined in {{Section 5.3 of I-D.bradleylundberg-ARKG}}.
+
+These sections of [I-D.bradleylundberg-ARKG] will likely be moved to {{ecdsa-arkg}}
+in a future revision of this specification.
 
 
 --- back
@@ -719,9 +913,10 @@ the Internet-Draft of ARKG [I-D.bradleylundberg-ARKG] extends this specification
 {: numbered="false"}
 
 We would like to thank
+David Dong,
 Ilari Liusvaara,
 Lucas Prabel,
-Sophie Schmieg
+Sophie Schmieg,
 and
 Falko Strenzke
 for their reviews of and contributions to this specification.
@@ -729,6 +924,13 @@ for their reviews of and contributions to this specification.
 
 # Document History
 {: numbered="false"}
+
+-07
+
+* Populated IANA Considerations sections.
+* Imported COSE Algorithms registrations from draft-bradleylundberg-cfrg-arkg:
+  ESP256-split-ARKG, ESP384-ARKG, ESP384-split-ARKG, ESP512-ARKG, ESP512-split-ARKG, ESP256K-ARKG.
+* Added placeholder section "ECDSA with ARKG" for additional definitions to be imported from draft-bradleylundberg-cfrg-arkg.
 
 -06
 
