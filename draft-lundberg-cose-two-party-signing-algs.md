@@ -443,9 +443,9 @@ rather than requiring a distinct protocol for each signature algorithm for the s
 
 `COSE_Sign_Args` is built on a CBOR map.
 The set of common parameters that can appear in a `COSE_Sign_Args`
-can be found in the IANA "COSE Signing Arguments Common Parameters" registry {{common-params-reg}}.
+can be found in the IANA "COSE Signing Arguments Common Parameters" registry established in {{common-params-reg}}.
 Additional parameters defined for specific signing algorithms
-can be found in the IANA "COSE Signing Arguments Algorithm Parameters" registry {{alg-params-reg}}.
+can be found in the IANA "COSE Signing Arguments Algorithm Parameters" registry established in {{alg-params-reg}}.
 
 The CDDL grammar describing `COSE_Sign_Args`, using the CDDL fragment defined in {{Section 1.5 of RFC9052}}, is:
 
