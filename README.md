@@ -1,20 +1,19 @@
-# COSE Algorithms for Two-Party Signing
+# MOVED
 
-This is the working area for the individual Internet-Draft, "COSE Algorithms for Two-Party Signing".
+This Internet-Draft has been adopted by the COSE WG. Work has therefore moved to:
 
-* [Editor's Copy](https://YubicoLabs.github.io/cose-two-party-signing-algs-rfc/#go.draft-lundberg-cose-two-party-signing-algs.html)
+- Datatracker page: https://datatracker.ietf.org/doc/draft-ietf-cose-split-signing-algs
+- Source: https://github.com/cose-wg/draft-ietf-cose-split-signing-algs
+
+This repository is a read-only archive of the individual draft state.
+
+
+# Split Signing Algorithms for COSE
+
+This was the working area for the individual Internet-Draft, "Split Signing Algorithms for COSE".
+
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-lundberg-cose-two-party-signing-algs)
 * [Individual Draft](https://datatracker.ietf.org/doc/html/draft-lundberg-cose-two-party-signing-algs)
-* [Compare Editor's Copy to Individual Draft](https://YubicoLabs.github.io/cose-two-party-signing-algs-rfc/#go.draft-lundberg-cose-two-party-signing-algs.diff)
-
-
-## Contributing
-
-See the
-[guidelines for contributions](https://github.com/YubicoLabs/cose-two-party-signing-algs-rfc/blob/main/CONTRIBUTING.md).
-
-Contributions can be made by creating pull requests.
-The GitHub interface supports creating pull requests using the Edit (✏) button.
 
 
 ## Command Line Usage
@@ -27,4 +26,3 @@ $ make
 
 Command line usage requires that you have the necessary software installed.  See
 [the instructions](https://github.com/martinthomson/i-d-template/blob/main/doc/SETUP.md).
-
